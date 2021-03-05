@@ -1,0 +1,1422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>AOP</title>
+    <url>/blog/article/20215905075902.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>面向切面编程，其作用是在不修改目标对象的情况下，进行逻辑扩展与增强。<br><br>依赖<strong>代理模式</strong>（<strong>开闭原则</strong>的最好实践方式）<br><br>核心技术是：<strong>反射</strong>。</p>
+</blockquote>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><blockquote>
+<ol>
+<li>将复杂的需求分解出不同的方面（代码解耦），将抽离出来的逻辑，公共集中处理；<br></li>
+</ol>
+<ul>
+<li>常见应用：权限控制，日志记录，持久化，事务等<br></li>
+</ul>
+<ol start="2">
+<li>在代理模式下，在不改变原程序的情况下，对目标对象进行逻辑增强、功能扩展等;<br><br>综上：面向切面编程，是一种通过<strong>预编译方式</strong>和<strong>运行期动态代理的方式</strong>，在不修改目标代码的情况下，给程序动态增加功能的一种技术<br></li>
+</ol>
+</blockquote>
+<h2 id="已有框架"><a href="#已有框架" class="headerlink" title="已有框架"></a>已有框架</h2><blockquote>
+<ol>
+<li>AspectJ<br></li>
+<li>SpringAOP<br></li>
+</ol>
+</blockquote>
+<h3 id="AspectJ与SpringAOP的简单对比"><a href="#AspectJ与SpringAOP的简单对比" class="headerlink" title="AspectJ与SpringAOP的简单对比"></a>AspectJ与SpringAOP的简单对比</h3><blockquote>
+<p><strong>区别：</strong><br></p>
+<ul>
+<li>织入时期不同：<br><ul>
+<li>AspectJ – 静态织入<br></li>
+<li>SpringAOP – 动态织入<br></li>
+</ul>
+</li>
+<li>目标对象不同:<br><ul>
+<li>SpringAOP: 目标对象必须是SpringBean对象才可以；<br></li>
+<li>AspectJ: 可以是任何对象。<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="相关术语"><a href="#相关术语" class="headerlink" title="相关术语"></a>相关术语</h2><h3 id="1-增强处理"><a href="#1-增强处理" class="headerlink" title="1. 增强处理"></a>1. 增强处理</h3><blockquote>
+<p>前置增强、后置增强、环绕增强、异常抛出增强、最终增强等。<br><br><strong>处理方式：</strong> 增强处理  ==&gt;  目标对象的方法  ==&gt;  增强处理<br></p>
+</blockquote>
+<h3 id="2-切入点"><a href="#2-切入点" class="headerlink" title="2. 切入点"></a>2. 切入点</h3><blockquote>
+<p>SpringAOP通过一个表达式，去目标对象指定位置进行增强。可以把表达式认为一个查询条件或增加条件，表达式里面指定了目标对象的增强位置。<br></p>
+</blockquote>
+<h3 id="3-连接点"><a href="#3-连接点" class="headerlink" title="3. 连接点"></a>3. 连接点</h3><blockquote>
+<p>SpringAOP通过切入点找到了目标对象要增强的代码位置，这个被切入的位置 – 连接点。</p>
+</blockquote>
+<h3 id="4-切面"><a href="#4-切面" class="headerlink" title="4. 切面"></a>4. 切面</h3><blockquote>
+<p>切面由一组<strong>增强处理</strong>和<strong>切入点</strong>共同组成。</p>
+</blockquote>
+<h3 id="5-目标对象"><a href="#5-目标对象" class="headerlink" title="5. 目标对象"></a>5. 目标对象</h3><blockquote>
+<p>目标对象即要被增强处理的目标类 – 也称委托类。</p>
+</blockquote>
+<h3 id="6-AOP代理"><a href="#6-AOP代理" class="headerlink" title="6. AOP代理"></a>6. AOP代理</h3><blockquote>
+<p>代理类即AOP代理，代理类里面包含了目标对象，以及对目标对象一些增强处理。– 代理类的执行逻辑，可参考代理模式。</p>
+</blockquote>
+<h3 id="7-织入"><a href="#7-织入" class="headerlink" title="7. 织入"></a>7. 织入</h3><blockquote>
+<p>织入就是指，将我们的<strong>增强处理</strong>，通过<strong>切入点</strong>编译到<strong>目标对象</strong>的<strong>连接点</strong>的过程。<br><br>有静态织入和动态织入两种：<br></p>
+<ul>
+<li><strong>静态织入：</strong> 在编译时期就织入，即编译出来的class文件，字节码就已经被织入到了目标对象的连接点了。 – AspectJ<br></li>
+<li><strong>动态织入：</strong> 又分静动两种；– ApringAOP<br><br><strong>静</strong>表示织入过程只在第一次调用时执行；<br><br><strong>动</strong>表示根据代码动态运行的中间状态来决定如何操作，每次调用目标对象时都执行。</li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>AOP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM复习点</title>
+    <url>/blog/article/20213303113340.html</url>
+    <content><![CDATA[<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><ul>
+<li>全限定名获取定义此类的二进制流</li>
+<li>静态存储结构转为方法区的数据结构</li>
+<li>java堆中生成class对象作为入口<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3></li>
+<li>文件格式（魔数  版本  编码等）</li>
+<li>元数据（集成关系  重载参数等）</li>
+<li>字节码（指令跳转   类型转换等）</li>
+<li>符号引用（全限定名找到对应类  其方法与字段  其访问性等）<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3></li>
+<li>类变量赋初值<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3></li>
+<li>常量池的符号引用替换为直接引用</li>
+<li>类或接口  字段  类方法  接口方法的解析<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3></li>
+<li><clinit>()是类变量赋值动作和静态语句块的合并</li>
+<li>类 ① 父类静态语句块优于子类变量赋值 ② JVM保证父类初始化已提取完成</li>
+<li>接口 ① 仅当接口的变量被使用时才初始化</li>
+<li>多线程中会加锁，一个线程执行初始化，其他线程阻塞等待<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3></li>
+</ul>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><ul>
+<li>Bootstrap ClassLoader</li>
+<li>Extension ClassLoader</li>
+<li>Application ClassLoader</li>
+<li>自定义类加载器<h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3></li>
+<li>1.避免类重复加载</li>
+<li>2.避免java核心api被篡改</li>
+</ul>
+<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><h3 id="主内存和工作内存"><a href="#主内存和工作内存" class="headerlink" title="主内存和工作内存"></a>主内存和工作内存</h3><h2 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h2><h3 id="对象在jvm内存中如何分配和流转"><a href="#对象在jvm内存中如何分配和流转" class="headerlink" title="对象在jvm内存中如何分配和流转"></a>对象在jvm内存中如何分配和流转</h3><h3 id="如何设置jvm参数"><a href="#如何设置jvm参数" class="headerlink" title="如何设置jvm参数"></a>如何设置jvm参数</h3><h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><h3 id="young-gc时机"><a href="#young-gc时机" class="headerlink" title="young gc时机"></a>young gc时机</h3><ul>
+<li>eden区满触发<h3 id="old-gc时机"><a href="#old-gc时机" class="headerlink" title="old gc时机"></a>old gc时机</h3></li>
+<li>老年代可用连续内存空间小于新生代历次 young gc进入老年代对象总和的平均大小</li>
+<li>老年代空间不足</li>
+<li>老年代使用率超92% </li>
+</ul>
+<h3 id="full-gc"><a href="#full-gc" class="headerlink" title="full gc"></a>full gc</h3><ul>
+<li>young gc + old gc + 永久代gc</li>
+<li>频繁full gc<ol>
+<li>并发数过大，导致young gc频繁且存活对象太多，survivor区过小，对象频繁进入老年代</li>
+<li>大对象过多</li>
+<li>内存泄漏 - 类似集合之类一直无限制扩容，导致堆内存不够用  </li>
+<li>Metaspace加载类过多</li>
+<li>误调用System.gc</li>
+</ol>
+</li>
+<li>条件<ol>
+<li>老年代内存超阈值（92%）</li>
+<li>老年代可用空间小于历次young gc后升入老年代的平均对象大小</li>
+<li>young gc存活对象过多，survivor放不下，老年代也放不下<h3 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h3></li>
+</ol>
+</li>
+<li>zabbix、open-falcon工具监控</li>
+<li>jstat监控</li>
+<li>tomcat的catalina.sh配置打印gc命令，将gc日志导入MAT查看</li>
+</ul>
+<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="新生代"><a href="#新生代" class="headerlink" title="新生代"></a>新生代</h3><ul>
+<li>Serial<ol>
+<li>复制算法</li>
+<li>暂停所有工作线程</li>
+</ol>
+</li>
+<li>ParNew<ol>
+<li>多线程版的Serial</li>
+</ol>
+</li>
+<li>Parallel Scavenge<ol>
+<li>采用复制算法</li>
+<li>并行多线程</li>
+<li>吞吐量优先<br> 3.1. 吞吐量=代码时间/（代码时间+GC时间）<br> 3.2. 吞吐量：更有效利用CPU<br> 3.3. 停顿时间：适合与用户交互的程序</li>
+</ol>
+</li>
+<li>总结：复制算法</li>
+</ul>
+<h3 id="老年代"><a href="#老年代" class="headerlink" title="老年代"></a>老年代</h3><ul>
+<li>Serial Old<ol>
+<li>标记-整理算法</li>
+</ol>
+</li>
+<li>Parallel Old<ol>
+<li>标记-整理算法</li>
+<li>并行多线程</li>
+<li>吞吐量优先</li>
+</ol>
+</li>
+<li>CMS<ol>
+<li>标记-整理算法</li>
+<li>目标为最小停顿时间</li>
+<li>缺点:<br> ① 对CPU资源非常敏感<br> ② 无法处理浮动垃圾<br> ③ 产生大量碎片</li>
+</ol>
+</li>
+<li>总结：标记整理</li>
+</ul>
+<h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><ul>
+<li>标记整理</li>
+<li>精确控制停顿</li>
+<li>将整个堆划分为固定的区域</li>
+<li>跟踪区域的垃圾堆积程度</li>
+<li>优先回收垃圾最多的区域</li>
+</ul>
+<h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><ul>
+<li>新生代（ParNew）     </li>
+<li>老年代（CMS）    </li>
+<li>G1    </li>
+</ul>
+<h2 id="查看堆栈和gc情况的命令"><a href="#查看堆栈和gc情况的命令" class="headerlink" title="查看堆栈和gc情况的命令"></a>查看堆栈和gc情况的命令</h2><ul>
+<li>jstat -gc pid</li>
+</ul>
+<h2 id="如何判断一个对象是否存活"><a href="#如何判断一个对象是否存活" class="headerlink" title="如何判断一个对象是否存活"></a>如何判断一个对象是否存活</h2><ul>
+<li>GC Roots<ol>
+<li>虚拟机栈中引用的对象</li>
+<li>方法区类静态属性引用的对象</li>
+<li>方法区常量池引用的对象</li>
+<li>本地方法栈JNI引用的对象</li>
+</ol>
+</li>
+<li>GC Roots没有引用是第一次标记，不会真正回收，<br>如果没有执行finalize方法，才真正回收</li>
+</ul>
+<h2 id="对象进入老年代条件"><a href="#对象进入老年代条件" class="headerlink" title="对象进入老年代条件"></a>对象进入老年代条件</h2><ul>
+<li>默认15次young gc还没被回收</li>
+<li>young gc过后，同龄对象大小超过survivor的50%，直接进入老年代</li>
+<li>young gc后存活对象太多无法放入survivor</li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ul>
+<li>加大新生代内存（特别是survivor内存），避免频繁进入老年代</li>
+<li>减少躲过GC次数</li>
+<li>降低大对象进入老年代的内存门槛</li>
+</ul>
+<h2 id="jdk8优化"><a href="#jdk8优化" class="headerlink" title="jdk8优化"></a>jdk8优化</h2><ul>
+<li><p>将永久代放到本地内存中，将常量池和静态变量放到堆中</p>
+<ol>
+<li>将类元数据放到本地内存，<br>避免在反射、代理时造成经常full gc</li>
+<li>原来每个项目都会占用自己永久代，同个class会占用多个内存空间；<br>优化后metaspaces里只存一份class，提高内存利用率<h2 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h2></li>
+</ol>
+</li>
+<li><p>是一种技术，在开启后，方法栈上的对象在方法执行完后，栈帧弹出，对象就会回收。这样就不需要等内存满时再触发内存回收</p>
+</li>
+<li><p>同步锁消除</p>
+<ol>
+<li>如果发现某个对象只能从一个线程可访问，那么在这个对象上的操作可以不需要同步</li>
+<li>逃逸分析把锁消除了</li>
+<li>逃逸分析时方法级别，因为jit的即时编译是方法级别</li>
+</ol>
+</li>
+<li><p>分离对象或标量替换   </p>
+<ol>
+<li>把对象分解成一个个基本类型，并且内存分配不再是分配在堆上，而是分配在栈上</li>
+<li>减少内存使用，因为不用生成对象头</li>
+<li>程序内存回收效率高，GC频率减少</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+     ]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM面试</title>
+    <url>/blog/article/20213903103919.html</url>
+    <content><![CDATA[<p><strong>1、说一下JVM的主要组成部分及其作用</strong></p>
+<p>JVM包括类装载子系统、运行时数据区、执行引擎、本地接口四个部分；</p>
+<p>类装载子系统通过类加载器将class字节码加载到JVM运行时数据区的方法区（jdk1.8及以后改为了元空间）；运行时数据区用于存储程序运行时所产生的各种数据；执行引擎负责将class字节码解析为机器指令并交给CPU进行处理，这个过程中可能会调用到系统提供的native方法；</p>
+<p><strong>2、描述一下JVM运行时数据区（通常也被叫作JVM内存模型，要区别于Java内存模型~JMM）</strong></p>
+<p>JVM运行时数据区主要包括堆区、方法区（jdk1.8及以后改为了元空间）、虚拟机栈、本地方法栈、程序计数器五个区域，其中堆区、方法区属于所有线程共享内存区域，虚拟机栈、本地方法栈、程序计数器属于每个线程独享的内存区域；</p>
+<ul>
+<li>堆区用于存放对象实例；</li>
+<li>方法区用于存储类信息、常量、静态变量、即时编译器编译后的代码等；</li>
+<li>虚拟机栈用于存储一个线程在执行方法的过程中产生的数据，一个方法开始被调用就会有一个栈帧入栈，方法执行完毕栈帧出栈，栈帧中包括局部变量表、操作数栈、动态链接、方法出口等；</li>
+<li>本地方法栈与虚拟机栈的作用类似，区别在于本地方法栈用于存储线程执行的native方法产生的数据；</li>
+<li>程序计数器用于记录线程执行代码的位置，分支、循环、跳转、异常、线程恢复等都依赖于程序计数器，程序计数器也是JVM规范中唯一没有规定OOM（OutOfMemeryError）的内存区域。</li>
+</ul>
+<p><strong>3、说一下几种垃圾收集算法及其应用场景</strong></p>
+<p>垃圾收集算法主要有标记清除、标记整理、复制算法三种，还有一种分代收集的理论；</p>
+<ul>
+<li>标记清除算法标记存活对象，然后清除无用对象，缺点是效率不高，会产生垃圾碎片，主要用于老年代收集，CMS垃圾收集器使用该算法实现；</li>
+<li>标记整理算法标记存活对象，然后将存活对象向内存的一端移动，然后清理另一端的内存空间，优点是解决了标记清除算法产生碎片的问题，缺点是需要移动对象，一定程度上降低了垃圾收集效率，SerialOld、ParallelOld、G1收集器使用该算法实现；</li>
+<li>复制算法将内存分为大小相等的两块，每次只使用其中的一块，在进行垃圾收集时，将存活对象复制到另一块空闲的内存区域，然后清除掉垃圾对象，复制算法主要应用于年轻代收集，因为年轻的对象大都是存活时间短，存活对象少，使用复制算法效率高，缺点是内存利用率低，Serial、ParNew、Parallel Scavenge收集器使用该算法实现。</li>
+</ul>
+<p><strong>4、说一下常见的垃圾收集器及其所使用的垃圾收集算法</strong></p>
+<p>目前常用的垃圾收集器大概有七种，其中年轻代垃圾收集器包括Serial、ParNew、Parallel Scavenge，这三种垃圾收集器使用复制算法实现，老年代收集器包括SerialOld、ParallelOld、CMS，其中SerialOld、ParallelOld使用标记整理算法实现，CMS使用标记清除算法实现，整堆垃圾收集器G1使用标记整理算法实现。</p>
+<ul>
+<li>Serial是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
+<li>Parallel Scavenge是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
+<li>ParNew与Parallel Scavenge类似，但是由于Parallel Scavenge不能与CMS进行配合使用，所以才有了ParNew垃圾收集器；</li>
+<li>SerialOld是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
+<li>ParallelOld是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
+<li>CMS是一种以获取最短回收停顿时间为目标的收集器，主要包括初始标记、并发标记、重新标记、并发收集、并发清除五个阶段，初始标记扫描gcroot根对象，该阶段需要STW（Stop The World），并发标记基于初始标扫描的gcroot根对象继续查找，标记出所有与gcroot关联的存活对象，该阶段标记线程与用户线程并发执行，重新标记用于修复在并发标记过程中多标和漏标的情况，多标会产生浮动垃圾，可以在下一次GC进行清理，漏标则会清理存活对象，导致致命bug，漏标的情况在CMS中会使用三色标记中的增量更新进行处理，该阶段需要STW（Stop The World）。并发清理阶段清理线程与用户线程并发执行，用于清除在标记阶段为存活对象打的标记，用户线程新产生的对象会被直接标记为黑色不进行回收，CMS也可以通过参数配置进行内存整理等功能；</li>
+<li>整堆收集器G1，使用标记整理算法实现（目前很少用，暂不做详细描述）。</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java多线程</title>
+    <url>/blog/article/20211204101246.html</url>
+    <content><![CDATA[<blockquote>
+<p>为什么使用多线程：<br>    ① 随着处理器的核心数不断增多，单线程程序已无法发挥多核处理器的优势；<br>    ② 线程比进程切换效率更高</p>
+</blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><blockquote>
+<p> 进程是程序一次执行过程。比如程序从启动到销毁是一个进程</p>
+</blockquote>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><blockquote>
+<p>线程是比进程更小的单位。一个进程在执行过程中可以产生多个线程。线程之间可以共享“堆”和“Metadata Space”数据，但拥有独立的“程序计数器”、“虚拟机栈”和“本地方法栈”。所以线程之间切换比进程切换负担小的多</p>
+</blockquote>
+<h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><h4 id="①-并发"><a href="#①-并发" class="headerlink" title="① 并发"></a>① 并发</h4><blockquote>
+<p>同一时间段内，多个任务都在执行。他们之间共享cpu的执行时间片段。多个任务之间并不是同时执行的。并发编程的目标是充分的利用处理器的每一个核，以达到最高的处理性能。</p>
+</blockquote>
+<h4 id="②-并行"><a href="#②-并行" class="headerlink" title="② 并行"></a>② 并行</h4><blockquote>
+<p>同一时刻，多个任务同时执行。可能有多个任务分别在不同的cpu上执行。<br>并行可以充分利用多核处理器的优势</p>
+</blockquote>
+<h2 id="引入问题"><a href="#引入问题" class="headerlink" title="引入问题"></a>引入问题</h2><h3 id="内存泄露"><a href="#内存泄露" class="headerlink" title="内存泄露"></a>内存泄露</h3><blockquote>
+<p>对象在使用完成后，对它的引用依然没有被释放，导致jvm无法回收该对象，就会造成内存泄漏</p>
+</blockquote>
+<h4 id="①-静态集合类"><a href="#①-静态集合类" class="headerlink" title="① 静态集合类"></a>① 静态集合类</h4><blockquote>
+<p>静态集合类的生命周期和类一样，所以jvm无法回收它们</p>
+</blockquote>
+<h4 id="②-数据库连接、网络连接、IO连接等"><a href="#②-数据库连接、网络连接、IO连接等" class="headerlink" title="② 数据库连接、网络连接、IO连接等"></a>② 数据库连接、网络连接、IO连接等</h4><blockquote>
+<p>连接在使用完成后必须主动释放资源，否则jvm无法回收它们</p>
+</blockquote>
+<h4 id="③-变量不合理的作用域"><a href="#③-变量不合理的作用域" class="headerlink" title="③ 变量不合理的作用域"></a>③ 变量不合理的作用域</h4><blockquote>
+<p>变量设置的作用域过大，在对其的使用结束后，jvm依然无法对它进行回收，也有可能造成内存泄漏</p>
+</blockquote>
+<h4 id="④-内部类引用外部类"><a href="#④-内部类引用外部类" class="headerlink" title="④ 内部类引用外部类"></a>④ 内部类引用外部类</h4><blockquote>
+<p>内部类保存对外部类的引用，即使程序已经没有对外部类的引用，也会因为内部类保存了引用而无法回收外部类。</p>
+</blockquote>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="死锁发生条件"><a href="#死锁发生条件" class="headerlink" title="死锁发生条件"></a>死锁发生条件</h4><blockquote>
+<p><strong>① 互斥条件：</strong> 该资源任一时刻只能被一个线程拥有；<br><br><strong>② 请求与保持条件：</strong> 一个线程在获取资源阻塞时，对已获得的资源不释放;<br><br><strong>③ 不剥夺条件：</strong> 一个线程获得的资源在其使用完成之前不能被其他线程主动剥夺，只能由自己主动释放;<br><br><strong>④ 循环等待条件：</strong> 多个线程之间形成首尾相接的循环等待资源关系</p>
+</blockquote>
+<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><blockquote>
+<p>只需要破坏四个条件中的任意一个即可:<br><br><strong>① 互斥条件：</strong> 本来就是让线程之间互斥，所以无法破坏;<br><br><strong>② 请求与保持条件：</strong> 一次性申请所有的资源;<br><br><strong>③ 不剥夺条件：</strong> 可以让线程在无法获得资源时，先把已获得资源进行释放;<br><br><strong>④ 循环等待条件：</strong> 按照某一顺序来获取资源</p>
+</blockquote>
+<h4 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h4><blockquote>
+<p>待补充。。。</p>
+</blockquote>
+<h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><blockquote>
+<p>一般情况下线程数都比cpu核心数要多，cpu只能不断在线程之间切换来执行每一个线程。cpu每次切换都得保存当前状态，和加载下一个线程的状态。这就是上下文切换</p>
+</blockquote>
+<h2 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h2><h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><h4 id="1-作用范围"><a href="#1-作用范围" class="headerlink" title="1. 作用范围"></a>1. 作用范围</h4><blockquote>
+<p><strong>① 静态方法：</strong> 使用的同步锁是类对象，和其他静态同步方法存在锁竞争; <br><br><strong>② 非静态方法：</strong> 使用的锁是当前对象，同一对象之间存在锁竞争，不同对象之间不存在竞争关系；<br><br><strong>③ 代码块：</strong> 使用的锁是synchronized中传入的对象，依据是否同一对象而决定否存在竞争</p>
+</blockquote>
+<h4 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.  底层原理"></a>2.  底层原理</h4><blockquote>
+<p> <strong>① 方法：</strong>  待补充..<br><br><strong>② 代码块：</strong> 每个java对象的对象头中都有monitor对象，通过能否获取到monitor对象来判断能否获取锁；.</p>
+</blockquote>
+<h4 id="3-锁优化"><a href="#3-锁优化" class="headerlink" title="3.  锁优化"></a>3.  锁优化</h4><h5 id="3-1-自旋锁"><a href="#3-1-自旋锁" class="headerlink" title="3.1. 自旋锁"></a>3.1. 自旋锁</h5><ul>
+<li>当线程竞争锁失败时，不直接阻塞自己，而是自旋（空等待，比如一个有限的for循环）一会儿，在自旋的同时重新竞争锁。如果在自旋结束前获得了锁，那么获取锁成功；否则自旋结束后阻塞自己;<br></li>
+<li>自旋锁可以减少线程阻塞造成的线程切换（包括挂起线程和恢复线程）<br><blockquote>
+<p><strong>①</strong>  单核处理器情况下，不存在实际的并行。当前线程不阻塞自己，拥有锁的线程就无法执行，锁永远不会释放。进而，如果线程多而处理器少，自旋也会造成不少无谓的浪费；<br><br><strong>②</strong>   自旋锁要占用CPU，如果是计算密集型任务，这一优化通常得不偿失，减少锁的使用是更好的选择；<br><br><strong>③</strong>  如果锁竞争时间比较长，那么自旋通常不能获得锁，白白浪费自旋占用的CPU时间。这通常发生在所持有时间长，且竞争激烈的场景中，此时应主动禁用自旋锁<br></p>
+</blockquote>
+</li>
+<li>使用-XX:-UseSpinning参数关闭自旋锁优化；-XX:PreBlockSpin参数修改默认的自旋次数。</li>
+</ul>
+<h5 id="3-2-偏向锁"><a href="#3-2-偏向锁" class="headerlink" title="3.2. 偏向锁"></a>3.2. 偏向锁</h5><ul>
+<li>偏向锁的目标是减少无竞争且只有一个线程使用锁的情况下，使用轻量级锁产生的性能消耗；<blockquote>
+<p>在没有实际竞争的情况下，还能够针对部分场景继续优化。如果不仅仅没有实际竞争，自始至终，使用锁的线&gt; 程都只有一个，那么，维护轻量级锁都是浪费的。偏向锁的目标是，减少无竞争且只有一个线程使用锁的情况&gt; 下，使用轻量级锁产生的性能消耗。轻量级锁每次申请、释放锁都至少需要一次CAS，但偏向锁只有初始化时&gt; 需要一次CAS。<br></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>“偏向”的意思是，偏向锁假定将来只有第一个申请锁的线程会使用锁（不会有任何线程再来申请锁），因 此，只需要在Mark Word中CAS记录owner（本质上也是更新，但初始值为空），如果记录成功，则偏向锁获取成功，记录锁状态为偏向锁，以后当前线程等于owner就可以零成本的直接获得锁；否则，说明有其他线程竞争，膨胀为轻量级锁。</p>
+</blockquote>
+<ul>
+<li>如果有其他线程申请锁，那么偏向锁很快就膨胀为轻量级锁。浪费了维持偏向锁的性能消耗</li>
+<li>使用参数-XX:-UseBiasedLocking禁止偏向锁优化（默认打开）。</li>
+</ul>
+<h5 id="3-3-轻量级锁"><a href="#3-3-轻量级锁" class="headerlink" title="3.3. 轻量级锁"></a>3.3. 轻量级锁</h5><ul>
+<li><p>使用轻量级锁时，不需要申请互斥量，仅仅将Mark Word中的部分字节CAS更新指向线程栈中的Lock Record，如果更新成功，则轻量级锁获取成功。否则可以继续使用自旋锁获取或者升级为重量级锁;</p>
+<blockquote>
+<p>Mark Word是对象头的一部分；每个线程都拥有自己的线程栈（虚拟机栈），记录线程和函数调用的基本信息</p>
+</blockquote>
+</li>
+<li><p>轻量级锁的目标是减少无实际竞争的情况下，使用重量级锁产生的性能消耗;</p>
+</li>
+<li><p>如果锁竞争激烈，轻量级锁很快就将升级为重量级锁，那么维持轻量级锁的过程就成了浪费</p>
+</li>
+</ul>
+<h5 id="3-4-重量级锁"><a href="#3-4-重量级锁" class="headerlink" title="3.4. 重量级锁"></a>3.4. 重量级锁</h5><ul>
+<li><p>内置锁在Java中被抽象成监视器锁（monitor）。监视器锁直接对应底层操作系统的互斥量（mutex）</p>
+</li>
+<li><p>这种同步方式成本非常高，包括系统调用引起的内核态和用户态切换、线程阻塞造成的线程切换等</p>
+</li>
+</ul>
+<h3 id="synchronized与ReentrantLock"><a href="#synchronized与ReentrantLock" class="headerlink" title="synchronized与ReentrantLock"></a>synchronized与ReentrantLock</h3><ul>
+<li>两者都是可重入锁</li>
+<li>synchronized依赖于JVM，ReentrantLock依赖于API</li>
+<li>① synchronized是非公平锁;<br> ② ReentrantLock可指定是公平锁或非公平锁<blockquote>
+<p>一个Lock对象可以创建多个Condition实例，线程对象可以注册在指定的Condition上，从而可以有选择性的进行通知</p>
+</blockquote>
+</li>
+<li>ReentrantLock比synchronized多一些高级功能<blockquote>
+<ul>
+<li>等待可中断<br><br>ReentrantLock提供了一种可以中断等待锁的线程的机制。通过lock.lockInterruptibly()来实现。也就是使正在等待的线程可以放弃等待，改为处理其他事情;<br></li>
+<li>可实现公平锁<br><br>ReentrantLock可以指定是公平锁还是非公平锁。公平锁就是先等待的线程先获得锁，通过构造方法ReentrantLock(boolean fair)来实现;<br></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>可实现选择性通知<br></li>
+</ul>
+</blockquote>
+<h3 id="synchronized与volatile"><a href="#synchronized与volatile" class="headerlink" title="synchronized与volatile"></a>synchronized与volatile</h3><ul>
+<li><p>并发编程的三个特性</p>
+<blockquote>
+<p><strong>①原子性：</strong> 一个操作或者多次操作，要么都执行、要不都不执行。synchronized可以保证原子性<br><br><strong>②可见性：</strong> 当一个线程对共享变量进行了修改，其他线程可以马上看到最新的值。volatile可以保证可见性；<br><br><strong>③有序性：</strong> 代码在执行过程中，编译器会对字节码进行冲重排序优化，无法保证代码的执行顺序就是编写代码的顺序。volatile可以禁止指令重排；<br></p>
+</blockquote>
+</li>
+<li><p>volatile是synchronized的轻量级实现</p>
+</li>
+<li><p>多线程访问volatile关键字不会阻塞，synchronized可能会阻塞</p>
+</li>
+<li><p>volatile能保证数据的可见性，不能保证原子性；synchronized两者都可以保证</p>
+</li>
+<li><p>volatile主要解决多线程之间数据的可见性问题；synchronized解决多线程之间数据的同步性问题</p>
+</li>
+</ul>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><ul>
+<li><p>每个线程的专属变量，不会被其他线程访问到</p>
+</li>
+<li><p>ThreadLocal中有一个静态内部类ThreadLocalMap，可以理解为ThreadLocal的定制化HashMap实现。KEY为线程对象，Value为set进去的值</p>
+</li>
+<li><p><strong>内存泄漏问题</strong></p>
+<blockquote>
+<p>ThreadLocalMap中的Key为ThreadLocal的弱引用，而Value是强引用。所以在ThreadLocal没有被外部强引用的时候，在垃圾回收时会把Key给回收掉，而Value却不会被回收。这样会出来Key为null的Entry。如果我们不做什么措施，Value就永远无法被回收，发生内存泄漏。ThreadLocal已经考虑了这种情况，在调用set()、get()和remove()方法时，会清理掉Key为null的Entry</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java创建对象的5种方式</title>
+    <url>/blog/article/20215905075928.html</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>依赖函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>使用new关键字</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用Class类的newInstance方法</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用Constructor类的newInstance方法</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用clone方法</td>
+<td>} → 没有调用构造函数</td>
+</tr>
+<tr>
+<td>使用反序列化——需要实现Serializable接口</td>
+<td>} → 没有调用构造函数</td>
+</tr>
+</tbody></table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><blockquote>
+<ul>
+<li>1.使用Constructor类的newInstance方法<br><br>和Class类的newInstance方法很像， java.lang.reflect.Constructor类里也有一个newInstance方法可以创建对象<br></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Constructor&lt;Employee&gt; constructor &#x3D; Employee.class.getConstructor();</span><br><span class="line">Employee emp3 &#x3D; constructor.newInstance();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>2.使用clone方法<br><br>无论何时我们调用一个对象的clone方法，jvm就会创建一个新的对象，将前面对象的内容全部拷贝进去。用clone方法创建对象并不会调用任何构造函数<br><br>要使用clone方法，我们需要先实现Cloneable接口并实现其定义的clone方法<br></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object o2 &#x3D; object.clone();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>3.使用反序列化<br><br>当我们序列化和反序列化一个对象，jvm会给我们创建一个单独的对象。在反序列化时，jvm创建对象并不会调用任何构造函数<br></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ObjectInputStream in &#x3D; new ObjectInputStream(new FileInputStream(&quot;data.obj&quot;));</span><br><span class="line">Object object &#x3D; (Object) in.readObject();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p> 欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+ <center>
+     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+ </center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>对象创建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java高级特性——反射</title>
+    <url>/blog/article/20215805075828.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>java反射机制是指在运行状态中，对于任意一个类，都能够知道这类的所有属性和方法；对于任意一个对象，都能够调用它的所有属性和方法。<br><br>  —— 对于这种动态的获取任意类的信息和动态的调用其方法的功能，称为java语言的反射机制。</p>
+</blockquote>
+<h2 id="反射机制类"><a href="#反射机制类" class="headerlink" title="反射机制类"></a>反射机制类</h2><blockquote>
+<ul>
+<li>Class – 类，三种获取方式<br></li>
+<li>Feild – 成员变量类<br></li>
+<li>Method – 方法类<br></li>
+<li>Constructor – 构造方法类<br></li>
+<li>Modifier – 访问权限类<br></li>
+</ul>
+</blockquote>
+<h2 id="反射机制提供了哪些功能？"><a href="#反射机制提供了哪些功能？" class="headerlink" title="反射机制提供了哪些功能？"></a>反射机制提供了哪些功能？</h2><blockquote>
+<ul>
+<li>在运行时，判定任意对象所属的类 –Class<br></li>
+<li>在运行时，构造任意一个类的对象 –对象5种创建方式：Class.newInstance()<br></li>
+<li>在运行时，判定任意对象的所有方法和成员变量 – Feild、Method<br></li>
+<li>在运行时，调用任意对象的方法 – Method<br></li>
+<li>生成动态代理</li>
+</ul>
+</blockquote>
+<h2 id="Java反射机制的应用"><a href="#Java反射机制的应用" class="headerlink" title="Java反射机制的应用"></a>Java反射机制的应用</h2><blockquote>
+<p>① class对象的获取;<br><br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">object.getClass()、Object.class、Class.forName(&quot;java.lang.Object&quot;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>② 获取class对象的摘要信息<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class1.isPrimitive();&#x2F;&#x2F;是否基础类型</span><br><span class="line">class1.isArray();&#x2F;&#x2F;是否集合类</span><br><span class="line">class1.isAnnotation();&#x2F;&#x2F;是否注解类</span><br><span class="line">class1.isInterface();&#x2F;&#x2F;是否接口类</span><br><span class="line">class1.isEnum();&#x2F;&#x2F;是否枚举类</span><br><span class="line">class1.isAnonymousClass();&#x2F;&#x2F;是否匿名内部类</span><br><span class="line">class1.isAnnotationPresent(Deprecated.class);&#x2F;&#x2F;是否被某个注解类修饰</span><br><span class="line">class1.getName();&#x2F;&#x2F;获取class名字 包含包名路径</span><br><span class="line">class1.getPackage();&#x2F;&#x2F;获取class的包信息</span><br><span class="line">class1.getSimpleName();&#x2F;&#x2F;获取class类名</span><br><span class="line">class1.getModifiers();&#x2F;&#x2F;获取class访问权限</span><br><span class="line">class1.getDeclaredClasses();&#x2F;&#x2F;内部类</span><br><span class="line">class1.getDeclaringClass();&#x2F;&#x2F;外部类</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>③ 获取class对象的属性、方法、构造函数等;<br><br>④ class对象动态生成;<br><br>⑤ 动态调用函数;<br><br>⑥ 通过反射机制获取泛型类型;<br><br>⑦ 通过反射机制获取注解信息;<br></p>
+</blockquote>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><blockquote>
+<ul>
+<li>逆向代码，如反编译</li>
+<li>配合注解：spring mybatis 等</li>
+<li>动态生成类框架：hibernate等</li>
+<li>AOP的核心技术</li>
+</ul>
+</blockquote>
+<h2 id="优点与缺陷"><a href="#优点与缺陷" class="headerlink" title="优点与缺陷"></a>优点与缺陷</h2><blockquote>
+<ul>
+<li>优点：<br><ul>
+<li>运行期类型的判断，动态类加载，动态代理使用反射。</li>
+</ul>
+</li>
+<li>缺陷：<br><ul>
+<li>性能是一个问题，反射相当于一系列解释操作，通知jvm要做的事情，性能比直接的java代码要慢很多。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>Java的反射机制在平时的业务开发过程中很少使用到，但是在一些基础框架的搭建上应用非常广泛</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>反射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java集合</title>
+    <url>/blog/article/20211903111947.html</url>
+    <content><![CDATA[<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><h4 id="Arraylist"><a href="#Arraylist" class="headerlink" title="Arraylist"></a>Arraylist</h4><ul>
+<li>动态数组</li>
+<li>能够实现随机存取 – 实现了RandomAccess接口</li>
+<li>fail-fast机制<br>① modCount在Abstractlist中定义<br>② 在使用迭代器遍历list时，如果modCount和exceptedCount不匹配，就会直接抛出异常<br>③ 使用迭代器自带的remove时，如果删除了list中元素，不会出现fail-fast，<br> 因为迭代器会调整modCount和expectedCount值</li>
+<li>自定义序列化方法<br>① 因为arraylist的底层数组中，可能存在值为null的元素，序列化这些元素是没意义的，<br>  因此自定义序列化方法，只序列化数组中非null的元素<br>② 通过readObject和writeObject方法实现</li>
+<li>有一个初始容量（16）<br>① 扩容：capacity = 1.5 * capacity<br>② 通过Arrays.copyOf() - &gt; System.copyOf()<br>③ Arraylist是插入前扩容，扩容逻辑为ensureCapacityInternal() –&gt; ensureExplicitCapacity() —&gt; grow()</li>
+<li>插入时，判断容器中的元素是否超过某个阈值，超过则代表快溢出，会进行扩容</li>
+</ul>
+<h4 id="Linkedlist"><a href="#Linkedlist" class="headerlink" title="Linkedlist"></a>Linkedlist</h4><ul>
+<li>动态数组</li>
+<li>双向链表</li>
+<li>不能随机访问，不能通过下标获取元素</li>
+<li>适合插入删除多的场合 – 更新，删除元素效率高</li>
+</ul>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
+<li>不保证元素顺序</li>
+<li>元素插入的顺序与输出顺序不一致</li>
+<li>在Set中元素还是有顺序的，根据元素的hashcode排序</li>
+</ul>
+<h4 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h4><ul>
+<li>基于LinkedHashMap实现</li>
+<li>使用链表维护元素的次序</li>
+</ul>
+<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h4><ul>
+<li>底层基于TreeMap实现</li>
+<li>两种排序：① 自然排序 ② 定制排序 </li>
+<li>不是通过hashcodeh和equals来比较元素，是通过compare或compareTo来判断元素是否相等</li>
+</ul>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
+<li>扩容，需要遍历旧table，再遍历每个table中每个元素的单向链表，取得entry后，<br>重新计算hash，然后存放到新table的对应位置</li>
+</ul>
+<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><ul>
+<li>哈希表和链表实现</li>
+<li>每个元素用双向链表进行连接</li>
+<li>扩容时遍历双向链表，重新计算每个元素的hash即可</li>
+</ul>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><ul>
+<li>基于红黑树</li>
+<li>自然排序<br>  ① 所有key必须实现Comparable接口 – 每一个key-value节点作为红黑树的一个节点</li>
+<li>定制排序<br>  ① 定义TreeMap时，创建一个comparator对象，该对象对所有的key进行排序</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+    ]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>集合</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java基础</title>
+    <url>/blog/article/20213903103930.html</url>
+    <content><![CDATA[<h3 id="1-⾯向对象和⾯向过程的区别？"><a href="#1-⾯向对象和⾯向过程的区别？" class="headerlink" title="1.⾯向对象和⾯向过程的区别？"></a>1.⾯向对象和⾯向过程的区别？</h3><h4 id="①-⾯向过程"><a href="#①-⾯向过程" class="headerlink" title="① ⾯向过程"></a>① ⾯向过程</h4><p>   ⾯向过程性能⽐⾯向对象⾼。 因为类调⽤时需要实例化，开销比较⼤，比较消耗资源，所以当性能是最重要的考量因素的时候，⽐如单⽚机、嵌⼊式开发、Linux/Unix 等⼀般采⽤⾯向过程开发。但是⾯向过程没有⾯向对象易维护、易复⽤、易扩展。</p>
+<h4 id="②-⾯向对象"><a href="#②-⾯向对象" class="headerlink" title="② ⾯向对象"></a>② ⾯向对象</h4><p>   ⾯向对象易维护、易复⽤、易扩展。</p>
+<h3 id="2-java抽象类和普通类的区别？"><a href="#2-java抽象类和普通类的区别？" class="headerlink" title="2.java抽象类和普通类的区别？"></a>2.java抽象类和普通类的区别？</h3><h4 id="①-抽象类可以有构造函数，抽象方法不能被声明为静态"><a href="#①-抽象类可以有构造函数，抽象方法不能被声明为静态" class="headerlink" title="① 抽象类可以有构造函数，抽象方法不能被声明为静态"></a>① 抽象类可以有构造函数，抽象方法不能被声明为静态</h4><h4 id="②-象类不能被实例化"><a href="#②-象类不能被实例化" class="headerlink" title="② 象类不能被实例化"></a>② 象类不能被实例化</h4><h3 id="3-Java-方法访问权限修饰？"><a href="#3-Java-方法访问权限修饰？" class="headerlink" title="3.Java 方法访问权限修饰？"></a>3.Java 方法访问权限修饰？</h3><h4 id="①-private私有成员属性和方法，只有本类可以调用，除内部类特殊情况"><a href="#①-private私有成员属性和方法，只有本类可以调用，除内部类特殊情况" class="headerlink" title="① private私有成员属性和方法，只有本类可以调用，除内部类特殊情况"></a>① private私有成员属性和方法，只有本类可以调用，除内部类特殊情况</h4><h4 id="②-默认不写只有本类-同一个包下面的类"><a href="#②-默认不写只有本类-同一个包下面的类" class="headerlink" title="② 默认不写只有本类 同一个包下面的类"></a>② 默认不写只有本类 同一个包下面的类</h4><h4 id="③-protected本类-同包-不同包的子类"><a href="#③-protected本类-同包-不同包的子类" class="headerlink" title="③ protected本类 同包 不同包的子类"></a>③ protected本类 同包 不同包的子类</h4><h4 id="④-public-本类-同包-不同包的类"><a href="#④-public-本类-同包-不同包的类" class="headerlink" title="④ public  本类 同包 不同包的类"></a>④ public  本类 同包 不同包的类</h4><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+      ]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBean</title>
+    <url>/blog/article/20210305080340.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>在Spring中，那些组成应用程序的主体及由<strong>SpringIOC容器</strong>所管理的对象，被称之为<strong>bean</strong>。简单地讲，bean 就是由 IOC 容器初始化、装配及管理的对象，除此之外，bean 就与应用程序中的其他对象没有什么区别了。而<strong>bean</strong>的定义以及<strong>bean</strong>相互间的依赖关系将通过配置元数据来描述。<br></p>
+</blockquote>
+<blockquote>
+<p>Spring中的bean默认都是单例的，这些单例Bean在多线程程序下如何保证线程安全呢？ <br><br>  例如: 对于Web应用来说，Web容器对于每个用户请求都创建一个单独的Sevlet线程来处理请求，引入Spring框架之后，每个Action都是单例的，那么对于Spring托管的单例Service Bean，如何保证其安全呢？ Spring的单例是基于BeanFactory也就是Spring容器的，单例Bean在此容器内只有一个，Java的单例是基于 JVM，每个 JVM 内只有一个实例。<br></p>
+</blockquote>
+<h2 id="Bean作用域"><a href="#Bean作用域" class="headerlink" title="Bean作用域"></a>Bean作用域</h2><blockquote>
+<ul>
+<li><strong>singleton:</strong> 在Spring IoC容器中仅存在一个Bean实例，Bean以单例方式存在，默认值;<br></li>
+<li><strong>prototype:</strong> 每次从容器中调用Bean时，都返回一个新的实例，即每次调用getBean()时，相当于执行new XxxBean();<br></li>
+<li><strong>request:</strong> 每次HTTP请求都会创建一个新的Bean，该该作用域仅适用于WebApplicationContext环境;<br></li>
+<li><strong>session:</strong> 同一个HTTP Session共享一个Bean，不同Session使用不同Bean，仅适用于WebApplicationContext环境;<br></li>
+<li><strong>globalSession:</strong> 一般用于Portlet应用环境，该作用域仅适用于WebApplicationContext环境;<br></li>
+<li><em>总结：</em>* 五种作用域中，request、session 和 global session 三种作用域仅在基于web的应用中使用（不必关心你所采用的是什么web应用框架），只能用在基于web的Spring ApplicationContext环境。</li>
+</ul>
+</blockquote>
+<h2 id="Spring-Bean生命周期"><a href="#Spring-Bean生命周期" class="headerlink" title="Spring Bean生命周期"></a>Spring Bean生命周期</h2><blockquote>
+<p><strong>概括</strong><br></p>
+<ul>
+<li>实例化 Instantiation<br></li>
+<li>属性赋值 Populate<br></li>
+<li>初始化 Initialization<br></li>
+<li>销毁 Destruction<br><br>注：<br><br>前三步在doCreate()方法中:<br></li>
+</ul>
+</blockquote>
+<pre><code>//忽略了无关代码
+protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
+        throws BeanCreationException &#123;
+  
+     // Instantiate the bean.
+     BeanWrapper instanceWrapper = null;
+     if (instanceWrapper == null) &#123;
+         // 实例化阶段！
+        instanceWrapper = createBeanInstance(beanName, mbd, args);
+     &#125;
+  
+     // Initialize the bean instance.
+     Object exposedObject = bean;
+     try &#123;
+         // 属性赋值阶段！
+        populateBean(beanName, mbd, instanceWrapper);
+         // 初始化阶段！
+        exposedObject = initializeBean(beanName, exposedObject, mbd);
+     &#125;
+   &#125;
+</code></pre>
+<blockquote>
+<p><strong>详细的说</strong><br></p>
+<ul>
+<li>Bean容器找到配置文件中 Spring Bean 的定义。<br></li>
+<li>Bean容器利用Java Reflection API创建一个Bean的实例。<br></li>
+<li>如果涉及到一些属性值 利用set方法设置一些属性值。<br></li>
+<li>如果Bean实现了BeanNameAware接口，调用setBeanName()方法，传入Bean的名字。<br></li>
+<li>如果Bean实现了BeanClassLoaderAware接口，调用setBeanClassLoader()方法，传入ClassLoader对象的实例。<br></li>
+<li>如果Bean实现了BeanFactoryAware接口，调用setBeanClassLoader()方法，传入ClassLoader对象的实例。<br></li>
+<li>与上面的类似，如果实现了其他*Aware接口，就调用相应的方法。<br></li>
+<li>如果有和加载这个Bean的Spring容器相关的BeanPostProcessor对象，执行postProcessBeforeInitialization()方法。<br></li>
+<li>如果Bean实现了InitializingBean接口，执行afterPropertiesSet()方法。<br></li>
+<li>如果Bean在配置文件中的定义包含init-method属性，执行指定的方法。<br></li>
+<li>如果有和加载这个Bean的Spring容器相关的BeanPostProcessor对象，执行postProcessAfterInitialization()方法。<br></li>
+<li>当要销毁Bean的时候，如果Bean实现了DisposableBean接口，执行destroy()方法。<br></li>
+<li>当要销毁Bean的时候，如果Bean在配置文件中的定义包含destroy-method属性，执行指定的方法。<br></li>
+</ul>
+</blockquote>
+<h2 id="Spring中的单例Bean是线程安全的吗？"><a href="#Spring中的单例Bean是线程安全的吗？" class="headerlink" title="Spring中的单例Bean是线程安全的吗？"></a>Spring中的单例Bean是线程安全的吗？</h2><blockquote>
+<p>Spring容器中的Bean是否线程安全，容器本身并没有提供Bean的线程安全策略。<br><br>因此可以说Spring容器中的Bean本身不具备线程安全的特性，但是具体还是要结合具体scope的Bean去研究。</p>
+</blockquote>
+<h3 id="线程安全这个问题，要从单例与原型Bean分别进行说明。"><a href="#线程安全这个问题，要从单例与原型Bean分别进行说明。" class="headerlink" title="线程安全这个问题，要从单例与原型Bean分别进行说明。"></a>线程安全这个问题，要从单例与原型Bean分别进行说明。</h3><blockquote>
+<ul>
+<li><strong>原型Bean：</strong> 对于原型Bean,每次创建一个新对象，也就是线程之间并不存在Bean共享，自然是不会有线程安全的问题。<br></li>
+<li><strong>单例Bean：</strong> 对于单例Bean,所有线程都共享一个单例实例Bean,因此是存在资源的竞争。<br><ul>
+<li>无状态的单例Bean：也就是线程中的操作不会对Bean的成员执行查询以外的操作，那么这个单例Bean是线程安全的。<br><br>比如Spring mvc 的 Controller、Service、Dao等，这些Bean大多是无状态的，只关注于方法本身。<br></li>
+<li>有状态的单例Bean：就是没有实例变量的对象，不能保存数据，是不变类，是线程安全的。bean一旦实例化就被加进会话池中，各个用户都可以共用。即使用户已经消亡，bean 的生命期也不一定结束，它可能依然存在于会话池中，供其他用户调用。由于没有特定的用户，那么也就不能保持某一用户的状态，所以叫无状态bean。但无状态会话bean 并非没有状态，如果它有自己的属性（变量），那么这些变量就会受到所有调用它的用户的影响，这是在实际应用中必须注意的。<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="那么对于有状态的单例Bean，如何保证线程安全？"><a href="#那么对于有状态的单例Bean，如何保证线程安全？" class="headerlink" title="那么对于有状态的单例Bean，如何保证线程安全？"></a>那么对于有状态的单例Bean，如何保证线程安全？</h3><blockquote>
+<p>Spring官方提供的bean，一般提供了通过ThreadLocal去解决线程安全的方法。 <br><br>  比如RequestContextHolder、TransactionSynchronizationManager、LocaleContextHolder等。<br></p>
+</blockquote>
+<blockquote>
+<p><strong>使用ThreadLocal的好处</strong><br><br>使得多线程场景下，多个线程对这个单例Bean的成员变量并不存在资源的竞争，因为ThreadLocal为每个线程保存线程私有的数据。这是一种以空间换时间的方式。<br><br>当然也可以通过加锁的方法来解决线程安全，这种以时间换空间的场景在高并发场景下显然是不实际的。</p>
+</blockquote>
+<hr>
+<p> 欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+ <center>
+     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+ </center>]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+        <tag>bean</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单例模式</title>
+    <url>/blog/article/20211205081216.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>原型模式</title>
+    <url>/blog/article/20211305081317.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工厂方法模式</title>
+    <url>/blog/article/20211405081412.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>建造者模式</title>
+    <url>/blog/article/20211405081445.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>抽象工厂模式</title>
+    <url>/blog/article/20211505081501.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>亨元模式</title>
+    <url>/blog/article/20211505081524.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>外观模式</title>
+    <url>/blog/article/20211705081715.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代理模式</title>
+    <url>/blog/article/20211605081641.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。通俗的来讲代理模式就是我们生活中常见的中介。</p>
+</blockquote>
+<h2 id="为什么要用代理模式？"><a href="#为什么要用代理模式？" class="headerlink" title="为什么要用代理模式？"></a>为什么要用代理模式？</h2><blockquote>
+<ul>
+<li><strong>中介隔离作用：</strong><br> <ul>
+<li>在某些情况下，一个客户类不想或者不能直接引用一个委托对象，而代理类对象可以在客户类和委托对象之间起到中介的作用，其特征是代理类和委托类实现相同的接口。<br></li>
+</ul>
+</li>
+<li><strong>开闭原则，增加功能：</strong> (用于AOP)<br><ul>
+<li>代理类除了是客户类和委托类的中介之外，我们还可以通过给代理类增加额外的功能来扩展委托类的功能，这样做我们只需要修改代理类而不需要再修改委托类，符合代码设计的开闭原则。代理类主要负责为委托类预处理消息、过滤消息、把消息转发给委托类，以及事后对返回结果的处理等。代理类本身并不真正实现服务，而是同过调用委托类的相关方法，来提供特定的服务。真正的业务功能还是由委托类来实现，但是可以在业务功能执行的前后加入一些公共的服务。例如我们想给项目加入缓存、日志这些功能，我们就可以使用代理类来完成，而没必要打开已经封装好的委托类。<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="有哪几种代理模式？"><a href="#有哪几种代理模式？" class="headerlink" title="有哪几种代理模式？"></a>有哪几种代理模式？</h2><blockquote>
+<ul>
+<li>静态代理</li>
+<li>动态代理（JDK接口代理）</li>
+<li>cglib动态代理</li>
+</ul>
+</blockquote>
+<h3 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1. 静态代理"></a>1. 静态代理</h3><blockquote>
+<ul>
+<li>需要定义接口或父类；<br></li>
+<li>代理对象与目标对象需要实现（或继承）同一个接口（或父类）；<br></li>
+<li><strong>缺点：</strong> <br><ul>
+<li>接口（或父类）改变时，代理对象与目标对象据需要一起改动；<br></li>
+<li>每个目标对象均需要创建相应的代理对象，不方便的源码的管理，并且编译的class包也比较臃肿；<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2. 动态代理"></a>2. 动态代理</h3><blockquote>
+<p>在动态代理中，我们不需要再为目标对象创建相应的代理对象，只需要创建一个代理对象生成工厂即可。真正的代理对象，JDK运行时会为我们动态创建。<br></p>
+<ul>
+<li>需要实现接口InvocationHandler.invoke() – 里面写一些增强处理的逻辑。<br></li>
+<li>自定义的代理工厂，使用 Proxy.newProxyInstance(接口对象的ClassLoader,接口对象的Class&lt;?&gt;[],InvocationHandler实现类)动态创建目标对象的代理对象；<br></li>
+<li><strong>缺点：</strong><br><ul>
+<li>由于动态代理也叫JDK接口代理，字面意思也说明了，目标对象必须是某个接口的实现类；<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="3-cglib动态代理-–-子类代理"><a href="#3-cglib动态代理-–-子类代理" class="headerlink" title="3. cglib动态代理 – 子类代理"></a>3. cglib动态代理 – 子类代理</h3><blockquote>
+<p>由于JDK实现动态代理需要实现类通过接口定义业务方法，对于没有接口的类，如何实现动态代理呢，这就需要CGLib了。<br><br>CGLib采用了非常底层的字节码技术，其原理是通过字节码技术<strong>为一个类创建子类</strong>，并在子类中采用方法拦截的技术拦截所有父类方法的调用，<br><strong>顺势织入横切逻辑</strong>。<br><br>但因为采用的是<strong>继承</strong>，所以不能对final修饰的类进行代理，并且被final修饰的方法，也不会被拦截。<br><br>JDK动态代理与CGLib动态代理均是实现Spring AOP的基础。<br></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>① 实现接口MethodInterceptor，里面放一些<strong>增强处理</strong>的逻辑<br></li>
+<li>② 使用Enhancer创建目标类子类代理对象，并把实现了MethodInterceptor接口的实现类对象，放入enhancer.setCallback()中；<br></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>总结：</strong><br><br>  CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高，但是CGLIB创建代理对象时所花费的时间却比JDK多得多。所以对于单例的对象，因为无需频繁创建对象，用CGLIB合适，反之使用JDK方式要更为合适一些。同时由于CGLib由于是采用动态创建子类的方法，对于final修饰的方法无法进行代理。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>桥接模式</title>
+    <url>/blog/article/20211705081738.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>组合模式</title>
+    <url>/blog/article/20211805081829.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>装饰模式</title>
+    <url>/blog/article/20211805081847.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>适配器模式</title>
+    <url>/blog/article/20211905081917.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>中介者模式</title>
+    <url>/blog/article/20212205082219.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>命令模式</title>
+    <url>/blog/article/20212205082242.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>备忘录模式</title>
+    <url>/blog/article/20210305201732.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板模式</title>
+    <url>/blog/article/20210305204532.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>状态模式</title>
+    <url>/blog/article/20210305203133.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>策略模式</title>
+    <url>/blog/article/20210305204333.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>观察者模式</title>
+    <url>/blog/article/20210305205733.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解释器模式</title>
+    <url>/blog/article/20210305200834.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>访问者模式</title>
+    <url>/blog/article/20210305202534.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>责任链模式</title>
+    <url>/blog/article/20210305203603.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/blog/article/20210305205834.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+  </entry>
+  <entry>
+    <title>依赖倒转原则</title>
+    <url>/blog/article/20210605080610.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>依赖倒转原则(Dependency Inversion Principle, DIP)：<br></strong><br>抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。</p>
+</blockquote>
+<blockquote>
+<p><strong>通俗的定义有两种:</strong><br></p>
+<ul>
+<li>高层次的模块不应该依赖于低层次的模块，他们都应该依赖于抽象。<br></li>
+<li>抽象不应该依赖于具体实现，具体实现应该依赖于抽象。</li>
+</ul>
+</blockquote>
+<h2 id="启发"><a href="#启发" class="headerlink" title="启发"></a>启发</h2><blockquote>
+<p>在设计程序的时候尽量使用层次高的抽象层类。即使用接口和抽象类进行变量的声明、参数类型声明、方法返回类型声明以及数据类型转换等等。<br><br>即，要注意一个具体类应该只实现抽象类或者接口中存在的方法，不要给出多余的方法，否则抽象类将无法调用子类增加的方法。<br><br>我们可以通过配置文件来写入具体类，这样一旦程序行为改变，可直接改变配置文件，而不需要更改程序，重新编译，通过依赖倒转原则来满足<strong>开闭原则</strong>。</p>
+</blockquote>
+<blockquote>
+<p>在实现依赖倒转原则时，我们需要针对抽象层编程，而将具体类的对象通过依赖注入(DependencyInjection, DI)的方式注入到其他对象中。<br><br><strong>依赖注入</strong>是指当一个对象要与其他对象发生依赖关系时，通过抽象来注入所依赖的对象。<br><br>常用的注入方式有三种：：<strong>构造注入</strong>、<strong>设值注入（Setter注入）</strong>、<strong>接口注入</strong>。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 顶层类，或为接口，或为抽象类</span><br><span class="line">public interface IUser&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 实现类</span><br><span class="line">public class UserImpl implements IUser&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 遵循依赖倒转原则</span><br><span class="line">public class Test&#123;</span><br><span class="line">   &#x2F;&#x2F; 构造注入 </span><br><span class="line">   private IUser iuser &#x3D; new UserImpl();</span><br><span class="line">    </span><br><span class="line">   &#x2F;&#x2F; setter注入</span><br><span class="line">   public void setIUser(UserImpl userImpl)&#123;</span><br><span class="line">      this.iuser &#x3D; userImpl;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F; 接口注入</span><br><span class="line">   public void save(IUser iuser)&#123;</span><br><span class="line">    </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单一职责原则</title>
+    <url>/blog/article/20210605080651.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>不要存在多于一个导致类变更的原因。通俗的说，即一个类只负责一项职责。</p>
+</blockquote>
+<h3 id="问题举例以及按照原则的处理办法"><a href="#问题举例以及按照原则的处理办法" class="headerlink" title="问题举例以及按照原则的处理办法"></a>问题举例以及按照原则的处理办法</h3><h4 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h4><blockquote>
+<p>类T负责两个不同的职责：职责P1，职责P2。<br><br>当由于职责P1需求发生改变而需要修改类T时，有可能会导致原本运行正常的职责P2功能发生故障。</p>
+</blockquote>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
+<p>遵循单一职责原则。分别建立两个类T1、T2，使T1完成职责P1功能，T2完成职责P2功能。<br><br>这样，当修改类T1时，不会使职责P2发生故障风险；同理，当修改T2时，也不会使职责P1发生故障风险。</p>
+</blockquote>
+<blockquote>
+<p>说到单一职责原则，很多人都会不屑一顾。因为它太简单了。稍有经验的程序员即使从来没有读过设计模式、从来没有听说过单一职责原则，在设计软件时也会自觉的遵守这一重要原则，因为这是常识。<br><br>在软件编程中，谁也不希望因为修改了一个功能导致其他的功能发生故障。而避免出现这一问题的方法便是遵循单一职责原则。虽然单一职责原则如此简单，并且被认为是常识，但是即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。<br><br>为什么会出现这种现象呢？因为有职责扩散。<strong>所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2</strong>。</p>
+</blockquote>
+<h4 id="遵循单一职责原的优点"><a href="#遵循单一职责原的优点" class="headerlink" title="遵循单一职责原的优点"></a>遵循单一职责原的优点</h4><blockquote>
+<ul>
+<li>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br></li>
+<li>提高类的可读性，提高系统的可维护性；<br></li>
+<li>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响;<br></li>
+<li>需要说明的一点是单一职责原则不只是面向对象编程思想所特有的，只要是模块化的程序设计，都适用单一职责原则。<br></li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>合成复用原则</title>
+    <url>/blog/article/20210705080708.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>合成复用原则(Composite Reuse Principle, CRP)：</strong> 尽量使用对象组合，而不是继承来达到复用的目的。</p>
+</blockquote>
+<blockquote>
+<p>通过合成复用原则来使一些已有的对象使之成为对象的一部分，一般通过组合/聚合关系来实现，而尽量不要使用继承。因为组合和聚合可以降低类之间的耦合度，而继承会让系统更加复杂，最重要的一点会破坏系统的封装性，因为继承会把基类的实现细节暴露给子类，同时如果基类变化，子类也必须跟着改变，而且耦合度会很高。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开闭原则</title>
+    <url>/blog/article/20210705080741.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>对扩展开放，对修改关闭。即在尽量不修改原有代码的基础上进行扩展。<br><br>  —— <strong>代理模式</strong>是开闭原则的最佳实践。</p>
+</blockquote>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><blockquote>
+<ul>
+<li>不影响原有代码逻辑的正确性。只需要测试扩展部分的代码；<br></li>
+<li>可以提高代码的复用性；<br></li>
+<li>可以提高系统的可维护性；<br></li>
+</ul>
+</blockquote>
+<h2 id="如何使用开闭原则"><a href="#如何使用开闭原则" class="headerlink" title="如何使用开闭原则"></a>如何使用开闭原则</h2><blockquote>
+<ul>
+<li>抽象约束<ul>
+<li>通过接口或者抽象类约束扩展，对扩展进行边界限定，不允许出现在接口或抽象类中不存在的public方法；<br></li>
+<li>参数类型、引用对象尽量使用接口或者抽象类，而不是实现类；（针对抽象编程）<br></li>
+<li>抽象层尽量保持稳定，一旦确定即不允许修改。<br></li>
+</ul>
+</li>
+<li>元数据控制模块行为<ul>
+<li>通俗来说就是通过配置文件来操作数据，spring的控制反转就是一个很典型的例子。</li>
+</ul>
+</li>
+<li>约定优于配置</li>
+<li>封装变化</li>
+<li>将相同的变化封装到一个接口或者类中</li>
+<li>将不同的变化封装到不同的类或者接口中（单一职责的体现）</li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>接口隔离原则</title>
+    <url>/blog/article/20210805080815.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>接口隔离原则的两个定义：<br></p>
+<ol>
+<li>使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口;<br></li>
+<li>类间的依赖关系应该建立在最小的接口上;<br></li>
+</ol>
+</blockquote>
+<h3 id="概念含义"><a href="#概念含义" class="headerlink" title="概念含义"></a>概念含义</h3><blockquote>
+<ul>
+<li>一个接口代表一个角色，不应该将不同的角色都交给一个接口，因为这样可能会形成一个臃肿的大接口；<br></li>
+<li>特定语言的接口，表示接口仅仅是提供客户端需要的行为，客户端不需要的行为则隐藏起来，应当为客户端提供尽可能小的单独的接口，而不要提供大的总接口。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>总结：</strong><br><br>根据接口隔离原则，我们可明白，每个接口都应只承担一种相对独立的角色，不干不该干的事情。</p>
+</blockquote>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><blockquote>
+<p><strong>场景：</strong> 模拟动物平时的动作，当然也包括人，最初的设计就是一个总接口IAnimal，里面定义动物会有的一些动作。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface IAnimal&#123;</span><br><span class="line">    &#x2F;&#x2F; 吃饭</span><br><span class="line">    void eat();</span><br><span class="line">    &#x2F;&#x2F; 工作</span><br><span class="line">    void work();</span><br><span class="line">    &#x2F;&#x2F;飞行</span><br><span class="line">    void  fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Tony implements IAnimal&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;tony吃&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void work() &#123;</span><br><span class="line">        System.out.println(&quot;tony工作&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void fly() &#123;</span><br><span class="line">        System.out.println(&quot;tony不会飞&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Bird implements IAnimal&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;鸟吃&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void work() &#123;</span><br><span class="line">        System.out.println(&quot;鸟工作&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void fly() &#123;</span><br><span class="line">        System.out.println(&quot;鸟飞&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>根据上面的写法发现Tony需要实现飞的接口，这很明显不仅仅是多余，而且不合理，因此需要通过接口隔离原则进行重构。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;抽象动物的行为</span><br><span class="line">public interface IAnimal &#123;</span><br><span class="line">    &#x2F;&#x2F; 吃饭</span><br><span class="line">    void eat();</span><br><span class="line">    &#x2F;&#x2F; 睡觉</span><br><span class="line">    void sleep();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 高级动物人 的行为</span><br><span class="line">public interface IAdvancedAnimalBehavior &#123;</span><br><span class="line">    &#x2F;&#x2F; 打牌</span><br><span class="line">    void playCard();</span><br><span class="line">    &#x2F;&#x2F; 骑车</span><br><span class="line">    void byBike();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;低级动物的行为</span><br><span class="line">public interface IJuniorAnimalBehavior &#123;</span><br><span class="line">    &#x2F;&#x2F; fly</span><br><span class="line">    void fly();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 实现高级动物人的共通方法</span><br><span class="line">public class AbstractAdvancedAnimal implements IAnimal &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;人吃&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void sleep() &#123;</span><br><span class="line">        System.out.println(&quot;人睡&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 实现低级动物人的共通方法</span><br><span class="line">public class AbstractJuniorAnimal implements IAnimal &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void eat() &#123;</span><br><span class="line">        System.out.println(&quot;动物吃&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void sleep() &#123;</span><br><span class="line">        System.out.println(&quot;动物睡&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; tony</span><br><span class="line">public class Tony extends AbstractAdvancedAnimal implements IAdvancedAnimalBehavior &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void playCard() &#123;</span><br><span class="line">        System.out.println(&quot;tony打牌&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void byBike() &#123;</span><br><span class="line">        System.out.println(&quot;tony骑车&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 鸟</span><br><span class="line">public class Bird extends AbstractJuniorAnimal implements IJuniorAnimalBehavior&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void fly() &#123;</span><br><span class="line">        System.out.println(&quot;鸟飞&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>重构之后，首先定义了一个总的动物接口的大类，然后分别使用了两个抽象类（一个是高级动物，一个是低级动物）分别去实现这些公共的方法，实现中可以抛出异常，表明继承此抽象类的类可以选择性的重写，可不重写。<br><br>之后再定义了两个行为接口表明高级动物和低级动物所特有的，这样使得接口之间完全隔离，动物接口不再糅杂各种各样的角色，<strong>当然接口的大小尺度还是要靠经验来调整，不能太小，会造成接口泛滥，也不能太大，会背离接口隔离原则</strong>。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+<img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迪米特法则</title>
+    <url>/blog/article/20210805080844.html</url>
+    <content><![CDATA[<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>里氏代换原则</title>
+    <url>/blog/article/20210905080908.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>Barbara Liskov提出：</strong><br><br>标准定义：如果对每一个类型为S的对象o1，都有类型为T的对象o2，使得以T定义的所有程序P在所有的对象o1代换o2时，程序P的行为没有变化，那么类型S是类型T的子类型。<br><br><strong>简单解释：</strong><br><br>所有引用基类（父类的）地方都可以用子类来替换，且程序不会有任何的异常。但是反过来就不行，所有使用子类的地方则不一定能用基类来替代。<br><br><strong>举例：</strong> 狗是动物，不能说动物是狗，因为可能还有猫。</p>
+</blockquote>
+<h2 id="里氏代换原则约束"><a href="#里氏代换原则约束" class="headerlink" title="里氏代换原则约束"></a>里氏代换原则约束</h2><blockquote>
+<ul>
+<li>子类必须实现父类的抽象方法，但不得重写（覆盖）父类的非抽象（已实现）方法;<br></li>
+<li>子类中可以添加特有方法（父类中不存在),此时则无法在以父类定义的对象中使用该方法，除非在使用的时候强转基类成子类进行调用;<br></li>
+<li>当子类覆盖或实现父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松;<br></li>
+<li>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。<br></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>总结：</strong><br><br>所以我们在运用里氏替换原则的时候，尽量把父类设计为抽象类或者接口，让子类继承父类或者实现接口并实现在父类中声明的方法，运行时，子类实例替换父类实例，我们可以很方便地扩展系统的功能，同时无须修改原有子类的代码，增加新的功能可以通过增加一个新的子类来实现。<br><br>里氏代换原则是<strong>开闭原则</strong>的具体实现手段之一。</p>
+</blockquote>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 抽象基类</span><br><span class="line">public abstract class Customer &#123;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 子类1</span><br><span class="line">public class CommonCustomer extends Customer&#123;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 子类2</span><br><span class="line">public class VIPCustomer extends Customer&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 逻辑在这里实现，只需要传入对应的类型即可</span><br><span class="line">public class ResetPassword &#123;</span><br><span class="line">    &#x2F;&#x2F; 只需要传入Customer类即可，不管任何类型的Customer类，只要继承自Customer,都可以使用里氏替换原则进行替换，假如有新的类型，我们只需要在配置文件中注入新的类型即可。</span><br><span class="line">    public void resetPassword(Customer customer)&#123;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>里氏替换原则是实现<strong>开闭原则</strong>不可或缺的手段之一。<br><br>在本例中，通过传递参数使用基类对象，针对抽象编程，从而满足开闭原则。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello world!</title>
+    <url>/blog/article/20213903103925.html</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>初始化</category>
+      </categories>
+      <tags>
+        <tag>首页</tag>
+      </tags>
+  </entry>
+</search>
