@@ -851,22 +851,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>外观模式</title>
-    <url>/blog/article/20211705081715.html</url>
-    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>结构型模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>代理模式</title>
     <url>/blog/article/20211605081641.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -926,6 +910,22 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 <p><strong>总结：</strong><br><br>  CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高，但是CGLIB创建代理对象时所花费的时间却比JDK多得多。所以对于单例的对象，因为无需频繁创建对象，用CGLIB合适，反之使用JDK方式要更为合适一些。同时由于CGLib由于是采用动态创建子类的方法，对于final修饰的方法无法进行代理。</p>
 </blockquote>
 <hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>外观模式</title>
+    <url>/blog/article/20211705081715.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
@@ -1083,8 +1083,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>策略模式</title>
-    <url>/blog/article/20210305204333.html</url>
+    <title>观察者模式</title>
+    <url>/blog/article/20210305205733.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1099,8 +1099,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>观察者模式</title>
-    <url>/blog/article/20210305205733.html</url>
+    <title>策略模式</title>
+    <url>/blog/article/20210305204333.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1306,6 +1306,21 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>迪米特法则</title>
+    <url>/blog/article/20210805080844.html</url>
+    <content><![CDATA[<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>接口隔离原则</title>
     <url>/blog/article/20210805080815.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -1339,21 +1354,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
 <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迪米特法则</title>
-    <url>/blog/article/20210805080844.html</url>
-    <content><![CDATA[<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>]]></content>
       <categories>
         <category>设计原则</category>
