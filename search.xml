@@ -78,169 +78,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JVM复习点</title>
-    <url>/blog/article/20213303113340.html</url>
-    <content><![CDATA[<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><ul>
-<li>全限定名获取定义此类的二进制流</li>
-<li>静态存储结构转为方法区的数据结构</li>
-<li>java堆中生成class对象作为入口<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3></li>
-<li>文件格式（魔数  版本  编码等）</li>
-<li>元数据（集成关系  重载参数等）</li>
-<li>字节码（指令跳转   类型转换等）</li>
-<li>符号引用（全限定名找到对应类  其方法与字段  其访问性等）<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3></li>
-<li>类变量赋初值<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3></li>
-<li>常量池的符号引用替换为直接引用</li>
-<li>类或接口  字段  类方法  接口方法的解析<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3></li>
-<li><clinit>()是类变量赋值动作和静态语句块的合并</li>
-<li>类 ① 父类静态语句块优于子类变量赋值 ② JVM保证父类初始化已提取完成</li>
-<li>接口 ① 仅当接口的变量被使用时才初始化</li>
-<li>多线程中会加锁，一个线程执行初始化，其他线程阻塞等待<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3></li>
-</ul>
-<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><ul>
-<li>Bootstrap ClassLoader</li>
-<li>Extension ClassLoader</li>
-<li>Application ClassLoader</li>
-<li>自定义类加载器<h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3></li>
-<li>1.避免类重复加载</li>
-<li>2.避免java核心api被篡改</li>
-</ul>
-<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><h3 id="主内存和工作内存"><a href="#主内存和工作内存" class="headerlink" title="主内存和工作内存"></a>主内存和工作内存</h3><h2 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h2><h3 id="对象在jvm内存中如何分配和流转"><a href="#对象在jvm内存中如何分配和流转" class="headerlink" title="对象在jvm内存中如何分配和流转"></a>对象在jvm内存中如何分配和流转</h3><h3 id="如何设置jvm参数"><a href="#如何设置jvm参数" class="headerlink" title="如何设置jvm参数"></a>如何设置jvm参数</h3><h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><h3 id="young-gc时机"><a href="#young-gc时机" class="headerlink" title="young gc时机"></a>young gc时机</h3><ul>
-<li>eden区满触发<h3 id="old-gc时机"><a href="#old-gc时机" class="headerlink" title="old gc时机"></a>old gc时机</h3></li>
-<li>老年代可用连续内存空间小于新生代历次 young gc进入老年代对象总和的平均大小</li>
-<li>老年代空间不足</li>
-<li>老年代使用率超92% </li>
-</ul>
-<h3 id="full-gc"><a href="#full-gc" class="headerlink" title="full gc"></a>full gc</h3><ul>
-<li>young gc + old gc + 永久代gc</li>
-<li>频繁full gc<ol>
-<li>并发数过大，导致young gc频繁且存活对象太多，survivor区过小，对象频繁进入老年代</li>
-<li>大对象过多</li>
-<li>内存泄漏 - 类似集合之类一直无限制扩容，导致堆内存不够用  </li>
-<li>Metaspace加载类过多</li>
-<li>误调用System.gc</li>
-</ol>
-</li>
-<li>条件<ol>
-<li>老年代内存超阈值（92%）</li>
-<li>老年代可用空间小于历次young gc后升入老年代的平均对象大小</li>
-<li>young gc存活对象过多，survivor放不下，老年代也放不下<h3 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h3></li>
-</ol>
-</li>
-<li>zabbix、open-falcon工具监控</li>
-<li>jstat监控</li>
-<li>tomcat的catalina.sh配置打印gc命令，将gc日志导入MAT查看</li>
-</ul>
-<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="新生代"><a href="#新生代" class="headerlink" title="新生代"></a>新生代</h3><ul>
-<li>Serial<ol>
-<li>复制算法</li>
-<li>暂停所有工作线程</li>
-</ol>
-</li>
-<li>ParNew<ol>
-<li>多线程版的Serial</li>
-</ol>
-</li>
-<li>Parallel Scavenge<ol>
-<li>采用复制算法</li>
-<li>并行多线程</li>
-<li>吞吐量优先<br> 3.1. 吞吐量=代码时间/（代码时间+GC时间）<br> 3.2. 吞吐量：更有效利用CPU<br> 3.3. 停顿时间：适合与用户交互的程序</li>
-</ol>
-</li>
-<li>总结：复制算法</li>
-</ul>
-<h3 id="老年代"><a href="#老年代" class="headerlink" title="老年代"></a>老年代</h3><ul>
-<li>Serial Old<ol>
-<li>标记-整理算法</li>
-</ol>
-</li>
-<li>Parallel Old<ol>
-<li>标记-整理算法</li>
-<li>并行多线程</li>
-<li>吞吐量优先</li>
-</ol>
-</li>
-<li>CMS<ol>
-<li>标记-整理算法</li>
-<li>目标为最小停顿时间</li>
-<li>缺点:<br> ① 对CPU资源非常敏感<br> ② 无法处理浮动垃圾<br> ③ 产生大量碎片</li>
-</ol>
-</li>
-<li>总结：标记整理</li>
-</ul>
-<h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><ul>
-<li>标记整理</li>
-<li>精确控制停顿</li>
-<li>将整个堆划分为固定的区域</li>
-<li>跟踪区域的垃圾堆积程度</li>
-<li>优先回收垃圾最多的区域</li>
-</ul>
-<h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><ul>
-<li>新生代（ParNew）     </li>
-<li>老年代（CMS）    </li>
-<li>G1    </li>
-</ul>
-<h2 id="查看堆栈和gc情况的命令"><a href="#查看堆栈和gc情况的命令" class="headerlink" title="查看堆栈和gc情况的命令"></a>查看堆栈和gc情况的命令</h2><ul>
-<li>jstat -gc pid</li>
-</ul>
-<h2 id="如何判断一个对象是否存活"><a href="#如何判断一个对象是否存活" class="headerlink" title="如何判断一个对象是否存活"></a>如何判断一个对象是否存活</h2><ul>
-<li>GC Roots<ol>
-<li>虚拟机栈中引用的对象</li>
-<li>方法区类静态属性引用的对象</li>
-<li>方法区常量池引用的对象</li>
-<li>本地方法栈JNI引用的对象</li>
-</ol>
-</li>
-<li>GC Roots没有引用是第一次标记，不会真正回收，<br>如果没有执行finalize方法，才真正回收</li>
-</ul>
-<h2 id="对象进入老年代条件"><a href="#对象进入老年代条件" class="headerlink" title="对象进入老年代条件"></a>对象进入老年代条件</h2><ul>
-<li>默认15次young gc还没被回收</li>
-<li>young gc过后，同龄对象大小超过survivor的50%，直接进入老年代</li>
-<li>young gc后存活对象太多无法放入survivor</li>
-</ul>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ul>
-<li>加大新生代内存（特别是survivor内存），避免频繁进入老年代</li>
-<li>减少躲过GC次数</li>
-<li>降低大对象进入老年代的内存门槛</li>
-</ul>
-<h2 id="jdk8优化"><a href="#jdk8优化" class="headerlink" title="jdk8优化"></a>jdk8优化</h2><ul>
-<li><p>将永久代放到本地内存中，将常量池和静态变量放到堆中</p>
-<ol>
-<li>将类元数据放到本地内存，<br>避免在反射、代理时造成经常full gc</li>
-<li>原来每个项目都会占用自己永久代，同个class会占用多个内存空间；<br>优化后metaspaces里只存一份class，提高内存利用率<h2 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h2></li>
-</ol>
-</li>
-<li><p>是一种技术，在开启后，方法栈上的对象在方法执行完后，栈帧弹出，对象就会回收。这样就不需要等内存满时再触发内存回收</p>
-</li>
-<li><p>同步锁消除</p>
-<ol>
-<li>如果发现某个对象只能从一个线程可访问，那么在这个对象上的操作可以不需要同步</li>
-<li>逃逸分析把锁消除了</li>
-<li>逃逸分析时方法级别，因为jit的即时编译是方法级别</li>
-</ol>
-</li>
-<li><p>分离对象或标量替换   </p>
-<ol>
-<li>把对象分解成一个个基本类型，并且内存分配不再是分配在堆上，而是分配在栈上</li>
-<li>减少内存使用，因为不用生成对象头</li>
-<li>程序内存回收效率高，GC频率减少</li>
-</ol>
-</li>
-</ul>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-     ]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JVM面试</title>
     <url>/blog/article/20213903103919.html</url>
     <content><![CDATA[<p><strong>1、说一下JVM的主要组成部分及其作用</strong></p>
@@ -434,6 +271,169 @@
       <tags>
         <tag>基础</tag>
         <tag>多线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM复习点</title>
+    <url>/blog/article/20213303113340.html</url>
+    <content><![CDATA[<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><ul>
+<li>全限定名获取定义此类的二进制流</li>
+<li>静态存储结构转为方法区的数据结构</li>
+<li>java堆中生成class对象作为入口<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3></li>
+<li>文件格式（魔数  版本  编码等）</li>
+<li>元数据（集成关系  重载参数等）</li>
+<li>字节码（指令跳转   类型转换等）</li>
+<li>符号引用（全限定名找到对应类  其方法与字段  其访问性等）<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3></li>
+<li>类变量赋初值<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3></li>
+<li>常量池的符号引用替换为直接引用</li>
+<li>类或接口  字段  类方法  接口方法的解析<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3></li>
+<li><clinit>()是类变量赋值动作和静态语句块的合并</li>
+<li>类 ① 父类静态语句块优于子类变量赋值 ② JVM保证父类初始化已提取完成</li>
+<li>接口 ① 仅当接口的变量被使用时才初始化</li>
+<li>多线程中会加锁，一个线程执行初始化，其他线程阻塞等待<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3></li>
+</ul>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><ul>
+<li>Bootstrap ClassLoader</li>
+<li>Extension ClassLoader</li>
+<li>Application ClassLoader</li>
+<li>自定义类加载器<h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3></li>
+<li>1.避免类重复加载</li>
+<li>2.避免java核心api被篡改</li>
+</ul>
+<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><h3 id="主内存和工作内存"><a href="#主内存和工作内存" class="headerlink" title="主内存和工作内存"></a>主内存和工作内存</h3><h2 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h2><h3 id="对象在jvm内存中如何分配和流转"><a href="#对象在jvm内存中如何分配和流转" class="headerlink" title="对象在jvm内存中如何分配和流转"></a>对象在jvm内存中如何分配和流转</h3><h3 id="如何设置jvm参数"><a href="#如何设置jvm参数" class="headerlink" title="如何设置jvm参数"></a>如何设置jvm参数</h3><h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><h3 id="young-gc时机"><a href="#young-gc时机" class="headerlink" title="young gc时机"></a>young gc时机</h3><ul>
+<li>eden区满触发<h3 id="old-gc时机"><a href="#old-gc时机" class="headerlink" title="old gc时机"></a>old gc时机</h3></li>
+<li>老年代可用连续内存空间小于新生代历次 young gc进入老年代对象总和的平均大小</li>
+<li>老年代空间不足</li>
+<li>老年代使用率超92% </li>
+</ul>
+<h3 id="full-gc"><a href="#full-gc" class="headerlink" title="full gc"></a>full gc</h3><ul>
+<li>young gc + old gc + 永久代gc</li>
+<li>频繁full gc<ol>
+<li>并发数过大，导致young gc频繁且存活对象太多，survivor区过小，对象频繁进入老年代</li>
+<li>大对象过多</li>
+<li>内存泄漏 - 类似集合之类一直无限制扩容，导致堆内存不够用  </li>
+<li>Metaspace加载类过多</li>
+<li>误调用System.gc</li>
+</ol>
+</li>
+<li>条件<ol>
+<li>老年代内存超阈值（92%）</li>
+<li>老年代可用空间小于历次young gc后升入老年代的平均对象大小</li>
+<li>young gc存活对象过多，survivor放不下，老年代也放不下<h3 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h3></li>
+</ol>
+</li>
+<li>zabbix、open-falcon工具监控</li>
+<li>jstat监控</li>
+<li>tomcat的catalina.sh配置打印gc命令，将gc日志导入MAT查看</li>
+</ul>
+<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="新生代"><a href="#新生代" class="headerlink" title="新生代"></a>新生代</h3><ul>
+<li>Serial<ol>
+<li>复制算法</li>
+<li>暂停所有工作线程</li>
+</ol>
+</li>
+<li>ParNew<ol>
+<li>多线程版的Serial</li>
+</ol>
+</li>
+<li>Parallel Scavenge<ol>
+<li>采用复制算法</li>
+<li>并行多线程</li>
+<li>吞吐量优先<br> 3.1. 吞吐量=代码时间/（代码时间+GC时间）<br> 3.2. 吞吐量：更有效利用CPU<br> 3.3. 停顿时间：适合与用户交互的程序</li>
+</ol>
+</li>
+<li>总结：复制算法</li>
+</ul>
+<h3 id="老年代"><a href="#老年代" class="headerlink" title="老年代"></a>老年代</h3><ul>
+<li>Serial Old<ol>
+<li>标记-整理算法</li>
+</ol>
+</li>
+<li>Parallel Old<ol>
+<li>标记-整理算法</li>
+<li>并行多线程</li>
+<li>吞吐量优先</li>
+</ol>
+</li>
+<li>CMS<ol>
+<li>标记-整理算法</li>
+<li>目标为最小停顿时间</li>
+<li>缺点:<br> ① 对CPU资源非常敏感<br> ② 无法处理浮动垃圾<br> ③ 产生大量碎片</li>
+</ol>
+</li>
+<li>总结：标记整理</li>
+</ul>
+<h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><ul>
+<li>标记整理</li>
+<li>精确控制停顿</li>
+<li>将整个堆划分为固定的区域</li>
+<li>跟踪区域的垃圾堆积程度</li>
+<li>优先回收垃圾最多的区域</li>
+</ul>
+<h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><ul>
+<li>新生代（ParNew）     </li>
+<li>老年代（CMS）    </li>
+<li>G1    </li>
+</ul>
+<h2 id="查看堆栈和gc情况的命令"><a href="#查看堆栈和gc情况的命令" class="headerlink" title="查看堆栈和gc情况的命令"></a>查看堆栈和gc情况的命令</h2><ul>
+<li>jstat -gc pid</li>
+</ul>
+<h2 id="如何判断一个对象是否存活"><a href="#如何判断一个对象是否存活" class="headerlink" title="如何判断一个对象是否存活"></a>如何判断一个对象是否存活</h2><ul>
+<li>GC Roots<ol>
+<li>虚拟机栈中引用的对象</li>
+<li>方法区类静态属性引用的对象</li>
+<li>方法区常量池引用的对象</li>
+<li>本地方法栈JNI引用的对象</li>
+</ol>
+</li>
+<li>GC Roots没有引用是第一次标记，不会真正回收，<br>如果没有执行finalize方法，才真正回收</li>
+</ul>
+<h2 id="对象进入老年代条件"><a href="#对象进入老年代条件" class="headerlink" title="对象进入老年代条件"></a>对象进入老年代条件</h2><ul>
+<li>默认15次young gc还没被回收</li>
+<li>young gc过后，同龄对象大小超过survivor的50%，直接进入老年代</li>
+<li>young gc后存活对象太多无法放入survivor</li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ul>
+<li>加大新生代内存（特别是survivor内存），避免频繁进入老年代</li>
+<li>减少躲过GC次数</li>
+<li>降低大对象进入老年代的内存门槛</li>
+</ul>
+<h2 id="jdk8优化"><a href="#jdk8优化" class="headerlink" title="jdk8优化"></a>jdk8优化</h2><ul>
+<li><p>将永久代放到本地内存中，将常量池和静态变量放到堆中</p>
+<ol>
+<li>将类元数据放到本地内存，<br>避免在反射、代理时造成经常full gc</li>
+<li>原来每个项目都会占用自己永久代，同个class会占用多个内存空间；<br>优化后metaspaces里只存一份class，提高内存利用率<h2 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h2></li>
+</ol>
+</li>
+<li><p>是一种技术，在开启后，方法栈上的对象在方法执行完后，栈帧弹出，对象就会回收。这样就不需要等内存满时再触发内存回收</p>
+</li>
+<li><p>同步锁消除</p>
+<ol>
+<li>如果发现某个对象只能从一个线程可访问，那么在这个对象上的操作可以不需要同步</li>
+<li>逃逸分析把锁消除了</li>
+<li>逃逸分析时方法级别，因为jit的即时编译是方法级别</li>
+</ol>
+</li>
+<li><p>分离对象或标量替换   </p>
+<ol>
+<li>把对象分解成一个个基本类型，并且内存分配不再是分配在堆上，而是分配在栈上</li>
+<li>减少内存使用，因为不用生成对象头</li>
+<li>程序内存回收效率高，GC频率减少</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+     ]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>JVM</tag>
       </tags>
   </entry>
   <entry>
@@ -751,8 +751,75 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
   <entry>
     <title>单例模式</title>
     <url>/blog/article/20211205081216.html</url>
-    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>GOF书中提到的定义： 保证一个类仅有一个实例，并提供一个访问它的<strong>全局访问点</strong>。<br><br><strong>解释如下：</strong><br></p>
+<ul>
+<li>单例类只能有一个实例；<br></li>
+<li>单例类必须自己创建自己的唯一实例；<br></li>
+<li>单例类必须给所有的其他对象提供自己这唯一的实例。<br><br><em>(由于这个唯一实例是供全局使用的，那么这对象注定被static关键修饰的)</em></li>
+</ul>
+</blockquote>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><blockquote>
+<p>单例模式确保某个类只有一个实例，而且自行实例化，并向整个系统提供这个实例。<br><br>在计算机系统中，线程池、缓存、日至对象、对话框、打印机、显卡驱动程序的对象常被设计为单例模式。这些应用或多或少的具备系统资源管理器的功能。<br><br>每台计算机可以有若干个打印机，但只能有一个Printer Spooler，以避免两个打印作业同时输出到打印机中。每台计算机可以有若干通信端口，系统应当集中管理这些通信端口，以避免一个通信端口同时被两个请求同时调用。<strong>总之，选择单例模式就是为了避免不一致状态，避免政出多头。</strong></p>
+</blockquote>
+<h2 id="4种方式"><a href="#4种方式" class="headerlink" title="4种方式"></a>4种方式</h2><h3 id="一、懒汉式单例"><a href="#一、懒汉式单例" class="headerlink" title="一、懒汉式单例"></a>一、懒汉式单例</h3><blockquote>
+<p>懒汉式，顾名思义就是实例在用到的时候才去创建，“比较懒”，用的时候才去检查有没有实例，如果有则返回，没有则新建。有线程安全和线程不安全两种写法，区别就是synchronized关键字。<br></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例类.在第一次调用的时候实例化自己 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton single=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态工厂方法 -- 注：下面的关于线程安全的问题，会在这个方法进行改造</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">if</span> (single == <span class="keyword">null</span>) &#123;  </span><br><span class="line">             single = <span class="keyword">new</span> Singleton();</span><br><span class="line">         &#125;  </span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Singleton通过将构造方法限定为private避免了类在外部被实例化，在同一个虚拟机范围内，Singleton的唯一实例只能通过getInstance()方法访问。<br><br> <em>（事实上，通过Java反射机制是能够实例化构造方法为private的类的，那基本上会使所有的Java单例实现失效。）</em><br></p>
+</blockquote>
+<blockquote>
+<p>但是以上懒汉式单例的实现没有考虑线程安全问题，它是线程不安全的，并发环境下很可能出现多个Singleton实例，要实现线程安全，有以下三种方式，都是对getInstance这个方法改造，保证了懒汉式单例的线程安全。<br><br><em>(这里需要有对线程知识的了解。)</em></p>
+</blockquote>
+<h4 id="1-在getInstance方法上加同步"><a href="#1-在getInstance方法上加同步" class="headerlink" title="1. 在getInstance方法上加同步"></a>1. 在getInstance方法上加同步</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static synchronized Singleton getInstance() &#123;</span><br><span class="line"> if (single &#x3D;&#x3D; null) &#123;  </span><br><span class="line">     single &#x3D; new Singleton();</span><br><span class="line"> &#125;  </span><br><span class="line">return single;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-双重检查锁定"><a href="#2-双重检查锁定" class="headerlink" title="2. 双重检查锁定"></a>2. 双重检查锁定</h4><blockquote>
+<p>双检锁，又叫双重校验锁，综合了懒汉式和饿汉式两者的优缺点整合而成。<br><br>在下面代码实现中，特点是在synchronized关键字内外都加了一层if条件判断，这样既保证了线程安全，又比直接上锁提高了执行效率，还节省了内存空间。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static Singleton getInstance() &#123;</span><br><span class="line">    if (singleton &#x3D;&#x3D; null) &#123;  </span><br><span class="line">        synchronized (Singleton.class) &#123;  </span><br><span class="line">           if (singleton &#x3D;&#x3D; null) &#123;  </span><br><span class="line">              singleton &#x3D; new Singleton(); </span><br><span class="line">           &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return singleton;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h4 id="3-静态内部类"><a href="#3-静态内部类" class="headerlink" title="3. 静态内部类"></a>3. 静态内部类</h4><blockquote>
+<p>静态内部类的方式效果类似双检锁，但实现更简单。但这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private static class LazyHolder &#123;  </span><br><span class="line">       private static final Singleton INSTANCE &#x3D; new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line">    public static final Singleton getInstance() &#123;  </span><br><span class="line">       return LazyHolder.INSTANCE;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这种比上面1、2都好一些，既实现了线程安全，又避免了同步带来的性能影响。</p>
+</blockquote>
+<h3 id="二、饿汉式单例"><a href="#二、饿汉式单例" class="headerlink" title="二、饿汉式单例"></a>二、饿汉式单例</h3><blockquote>
+<p>饿汉式，从名字上也很好理解，就是“比较勤”，实例在初始化的时候就已经建好了，不管你有没有用到，都先建好了再说。<br><br>好处是没有线程安全的问题，坏处是浪费内存空间。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//饿汉式单例类.在类初始化时，已经自行实例化 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton1</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">//final关键字决定了，这是一个静态对象，天生线程安全的。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton1 single = <span class="keyword">new</span> Singleton1();</span><br><span class="line">    <span class="comment">//静态工厂方法 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、登记式单例-可忽略"><a href="#三、登记式单例-可忽略" class="headerlink" title="三、登记式单例(可忽略)"></a><del>三、登记式单例(可忽略)</del></h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//类似Spring里面的方法，将类名注册，下次从里面直接获取。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton3</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,Singleton3&gt; map = <span class="keyword">new</span> HashMap&lt;String,Singleton3&gt;();</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        Singleton3 single = <span class="keyword">new</span> Singleton3();</span><br><span class="line">        map.put(single.getClass().getName(), single);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//保护的默认构造子</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Singleton3</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">//静态工厂方法,返还此类惟一的实例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton3 <span class="title">getInstance</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(name == <span class="keyword">null</span>) &#123;</span><br><span class="line">            name = Singleton3.class.getName();</span><br><span class="line">            System.out.println(<span class="string">&quot;name == null&quot;</span>+<span class="string">&quot;---&gt;name=&quot;</span>+name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(map.get(name) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                map.put(name, (Singleton3) Class.forName(name).newInstance());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> map.get(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//一个示意性的商业方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">about</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello, I am RegSingleton.&quot;</span>;    </span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singleton3 single3 = Singleton3.getInstance(<span class="keyword">null</span>);</span><br><span class="line">        System.out.println(single3.about());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 登记式单例实际上维护了一组单例类的实例，将这些实例存放在一个Map（登记薄）中，对于已经登记过的实例，则从Map直接返回，对于没有登记的，则先登记，然后返回。 <br><br>这里我对登记式单例标记了可忽略，我的理解来说，首先它用的比较少，另外其实内部实现还是用的饿汉式单例，因为其中的static方法块，它的单例在类被装载的时候就被实例化了。<br></p>
+</blockquote>
+<h3 id="四、枚举类式单例"><a href="#四、枚举类式单例" class="headerlink" title="四、枚举类式单例"></a>四、枚举类式单例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">SingletonEnum</span> </span>&#123;</span><br><span class="line">    ;</span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line">    <span class="keyword">private</span> String desc;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SingletonEnum</span><span class="params">(String code,String desc)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">        <span class="keyword">this</span>.desc = desc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>枚举的方式是比较少见的一种实现方式，但是看上面的代码实现，却更简洁清晰。并且她还自动支持序列化机制，绝对防止多次实例化。</p>
+</blockquote>
+<h2 id="区别对比"><a href="#区别对比" class="headerlink" title="区别对比"></a>区别对比</h2><h3 id="称呼的角度"><a href="#称呼的角度" class="headerlink" title="称呼的角度"></a>称呼的角度</h3><blockquote>
+<p>饿汉就是类一旦加载，就把单例初始化完成，保证getInstance的时候，单例是已经存在的了；<br><br>懒汉比较懒，只有当调用getInstance的时候，才回去初始化这个单例。</p>
+</blockquote>
+<h3 id="线程安全的角度"><a href="#线程安全的角度" class="headerlink" title="线程安全的角度"></a>线程安全的角度</h3><blockquote>
+<p>饿汉式天生就是线程安全的，可以直接用于多线程而不会出现问题；<br><br>懒汉式本身是非线程安全的，为了实现线程安全有几种写法，分别是上面的1、2、3，这三种实现在资源加载和性能方面有些区别。</p>
+</blockquote>
+<h3 id="资源加载和性能的角度"><a href="#资源加载和性能的角度" class="headerlink" title="资源加载和性能的角度"></a>资源加载和性能的角度</h3><blockquote>
+<p>饿汉式在类创建的同时就实例化一个静态对象出来，不管之后会不会使用这个单例，都会占据一定的内存，但是相应的，在第一次调用时速度也会更快，因为其资源已经初始化完成;<br><br>懒汉式顾名思义，会延迟加载，在第一次使用该单例的时候才会实例化对象出来，第一次调用时要做初始化，如果要做的工作比较多，性能上会有些延迟，之后就和饿汉式一样了。</p>
+</blockquote>
+<blockquote>
+<p>至于1、2、3这三种实现又有些区别：<br></p>
+<ul>
+<li>第1种，在方法调用上加了同步，虽然线程安全了，但是每次都要同步，会影响性能，毕竟99%的情况下是不需要同步的，<br></li>
+<li>第2种，在getInstance中做了两次null检查，确保了只有第一次调用单例的时候才会做同步，这样也是线程安全的，同时避免了每次都同步的性能损耗 <br></li>
+<li>第3种，利用了classloader的机制来保证初始化instance时只有一个线程，所以也是线程安全的，同时没有性能损耗，所以一般我倾向于使用这一种。<br></li>
+</ul>
+</blockquote>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><h3 id="什么是线程安全？"><a href="#什么是线程安全？" class="headerlink" title="什么是线程安全？"></a>什么是线程安全？</h3><blockquote>
+<p>如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。<br><br>或者说：一个类或者程序所提供的接口对于线程来说是原子操作，或者多个线程之间的切换不会导致该接口的执行结果存在二义性,也就是说我们不用考虑同步的问题，那就是线程安全的。</p>
+</blockquote>
+<hr>
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>
@@ -783,8 +850,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>工厂方法模式</title>
-    <url>/blog/article/20211405081412.html</url>
+    <title>建造者模式</title>
+    <url>/blog/article/20211405081445.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -800,8 +867,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>建造者模式</title>
-    <url>/blog/article/20211405081445.html</url>
+    <title>工厂方法模式</title>
+    <url>/blog/article/20211405081412.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -971,8 +1038,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>装饰模式</title>
-    <url>/blog/article/20211805081847.html</url>
+    <title>适配器模式</title>
+    <url>/blog/article/20211905081917.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -987,8 +1054,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>适配器模式</title>
-    <url>/blog/article/20211905081917.html</url>
+    <title>装饰模式</title>
+    <url>/blog/article/20211805081847.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1083,8 +1150,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>观察者模式</title>
-    <url>/blog/article/20210305205733.html</url>
+    <title>策略模式</title>
+    <url>/blog/article/20210305204333.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1099,8 +1166,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>策略模式</title>
-    <url>/blog/article/20210305204333.html</url>
+    <title>观察者模式</title>
+    <url>/blog/article/20210305205733.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1306,21 +1373,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>迪米特法则</title>
-    <url>/blog/article/20210805080844.html</url>
-    <content><![CDATA[<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>接口隔离原则</title>
     <url>/blog/article/20210805080815.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -1354,6 +1406,21 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
 <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迪米特法则</title>
+    <url>/blog/article/20210805080844.html</url>
+    <content><![CDATA[<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>]]></content>
       <categories>
         <category>设计原则</category>

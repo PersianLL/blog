@@ -18,16 +18,16 @@
   
   
   <title>单例模式 | Persian博客</title>
-  <meta name="description" content="这里是内容 欢迎关注我的公众号，原创技术文章第一时间推送。">
+  <meta name="description" content="概念 GOF书中提到的定义： 保证一个类仅有一个实例，并提供一个访问它的全局访问点。解释如下：  单例类只能有一个实例； 单例类必须自己创建自己的唯一实例； 单例类必须给所有的其他对象提供自己这唯一的实例。(由于这个唯一实例是供全局使用的，那么这对象注定被static关键修饰的)   应用场景 单例模式确保某个类只有一个实例，而且自行实例化，并向整个系统提供这个实例。在计算机系统中，线程池、缓存、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单例模式">
 <meta property="og:url" content="http://persian.gitee.io/blog/article/20211205081216.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这里是内容 欢迎关注我的公众号，原创技术文章第一时间推送。">
+<meta property="og:description" content="概念 GOF书中提到的定义： 保证一个类仅有一个实例，并提供一个访问它的全局访问点。解释如下：  单例类只能有一个实例； 单例类必须自己创建自己的唯一实例； 单例类必须给所有的其他对象提供自己这唯一的实例。(由于这个唯一实例是供全局使用的，那么这对象注定被static关键修饰的)   应用场景 单例模式确保某个类只有一个实例，而且自行实例化，并向整个系统提供这个实例。在计算机系统中，线程池、缓存、">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
 <meta property="article:published_time" content="2021-03-05T13:02:06.558Z">
-<meta property="article:modified_time" content="2021-03-05T12:17:48.834Z">
+<meta property="article:modified_time" content="2021-03-06T03:22:02.792Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="创建型模式">
@@ -62,8 +62,8 @@
           <img class="img-circle img-rotate" src="/blog/images/avatar.jpg" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">Persian</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">时刻学习Java的一枚小小学生。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
       </div>
       
       <div class="search" id="search-form-wrap">
@@ -157,12 +157,6 @@
     <ul class="social-links">
     	
         <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
-        
-        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
-        
-        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
         
         <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
@@ -361,8 +355,75 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>GOF书中提到的定义： 保证一个类仅有一个实例，并提供一个访问它的<strong>全局访问点</strong>。<br><br><strong>解释如下：</strong><br></p>
+<ul>
+<li>单例类只能有一个实例；<br></li>
+<li>单例类必须自己创建自己的唯一实例；<br></li>
+<li>单例类必须给所有的其他对象提供自己这唯一的实例。<br><br><em>(由于这个唯一实例是供全局使用的，那么这对象注定被static关键修饰的)</em></li>
+</ul>
+</blockquote>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><blockquote>
+<p>单例模式确保某个类只有一个实例，而且自行实例化，并向整个系统提供这个实例。<br><br>在计算机系统中，线程池、缓存、日至对象、对话框、打印机、显卡驱动程序的对象常被设计为单例模式。这些应用或多或少的具备系统资源管理器的功能。<br><br>每台计算机可以有若干个打印机，但只能有一个Printer Spooler，以避免两个打印作业同时输出到打印机中。每台计算机可以有若干通信端口，系统应当集中管理这些通信端口，以避免一个通信端口同时被两个请求同时调用。<strong>总之，选择单例模式就是为了避免不一致状态，避免政出多头。</strong></p>
+</blockquote>
+<h2 id="4种方式"><a href="#4种方式" class="headerlink" title="4种方式"></a>4种方式</h2><h3 id="一、懒汉式单例"><a href="#一、懒汉式单例" class="headerlink" title="一、懒汉式单例"></a>一、懒汉式单例</h3><blockquote>
+<p>懒汉式，顾名思义就是实例在用到的时候才去创建，“比较懒”，用的时候才去检查有没有实例，如果有则返回，没有则新建。有线程安全和线程不安全两种写法，区别就是synchronized关键字。<br></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式单例类.在第一次调用的时候实例化自己 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton single=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态工厂方法 -- 注：下面的关于线程安全的问题，会在这个方法进行改造</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">if</span> (single == <span class="keyword">null</span>) &#123;  </span><br><span class="line">             single = <span class="keyword">new</span> Singleton();</span><br><span class="line">         &#125;  </span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Singleton通过将构造方法限定为private避免了类在外部被实例化，在同一个虚拟机范围内，Singleton的唯一实例只能通过getInstance()方法访问。<br><br> <em>（事实上，通过Java反射机制是能够实例化构造方法为private的类的，那基本上会使所有的Java单例实现失效。）</em><br></p>
+</blockquote>
+<blockquote>
+<p>但是以上懒汉式单例的实现没有考虑线程安全问题，它是线程不安全的，并发环境下很可能出现多个Singleton实例，要实现线程安全，有以下三种方式，都是对getInstance这个方法改造，保证了懒汉式单例的线程安全。<br><br><em>(这里需要有对线程知识的了解。)</em></p>
+</blockquote>
+<h4 id="1-在getInstance方法上加同步"><a href="#1-在getInstance方法上加同步" class="headerlink" title="1. 在getInstance方法上加同步"></a>1. 在getInstance方法上加同步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static synchronized Singleton getInstance() &#123;</span><br><span class="line"> if (single &#x3D;&#x3D; null) &#123;  </span><br><span class="line">     single &#x3D; new Singleton();</span><br><span class="line"> &#125;  </span><br><span class="line">return single;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-双重检查锁定"><a href="#2-双重检查锁定" class="headerlink" title="2. 双重检查锁定"></a>2. 双重检查锁定</h4><blockquote>
+<p>双检锁，又叫双重校验锁，综合了懒汉式和饿汉式两者的优缺点整合而成。<br><br>在下面代码实现中，特点是在synchronized关键字内外都加了一层if条件判断，这样既保证了线程安全，又比直接上锁提高了执行效率，还节省了内存空间。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static Singleton getInstance() &#123;</span><br><span class="line">    if (singleton &#x3D;&#x3D; null) &#123;  </span><br><span class="line">        synchronized (Singleton.class) &#123;  </span><br><span class="line">           if (singleton &#x3D;&#x3D; null) &#123;  </span><br><span class="line">              singleton &#x3D; new Singleton(); </span><br><span class="line">           &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    return singleton;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h4 id="3-静态内部类"><a href="#3-静态内部类" class="headerlink" title="3. 静态内部类"></a>3. 静态内部类</h4><blockquote>
+<p>静态内部类的方式效果类似双检锁，但实现更简单。但这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">    private static class LazyHolder &#123;  </span><br><span class="line">       private static final Singleton INSTANCE &#x3D; new Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    private Singleton ()&#123;&#125;  </span><br><span class="line">    public static final Singleton getInstance() &#123;  </span><br><span class="line">       return LazyHolder.INSTANCE;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这种比上面1、2都好一些，既实现了线程安全，又避免了同步带来的性能影响。</p>
+</blockquote>
+<h3 id="二、饿汉式单例"><a href="#二、饿汉式单例" class="headerlink" title="二、饿汉式单例"></a>二、饿汉式单例</h3><blockquote>
+<p>饿汉式，从名字上也很好理解，就是“比较勤”，实例在初始化的时候就已经建好了，不管你有没有用到，都先建好了再说。<br><br>好处是没有线程安全的问题，坏处是浪费内存空间。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//饿汉式单例类.在类初始化时，已经自行实例化 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton1</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">//final关键字决定了，这是一个静态对象，天生线程安全的。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton1 single = <span class="keyword">new</span> Singleton1();</span><br><span class="line">    <span class="comment">//静态工厂方法 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、登记式单例-可忽略"><a href="#三、登记式单例-可忽略" class="headerlink" title="三、登记式单例(可忽略)"></a><del>三、登记式单例(可忽略)</del></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类似Spring里面的方法，将类名注册，下次从里面直接获取。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton3</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,Singleton3&gt; map = <span class="keyword">new</span> HashMap&lt;String,Singleton3&gt;();</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        Singleton3 single = <span class="keyword">new</span> Singleton3();</span><br><span class="line">        map.put(single.getClass().getName(), single);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//保护的默认构造子</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Singleton3</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">//静态工厂方法,返还此类惟一的实例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton3 <span class="title">getInstance</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(name == <span class="keyword">null</span>) &#123;</span><br><span class="line">            name = Singleton3.class.getName();</span><br><span class="line">            System.out.println(<span class="string">&quot;name == null&quot;</span>+<span class="string">&quot;---&gt;name=&quot;</span>+name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(map.get(name) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                map.put(name, (Singleton3) Class.forName(name).newInstance());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> map.get(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//一个示意性的商业方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">about</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello, I am RegSingleton.&quot;</span>;    </span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singleton3 single3 = Singleton3.getInstance(<span class="keyword">null</span>);</span><br><span class="line">        System.out.println(single3.about());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 登记式单例实际上维护了一组单例类的实例，将这些实例存放在一个Map（登记薄）中，对于已经登记过的实例，则从Map直接返回，对于没有登记的，则先登记，然后返回。 <br><br>这里我对登记式单例标记了可忽略，我的理解来说，首先它用的比较少，另外其实内部实现还是用的饿汉式单例，因为其中的static方法块，它的单例在类被装载的时候就被实例化了。<br></p>
+</blockquote>
+<h3 id="四、枚举类式单例"><a href="#四、枚举类式单例" class="headerlink" title="四、枚举类式单例"></a>四、枚举类式单例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">SingletonEnum</span> </span>&#123;</span><br><span class="line">    ;</span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line">    <span class="keyword">private</span> String desc;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SingletonEnum</span><span class="params">(String code,String desc)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">        <span class="keyword">this</span>.desc = desc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>枚举的方式是比较少见的一种实现方式，但是看上面的代码实现，却更简洁清晰。并且她还自动支持序列化机制，绝对防止多次实例化。</p>
+</blockquote>
+<h2 id="区别对比"><a href="#区别对比" class="headerlink" title="区别对比"></a>区别对比</h2><h3 id="称呼的角度"><a href="#称呼的角度" class="headerlink" title="称呼的角度"></a>称呼的角度</h3><blockquote>
+<p>饿汉就是类一旦加载，就把单例初始化完成，保证getInstance的时候，单例是已经存在的了；<br><br>懒汉比较懒，只有当调用getInstance的时候，才回去初始化这个单例。</p>
+</blockquote>
+<h3 id="线程安全的角度"><a href="#线程安全的角度" class="headerlink" title="线程安全的角度"></a>线程安全的角度</h3><blockquote>
+<p>饿汉式天生就是线程安全的，可以直接用于多线程而不会出现问题；<br><br>懒汉式本身是非线程安全的，为了实现线程安全有几种写法，分别是上面的1、2、3，这三种实现在资源加载和性能方面有些区别。</p>
+</blockquote>
+<h3 id="资源加载和性能的角度"><a href="#资源加载和性能的角度" class="headerlink" title="资源加载和性能的角度"></a>资源加载和性能的角度</h3><blockquote>
+<p>饿汉式在类创建的同时就实例化一个静态对象出来，不管之后会不会使用这个单例，都会占据一定的内存，但是相应的，在第一次调用时速度也会更快，因为其资源已经初始化完成;<br><br>懒汉式顾名思义，会延迟加载，在第一次使用该单例的时候才会实例化对象出来，第一次调用时要做初始化，如果要做的工作比较多，性能上会有些延迟，之后就和饿汉式一样了。</p>
+</blockquote>
+<blockquote>
+<p>至于1、2、3这三种实现又有些区别：<br></p>
+<ul>
+<li>第1种，在方法调用上加了同步，虽然线程安全了，但是每次都要同步，会影响性能，毕竟99%的情况下是不需要同步的，<br></li>
+<li>第2种，在getInstance中做了两次null检查，确保了只有第一次调用单例的时候才会做同步，这样也是线程安全的，同时避免了每次都同步的性能损耗 <br></li>
+<li>第3种，利用了classloader的机制来保证初始化instance时只有一个线程，所以也是线程安全的，同时没有性能损耗，所以一般我倾向于使用这一种。<br></li>
+</ul>
+</blockquote>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><h3 id="什么是线程安全？"><a href="#什么是线程安全？" class="headerlink" title="什么是线程安全？"></a>什么是线程安全？</h3><blockquote>
+<p>如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。<br><br>或者说：一个类或者程序所提供的接口对于线程来说是原子操作，或者多个线程之间的切换不会导致该接口的执行结果存在二义性,也就是说我们不用考虑同步的问题，那就是线程安全的。</p>
+</blockquote>
+<hr>
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>
@@ -394,7 +455,7 @@
         </a>
       </div>
       <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/PersianLL" target="_blank"><span class="text-dark">Persian</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <h3 class="media-heading"><a href="https://github.com/PersianLL" target="_blank"><span class="text-dark">Persian</span><small class="ml-1x">时刻学习Java的一枚小小学生。</small></a></h3>
         <div>个人简介。</div>
       </div>
     </figure>
@@ -495,12 +556,6 @@
     <ul class="social-links">
     	
         <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
-        
-        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
-        
-        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
         
         <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
