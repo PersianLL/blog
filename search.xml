@@ -1,53 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>JVM面试</title>
-    <url>/blog/article/20213903103919.html</url>
-    <content><![CDATA[<p><strong>1、说一下JVM的主要组成部分及其作用</strong></p>
-<p>JVM包括类装载子系统、运行时数据区、执行引擎、本地接口四个部分；</p>
-<p>类装载子系统通过类加载器将class字节码加载到JVM运行时数据区的方法区（jdk1.8及以后改为了元空间）；运行时数据区用于存储程序运行时所产生的各种数据；执行引擎负责将class字节码解析为机器指令并交给CPU进行处理，这个过程中可能会调用到系统提供的native方法；</p>
-<p><strong>2、描述一下JVM运行时数据区（通常也被叫作JVM内存模型，要区别于Java内存模型~JMM）</strong></p>
-<p>JVM运行时数据区主要包括堆区、方法区（jdk1.8及以后改为了元空间）、虚拟机栈、本地方法栈、程序计数器五个区域，其中堆区、方法区属于所有线程共享内存区域，虚拟机栈、本地方法栈、程序计数器属于每个线程独享的内存区域；</p>
-<ul>
-<li>堆区用于存放对象实例；</li>
-<li>方法区用于存储类信息、常量、静态变量、即时编译器编译后的代码等；</li>
-<li>虚拟机栈用于存储一个线程在执行方法的过程中产生的数据，一个方法开始被调用就会有一个栈帧入栈，方法执行完毕栈帧出栈，栈帧中包括局部变量表、操作数栈、动态链接、方法出口等；</li>
-<li>本地方法栈与虚拟机栈的作用类似，区别在于本地方法栈用于存储线程执行的native方法产生的数据；</li>
-<li>程序计数器用于记录线程执行代码的位置，分支、循环、跳转、异常、线程恢复等都依赖于程序计数器，程序计数器也是JVM规范中唯一没有规定OOM（OutOfMemeryError）的内存区域。</li>
-</ul>
-<p><strong>3、说一下几种垃圾收集算法及其应用场景</strong></p>
-<p>垃圾收集算法主要有标记清除、标记整理、复制算法三种，还有一种分代收集的理论；</p>
-<ul>
-<li>标记清除算法标记存活对象，然后清除无用对象，缺点是效率不高，会产生垃圾碎片，主要用于老年代收集，CMS垃圾收集器使用该算法实现；</li>
-<li>标记整理算法标记存活对象，然后将存活对象向内存的一端移动，然后清理另一端的内存空间，优点是解决了标记清除算法产生碎片的问题，缺点是需要移动对象，一定程度上降低了垃圾收集效率，SerialOld、ParallelOld、G1收集器使用该算法实现；</li>
-<li>复制算法将内存分为大小相等的两块，每次只使用其中的一块，在进行垃圾收集时，将存活对象复制到另一块空闲的内存区域，然后清除掉垃圾对象，复制算法主要应用于年轻代收集，因为年轻的对象大都是存活时间短，存活对象少，使用复制算法效率高，缺点是内存利用率低，Serial、ParNew、Parallel Scavenge收集器使用该算法实现。</li>
-</ul>
-<p><strong>4、说一下常见的垃圾收集器及其所使用的垃圾收集算法</strong></p>
-<p>目前常用的垃圾收集器大概有七种，其中年轻代垃圾收集器包括Serial、ParNew、Parallel Scavenge，这三种垃圾收集器使用复制算法实现，老年代收集器包括SerialOld、ParallelOld、CMS，其中SerialOld、ParallelOld使用标记整理算法实现，CMS使用标记清除算法实现，整堆垃圾收集器G1使用标记整理算法实现。</p>
-<ul>
-<li>Serial是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
-<li>Parallel Scavenge是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
-<li>ParNew与Parallel Scavenge类似，但是由于Parallel Scavenge不能与CMS进行配合使用，所以才有了ParNew垃圾收集器；</li>
-<li>SerialOld是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
-<li>ParallelOld是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
-<li>CMS是一种以获取最短回收停顿时间为目标的收集器，主要包括初始标记、并发标记、重新标记、并发收集、并发清除五个阶段，初始标记扫描gcroot根对象，该阶段需要STW（Stop The World），并发标记基于初始标扫描的gcroot根对象继续查找，标记出所有与gcroot关联的存活对象，该阶段标记线程与用户线程并发执行，重新标记用于修复在并发标记过程中多标和漏标的情况，多标会产生浮动垃圾，可以在下一次GC进行清理，漏标则会清理存活对象，导致致命bug，漏标的情况在CMS中会使用三色标记中的增量更新进行处理，该阶段需要STW（Stop The World）。并发清理阶段清理线程与用户线程并发执行，用于清除在标记阶段为存活对象打的标记，用户线程新产生的对象会被直接标记为黑色不进行回收，CMS也可以通过参数配置进行内存整理等功能；</li>
-<li>整堆收集器G1，使用标记整理算法实现（目前很少用，暂不做详细描述）。</li>
-</ul>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>AOP</title>
     <url>/blog/article/20215905075902.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -122,6 +75,202 @@
       <tags>
         <tag>基础</tag>
         <tag>AOP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM面试</title>
+    <url>/blog/article/20213903103919.html</url>
+    <content><![CDATA[<p><strong>1、说一下JVM的主要组成部分及其作用</strong></p>
+<p>JVM包括类装载子系统、运行时数据区、执行引擎、本地接口四个部分；</p>
+<p>类装载子系统通过类加载器将class字节码加载到JVM运行时数据区的方法区（jdk1.8及以后改为了元空间）；运行时数据区用于存储程序运行时所产生的各种数据；执行引擎负责将class字节码解析为机器指令并交给CPU进行处理，这个过程中可能会调用到系统提供的native方法；</p>
+<p><strong>2、描述一下JVM运行时数据区（通常也被叫作JVM内存模型，要区别于Java内存模型~JMM）</strong></p>
+<p>JVM运行时数据区主要包括堆区、方法区（jdk1.8及以后改为了元空间）、虚拟机栈、本地方法栈、程序计数器五个区域，其中堆区、方法区属于所有线程共享内存区域，虚拟机栈、本地方法栈、程序计数器属于每个线程独享的内存区域；</p>
+<ul>
+<li>堆区用于存放对象实例；</li>
+<li>方法区用于存储类信息、常量、静态变量、即时编译器编译后的代码等；</li>
+<li>虚拟机栈用于存储一个线程在执行方法的过程中产生的数据，一个方法开始被调用就会有一个栈帧入栈，方法执行完毕栈帧出栈，栈帧中包括局部变量表、操作数栈、动态链接、方法出口等；</li>
+<li>本地方法栈与虚拟机栈的作用类似，区别在于本地方法栈用于存储线程执行的native方法产生的数据；</li>
+<li>程序计数器用于记录线程执行代码的位置，分支、循环、跳转、异常、线程恢复等都依赖于程序计数器，程序计数器也是JVM规范中唯一没有规定OOM（OutOfMemeryError）的内存区域。</li>
+</ul>
+<p><strong>3、说一下几种垃圾收集算法及其应用场景</strong></p>
+<p>垃圾收集算法主要有标记清除、标记整理、复制算法三种，还有一种分代收集的理论；</p>
+<ul>
+<li>标记清除算法标记存活对象，然后清除无用对象，缺点是效率不高，会产生垃圾碎片，主要用于老年代收集，CMS垃圾收集器使用该算法实现；</li>
+<li>标记整理算法标记存活对象，然后将存活对象向内存的一端移动，然后清理另一端的内存空间，优点是解决了标记清除算法产生碎片的问题，缺点是需要移动对象，一定程度上降低了垃圾收集效率，SerialOld、ParallelOld、G1收集器使用该算法实现；</li>
+<li>复制算法将内存分为大小相等的两块，每次只使用其中的一块，在进行垃圾收集时，将存活对象复制到另一块空闲的内存区域，然后清除掉垃圾对象，复制算法主要应用于年轻代收集，因为年轻的对象大都是存活时间短，存活对象少，使用复制算法效率高，缺点是内存利用率低，Serial、ParNew、Parallel Scavenge收集器使用该算法实现。</li>
+</ul>
+<p><strong>4、说一下常见的垃圾收集器及其所使用的垃圾收集算法</strong></p>
+<p>目前常用的垃圾收集器大概有七种，其中年轻代垃圾收集器包括Serial、ParNew、Parallel Scavenge，这三种垃圾收集器使用复制算法实现，老年代收集器包括SerialOld、ParallelOld、CMS，其中SerialOld、ParallelOld使用标记整理算法实现，CMS使用标记清除算法实现，整堆垃圾收集器G1使用标记整理算法实现。</p>
+<ul>
+<li>Serial是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
+<li>Parallel Scavenge是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
+<li>ParNew与Parallel Scavenge类似，但是由于Parallel Scavenge不能与CMS进行配合使用，所以才有了ParNew垃圾收集器；</li>
+<li>SerialOld是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
+<li>ParallelOld是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
+<li>CMS是一种以获取最短回收停顿时间为目标的收集器，主要包括初始标记、并发标记、重新标记、并发收集、并发清除五个阶段，初始标记扫描gcroot根对象，该阶段需要STW（Stop The World），并发标记基于初始标扫描的gcroot根对象继续查找，标记出所有与gcroot关联的存活对象，该阶段标记线程与用户线程并发执行，重新标记用于修复在并发标记过程中多标和漏标的情况，多标会产生浮动垃圾，可以在下一次GC进行清理，漏标则会清理存活对象，导致致命bug，漏标的情况在CMS中会使用三色标记中的增量更新进行处理，该阶段需要STW（Stop The World）。并发清理阶段清理线程与用户线程并发执行，用于清除在标记阶段为存活对象打的标记，用户线程新产生的对象会被直接标记为黑色不进行回收，CMS也可以通过参数配置进行内存整理等功能；</li>
+<li>整堆收集器G1，使用标记整理算法实现（目前很少用，暂不做详细描述）。</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java多线程</title>
+    <url>/blog/article/20211204101246.html</url>
+    <content><![CDATA[<blockquote>
+<p>为什么使用多线程：<br>    ① 随着处理器的核心数不断增多，单线程程序已无法发挥多核处理器的优势；<br>    ② 线程比进程切换效率更高</p>
+</blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><blockquote>
+<p> 进程是程序一次执行过程。比如程序从启动到销毁是一个进程</p>
+</blockquote>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><blockquote>
+<p>线程是比进程更小的单位。一个进程在执行过程中可以产生多个线程。线程之间可以共享“堆”和“Metadata Space”数据，但拥有独立的“程序计数器”、“虚拟机栈”和“本地方法栈”。所以线程之间切换比进程切换负担小的多</p>
+</blockquote>
+<h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><h4 id="①-并发"><a href="#①-并发" class="headerlink" title="① 并发"></a>① 并发</h4><blockquote>
+<p>同一时间段内，多个任务都在执行。他们之间共享cpu的执行时间片段。多个任务之间并不是同时执行的。并发编程的目标是充分的利用处理器的每一个核，以达到最高的处理性能。</p>
+</blockquote>
+<h4 id="②-并行"><a href="#②-并行" class="headerlink" title="② 并行"></a>② 并行</h4><blockquote>
+<p>同一时刻，多个任务同时执行。可能有多个任务分别在不同的cpu上执行。<br>并行可以充分利用多核处理器的优势</p>
+</blockquote>
+<h2 id="引入问题"><a href="#引入问题" class="headerlink" title="引入问题"></a>引入问题</h2><h3 id="内存泄露"><a href="#内存泄露" class="headerlink" title="内存泄露"></a>内存泄露</h3><blockquote>
+<p>对象在使用完成后，对它的引用依然没有被释放，导致jvm无法回收该对象，就会造成内存泄漏</p>
+</blockquote>
+<h4 id="①-静态集合类"><a href="#①-静态集合类" class="headerlink" title="① 静态集合类"></a>① 静态集合类</h4><blockquote>
+<p>静态集合类的生命周期和类一样，所以jvm无法回收它们</p>
+</blockquote>
+<h4 id="②-数据库连接、网络连接、IO连接等"><a href="#②-数据库连接、网络连接、IO连接等" class="headerlink" title="② 数据库连接、网络连接、IO连接等"></a>② 数据库连接、网络连接、IO连接等</h4><blockquote>
+<p>连接在使用完成后必须主动释放资源，否则jvm无法回收它们</p>
+</blockquote>
+<h4 id="③-变量不合理的作用域"><a href="#③-变量不合理的作用域" class="headerlink" title="③ 变量不合理的作用域"></a>③ 变量不合理的作用域</h4><blockquote>
+<p>变量设置的作用域过大，在对其的使用结束后，jvm依然无法对它进行回收，也有可能造成内存泄漏</p>
+</blockquote>
+<h4 id="④-内部类引用外部类"><a href="#④-内部类引用外部类" class="headerlink" title="④ 内部类引用外部类"></a>④ 内部类引用外部类</h4><blockquote>
+<p>内部类保存对外部类的引用，即使程序已经没有对外部类的引用，也会因为内部类保存了引用而无法回收外部类。</p>
+</blockquote>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="死锁发生条件"><a href="#死锁发生条件" class="headerlink" title="死锁发生条件"></a>死锁发生条件</h4><blockquote>
+<p><strong>① 互斥条件：</strong> 该资源任一时刻只能被一个线程拥有；<br><br><strong>② 请求与保持条件：</strong> 一个线程在获取资源阻塞时，对已获得的资源不释放;<br><br><strong>③ 不剥夺条件：</strong> 一个线程获得的资源在其使用完成之前不能被其他线程主动剥夺，只能由自己主动释放;<br><br><strong>④ 循环等待条件：</strong> 多个线程之间形成首尾相接的循环等待资源关系</p>
+</blockquote>
+<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><blockquote>
+<p>只需要破坏四个条件中的任意一个即可:<br><br><strong>① 互斥条件：</strong> 本来就是让线程之间互斥，所以无法破坏;<br><br><strong>② 请求与保持条件：</strong> 一次性申请所有的资源;<br><br><strong>③ 不剥夺条件：</strong> 可以让线程在无法获得资源时，先把已获得资源进行释放;<br><br><strong>④ 循环等待条件：</strong> 按照某一顺序来获取资源</p>
+</blockquote>
+<h4 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h4><blockquote>
+<p>待补充。。。</p>
+</blockquote>
+<h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><blockquote>
+<p>一般情况下线程数都比cpu核心数要多，cpu只能不断在线程之间切换来执行每一个线程。cpu每次切换都得保存当前状态，和加载下一个线程的状态。这就是上下文切换</p>
+</blockquote>
+<h2 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h2><h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><h4 id="1-作用范围"><a href="#1-作用范围" class="headerlink" title="1. 作用范围"></a>1. 作用范围</h4><blockquote>
+<p><strong>① 静态方法：</strong> 使用的同步锁是类对象，和其他静态同步方法存在锁竞争; <br><br><strong>② 非静态方法：</strong> 使用的锁是当前对象，同一对象之间存在锁竞争，不同对象之间不存在竞争关系；<br><br><strong>③ 代码块：</strong> 使用的锁是synchronized中传入的对象，依据是否同一对象而决定否存在竞争</p>
+</blockquote>
+<h4 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.  底层原理"></a>2.  底层原理</h4><blockquote>
+<p> <strong>① 方法：</strong>  待补充..<br><br><strong>② 代码块：</strong> 每个java对象的对象头中都有monitor对象，通过能否获取到monitor对象来判断能否获取锁；.</p>
+</blockquote>
+<h4 id="3-锁优化"><a href="#3-锁优化" class="headerlink" title="3.  锁优化"></a>3.  锁优化</h4><h5 id="3-1-自旋锁"><a href="#3-1-自旋锁" class="headerlink" title="3.1. 自旋锁"></a>3.1. 自旋锁</h5><ul>
+<li>当线程竞争锁失败时，不直接阻塞自己，而是自旋（空等待，比如一个有限的for循环）一会儿，在自旋的同时重新竞争锁。如果在自旋结束前获得了锁，那么获取锁成功；否则自旋结束后阻塞自己;<br></li>
+<li>自旋锁可以减少线程阻塞造成的线程切换（包括挂起线程和恢复线程）<br><blockquote>
+<p><strong>①</strong>  单核处理器情况下，不存在实际的并行。当前线程不阻塞自己，拥有锁的线程就无法执行，锁永远不会释放。进而，如果线程多而处理器少，自旋也会造成不少无谓的浪费；<br><br><strong>②</strong>   自旋锁要占用CPU，如果是计算密集型任务，这一优化通常得不偿失，减少锁的使用是更好的选择；<br><br><strong>③</strong>  如果锁竞争时间比较长，那么自旋通常不能获得锁，白白浪费自旋占用的CPU时间。这通常发生在所持有时间长，且竞争激烈的场景中，此时应主动禁用自旋锁<br></p>
+</blockquote>
+</li>
+<li>使用-XX:-UseSpinning参数关闭自旋锁优化；-XX:PreBlockSpin参数修改默认的自旋次数。</li>
+</ul>
+<h5 id="3-2-偏向锁"><a href="#3-2-偏向锁" class="headerlink" title="3.2. 偏向锁"></a>3.2. 偏向锁</h5><ul>
+<li>偏向锁的目标是减少无竞争且只有一个线程使用锁的情况下，使用轻量级锁产生的性能消耗；<blockquote>
+<p>在没有实际竞争的情况下，还能够针对部分场景继续优化。如果不仅仅没有实际竞争，自始至终，使用锁的线&gt; 程都只有一个，那么，维护轻量级锁都是浪费的。偏向锁的目标是，减少无竞争且只有一个线程使用锁的情况&gt; 下，使用轻量级锁产生的性能消耗。轻量级锁每次申请、释放锁都至少需要一次CAS，但偏向锁只有初始化时&gt; 需要一次CAS。<br></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>“偏向”的意思是，偏向锁假定将来只有第一个申请锁的线程会使用锁（不会有任何线程再来申请锁），因 此，只需要在Mark Word中CAS记录owner（本质上也是更新，但初始值为空），如果记录成功，则偏向锁获取成功，记录锁状态为偏向锁，以后当前线程等于owner就可以零成本的直接获得锁；否则，说明有其他线程竞争，膨胀为轻量级锁。</p>
+</blockquote>
+<ul>
+<li>如果有其他线程申请锁，那么偏向锁很快就膨胀为轻量级锁。浪费了维持偏向锁的性能消耗</li>
+<li>使用参数-XX:-UseBiasedLocking禁止偏向锁优化（默认打开）。</li>
+</ul>
+<h5 id="3-3-轻量级锁"><a href="#3-3-轻量级锁" class="headerlink" title="3.3. 轻量级锁"></a>3.3. 轻量级锁</h5><ul>
+<li><p>使用轻量级锁时，不需要申请互斥量，仅仅将Mark Word中的部分字节CAS更新指向线程栈中的Lock Record，如果更新成功，则轻量级锁获取成功。否则可以继续使用自旋锁获取或者升级为重量级锁;</p>
+<blockquote>
+<p>Mark Word是对象头的一部分；每个线程都拥有自己的线程栈（虚拟机栈），记录线程和函数调用的基本信息</p>
+</blockquote>
+</li>
+<li><p>轻量级锁的目标是减少无实际竞争的情况下，使用重量级锁产生的性能消耗;</p>
+</li>
+<li><p>如果锁竞争激烈，轻量级锁很快就将升级为重量级锁，那么维持轻量级锁的过程就成了浪费</p>
+</li>
+</ul>
+<h5 id="3-4-重量级锁"><a href="#3-4-重量级锁" class="headerlink" title="3.4. 重量级锁"></a>3.4. 重量级锁</h5><ul>
+<li><p>内置锁在Java中被抽象成监视器锁（monitor）。监视器锁直接对应底层操作系统的互斥量（mutex）</p>
+</li>
+<li><p>这种同步方式成本非常高，包括系统调用引起的内核态和用户态切换、线程阻塞造成的线程切换等</p>
+</li>
+</ul>
+<h3 id="synchronized与ReentrantLock"><a href="#synchronized与ReentrantLock" class="headerlink" title="synchronized与ReentrantLock"></a>synchronized与ReentrantLock</h3><ul>
+<li>两者都是可重入锁</li>
+<li>synchronized依赖于JVM，ReentrantLock依赖于API</li>
+<li>① synchronized是非公平锁;<br> ② ReentrantLock可指定是公平锁或非公平锁<blockquote>
+<p>一个Lock对象可以创建多个Condition实例，线程对象可以注册在指定的Condition上，从而可以有选择性的进行通知</p>
+</blockquote>
+</li>
+<li>ReentrantLock比synchronized多一些高级功能<blockquote>
+<ul>
+<li>等待可中断<br><br>ReentrantLock提供了一种可以中断等待锁的线程的机制。通过lock.lockInterruptibly()来实现。也就是使正在等待的线程可以放弃等待，改为处理其他事情;<br></li>
+<li>可实现公平锁<br><br>ReentrantLock可以指定是公平锁还是非公平锁。公平锁就是先等待的线程先获得锁，通过构造方法ReentrantLock(boolean fair)来实现;<br></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>可实现选择性通知<br></li>
+</ul>
+</blockquote>
+<h3 id="synchronized与volatile"><a href="#synchronized与volatile" class="headerlink" title="synchronized与volatile"></a>synchronized与volatile</h3><ul>
+<li><p>并发编程的三个特性</p>
+<blockquote>
+<p><strong>①原子性：</strong> 一个操作或者多次操作，要么都执行、要不都不执行。synchronized可以保证原子性<br><br><strong>②可见性：</strong> 当一个线程对共享变量进行了修改，其他线程可以马上看到最新的值。volatile可以保证可见性；<br><br><strong>③有序性：</strong> 代码在执行过程中，编译器会对字节码进行冲重排序优化，无法保证代码的执行顺序就是编写代码的顺序。volatile可以禁止指令重排；<br></p>
+</blockquote>
+</li>
+<li><p>volatile是synchronized的轻量级实现</p>
+</li>
+<li><p>多线程访问volatile关键字不会阻塞，synchronized可能会阻塞</p>
+</li>
+<li><p>volatile能保证数据的可见性，不能保证原子性；synchronized两者都可以保证</p>
+</li>
+<li><p>volatile主要解决多线程之间数据的可见性问题；synchronized解决多线程之间数据的同步性问题</p>
+</li>
+</ul>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><ul>
+<li><p>每个线程的专属变量，不会被其他线程访问到</p>
+</li>
+<li><p>ThreadLocal中有一个静态内部类ThreadLocalMap，可以理解为ThreadLocal的定制化HashMap实现。KEY为线程对象，Value为set进去的值</p>
+</li>
+<li><p><strong>内存泄漏问题</strong></p>
+<blockquote>
+<p>ThreadLocalMap中的Key为ThreadLocal的弱引用，而Value是强引用。所以在ThreadLocal没有被外部强引用的时候，在垃圾回收时会把Key给回收掉，而Value却不会被回收。这样会出来Key为null的Entry。如果我们不做什么措施，Value就永远无法被回收，发生内存泄漏。ThreadLocal已经考虑了这种情况，在调用set()、get()和remove()方法时，会清理掉Key为null的Entry</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -351,155 +500,6 @@
       <tags>
         <tag>基础</tag>
         <tag>对象创建</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java多线程</title>
-    <url>/blog/article/20211204101246.html</url>
-    <content><![CDATA[<blockquote>
-<p>为什么使用多线程：<br>    ① 随着处理器的核心数不断增多，单线程程序已无法发挥多核处理器的优势；<br>    ② 线程比进程切换效率更高</p>
-</blockquote>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><blockquote>
-<p> 进程是程序一次执行过程。比如程序从启动到销毁是一个进程</p>
-</blockquote>
-<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><blockquote>
-<p>线程是比进程更小的单位。一个进程在执行过程中可以产生多个线程。线程之间可以共享“堆”和“Metadata Space”数据，但拥有独立的“程序计数器”、“虚拟机栈”和“本地方法栈”。所以线程之间切换比进程切换负担小的多</p>
-</blockquote>
-<h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><h4 id="①-并发"><a href="#①-并发" class="headerlink" title="① 并发"></a>① 并发</h4><blockquote>
-<p>同一时间段内，多个任务都在执行。他们之间共享cpu的执行时间片段。多个任务之间并不是同时执行的。并发编程的目标是充分的利用处理器的每一个核，以达到最高的处理性能。</p>
-</blockquote>
-<h4 id="②-并行"><a href="#②-并行" class="headerlink" title="② 并行"></a>② 并行</h4><blockquote>
-<p>同一时刻，多个任务同时执行。可能有多个任务分别在不同的cpu上执行。<br>并行可以充分利用多核处理器的优势</p>
-</blockquote>
-<h2 id="引入问题"><a href="#引入问题" class="headerlink" title="引入问题"></a>引入问题</h2><h3 id="内存泄露"><a href="#内存泄露" class="headerlink" title="内存泄露"></a>内存泄露</h3><blockquote>
-<p>对象在使用完成后，对它的引用依然没有被释放，导致jvm无法回收该对象，就会造成内存泄漏</p>
-</blockquote>
-<h4 id="①-静态集合类"><a href="#①-静态集合类" class="headerlink" title="① 静态集合类"></a>① 静态集合类</h4><blockquote>
-<p>静态集合类的生命周期和类一样，所以jvm无法回收它们</p>
-</blockquote>
-<h4 id="②-数据库连接、网络连接、IO连接等"><a href="#②-数据库连接、网络连接、IO连接等" class="headerlink" title="② 数据库连接、网络连接、IO连接等"></a>② 数据库连接、网络连接、IO连接等</h4><blockquote>
-<p>连接在使用完成后必须主动释放资源，否则jvm无法回收它们</p>
-</blockquote>
-<h4 id="③-变量不合理的作用域"><a href="#③-变量不合理的作用域" class="headerlink" title="③ 变量不合理的作用域"></a>③ 变量不合理的作用域</h4><blockquote>
-<p>变量设置的作用域过大，在对其的使用结束后，jvm依然无法对它进行回收，也有可能造成内存泄漏</p>
-</blockquote>
-<h4 id="④-内部类引用外部类"><a href="#④-内部类引用外部类" class="headerlink" title="④ 内部类引用外部类"></a>④ 内部类引用外部类</h4><blockquote>
-<p>内部类保存对外部类的引用，即使程序已经没有对外部类的引用，也会因为内部类保存了引用而无法回收外部类。</p>
-</blockquote>
-<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="死锁发生条件"><a href="#死锁发生条件" class="headerlink" title="死锁发生条件"></a>死锁发生条件</h4><blockquote>
-<p><strong>① 互斥条件：</strong> 该资源任一时刻只能被一个线程拥有；<br><br><strong>② 请求与保持条件：</strong> 一个线程在获取资源阻塞时，对已获得的资源不释放;<br><br><strong>③ 不剥夺条件：</strong> 一个线程获得的资源在其使用完成之前不能被其他线程主动剥夺，只能由自己主动释放;<br><br><strong>④ 循环等待条件：</strong> 多个线程之间形成首尾相接的循环等待资源关系</p>
-</blockquote>
-<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><blockquote>
-<p>只需要破坏四个条件中的任意一个即可:<br><br><strong>① 互斥条件：</strong> 本来就是让线程之间互斥，所以无法破坏;<br><br><strong>② 请求与保持条件：</strong> 一次性申请所有的资源;<br><br><strong>③ 不剥夺条件：</strong> 可以让线程在无法获得资源时，先把已获得资源进行释放;<br><br><strong>④ 循环等待条件：</strong> 按照某一顺序来获取资源</p>
-</blockquote>
-<h4 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h4><blockquote>
-<p>待补充。。。</p>
-</blockquote>
-<h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><blockquote>
-<p>一般情况下线程数都比cpu核心数要多，cpu只能不断在线程之间切换来执行每一个线程。cpu每次切换都得保存当前状态，和加载下一个线程的状态。这就是上下文切换</p>
-</blockquote>
-<h2 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h2><h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><h4 id="1-作用范围"><a href="#1-作用范围" class="headerlink" title="1. 作用范围"></a>1. 作用范围</h4><blockquote>
-<p><strong>① 静态方法：</strong> 使用的同步锁是类对象，和其他静态同步方法存在锁竞争; <br><br><strong>② 非静态方法：</strong> 使用的锁是当前对象，同一对象之间存在锁竞争，不同对象之间不存在竞争关系；<br><br><strong>③ 代码块：</strong> 使用的锁是synchronized中传入的对象，依据是否同一对象而决定否存在竞争</p>
-</blockquote>
-<h4 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.  底层原理"></a>2.  底层原理</h4><blockquote>
-<p> <strong>① 方法：</strong>  待补充..<br><br><strong>② 代码块：</strong> 每个java对象的对象头中都有monitor对象，通过能否获取到monitor对象来判断能否获取锁；.</p>
-</blockquote>
-<h4 id="3-锁优化"><a href="#3-锁优化" class="headerlink" title="3.  锁优化"></a>3.  锁优化</h4><h5 id="3-1-自旋锁"><a href="#3-1-自旋锁" class="headerlink" title="3.1. 自旋锁"></a>3.1. 自旋锁</h5><ul>
-<li>当线程竞争锁失败时，不直接阻塞自己，而是自旋（空等待，比如一个有限的for循环）一会儿，在自旋的同时重新竞争锁。如果在自旋结束前获得了锁，那么获取锁成功；否则自旋结束后阻塞自己;<br></li>
-<li>自旋锁可以减少线程阻塞造成的线程切换（包括挂起线程和恢复线程）<br><blockquote>
-<p><strong>①</strong>  单核处理器情况下，不存在实际的并行。当前线程不阻塞自己，拥有锁的线程就无法执行，锁永远不会释放。进而，如果线程多而处理器少，自旋也会造成不少无谓的浪费；<br><br><strong>②</strong>   自旋锁要占用CPU，如果是计算密集型任务，这一优化通常得不偿失，减少锁的使用是更好的选择；<br><br><strong>③</strong>  如果锁竞争时间比较长，那么自旋通常不能获得锁，白白浪费自旋占用的CPU时间。这通常发生在所持有时间长，且竞争激烈的场景中，此时应主动禁用自旋锁<br></p>
-</blockquote>
-</li>
-<li>使用-XX:-UseSpinning参数关闭自旋锁优化；-XX:PreBlockSpin参数修改默认的自旋次数。</li>
-</ul>
-<h5 id="3-2-偏向锁"><a href="#3-2-偏向锁" class="headerlink" title="3.2. 偏向锁"></a>3.2. 偏向锁</h5><ul>
-<li>偏向锁的目标是减少无竞争且只有一个线程使用锁的情况下，使用轻量级锁产生的性能消耗；<blockquote>
-<p>在没有实际竞争的情况下，还能够针对部分场景继续优化。如果不仅仅没有实际竞争，自始至终，使用锁的线&gt; 程都只有一个，那么，维护轻量级锁都是浪费的。偏向锁的目标是，减少无竞争且只有一个线程使用锁的情况&gt; 下，使用轻量级锁产生的性能消耗。轻量级锁每次申请、释放锁都至少需要一次CAS，但偏向锁只有初始化时&gt; 需要一次CAS。<br></p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>“偏向”的意思是，偏向锁假定将来只有第一个申请锁的线程会使用锁（不会有任何线程再来申请锁），因 此，只需要在Mark Word中CAS记录owner（本质上也是更新，但初始值为空），如果记录成功，则偏向锁获取成功，记录锁状态为偏向锁，以后当前线程等于owner就可以零成本的直接获得锁；否则，说明有其他线程竞争，膨胀为轻量级锁。</p>
-</blockquote>
-<ul>
-<li>如果有其他线程申请锁，那么偏向锁很快就膨胀为轻量级锁。浪费了维持偏向锁的性能消耗</li>
-<li>使用参数-XX:-UseBiasedLocking禁止偏向锁优化（默认打开）。</li>
-</ul>
-<h5 id="3-3-轻量级锁"><a href="#3-3-轻量级锁" class="headerlink" title="3.3. 轻量级锁"></a>3.3. 轻量级锁</h5><ul>
-<li><p>使用轻量级锁时，不需要申请互斥量，仅仅将Mark Word中的部分字节CAS更新指向线程栈中的Lock Record，如果更新成功，则轻量级锁获取成功。否则可以继续使用自旋锁获取或者升级为重量级锁;</p>
-<blockquote>
-<p>Mark Word是对象头的一部分；每个线程都拥有自己的线程栈（虚拟机栈），记录线程和函数调用的基本信息</p>
-</blockquote>
-</li>
-<li><p>轻量级锁的目标是减少无实际竞争的情况下，使用重量级锁产生的性能消耗;</p>
-</li>
-<li><p>如果锁竞争激烈，轻量级锁很快就将升级为重量级锁，那么维持轻量级锁的过程就成了浪费</p>
-</li>
-</ul>
-<h5 id="3-4-重量级锁"><a href="#3-4-重量级锁" class="headerlink" title="3.4. 重量级锁"></a>3.4. 重量级锁</h5><ul>
-<li><p>内置锁在Java中被抽象成监视器锁（monitor）。监视器锁直接对应底层操作系统的互斥量（mutex）</p>
-</li>
-<li><p>这种同步方式成本非常高，包括系统调用引起的内核态和用户态切换、线程阻塞造成的线程切换等</p>
-</li>
-</ul>
-<h3 id="synchronized与ReentrantLock"><a href="#synchronized与ReentrantLock" class="headerlink" title="synchronized与ReentrantLock"></a>synchronized与ReentrantLock</h3><ul>
-<li>两者都是可重入锁</li>
-<li>synchronized依赖于JVM，ReentrantLock依赖于API</li>
-<li>① synchronized是非公平锁;<br> ② ReentrantLock可指定是公平锁或非公平锁<blockquote>
-<p>一个Lock对象可以创建多个Condition实例，线程对象可以注册在指定的Condition上，从而可以有选择性的进行通知</p>
-</blockquote>
-</li>
-<li>ReentrantLock比synchronized多一些高级功能<blockquote>
-<ul>
-<li>等待可中断<br><br>ReentrantLock提供了一种可以中断等待锁的线程的机制。通过lock.lockInterruptibly()来实现。也就是使正在等待的线程可以放弃等待，改为处理其他事情;<br></li>
-<li>可实现公平锁<br><br>ReentrantLock可以指定是公平锁还是非公平锁。公平锁就是先等待的线程先获得锁，通过构造方法ReentrantLock(boolean fair)来实现;<br></li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>可实现选择性通知<br></li>
-</ul>
-</blockquote>
-<h3 id="synchronized与volatile"><a href="#synchronized与volatile" class="headerlink" title="synchronized与volatile"></a>synchronized与volatile</h3><ul>
-<li><p>并发编程的三个特性</p>
-<blockquote>
-<p><strong>①原子性：</strong> 一个操作或者多次操作，要么都执行、要不都不执行。synchronized可以保证原子性<br><br><strong>②可见性：</strong> 当一个线程对共享变量进行了修改，其他线程可以马上看到最新的值。volatile可以保证可见性；<br><br><strong>③有序性：</strong> 代码在执行过程中，编译器会对字节码进行冲重排序优化，无法保证代码的执行顺序就是编写代码的顺序。volatile可以禁止指令重排；<br></p>
-</blockquote>
-</li>
-<li><p>volatile是synchronized的轻量级实现</p>
-</li>
-<li><p>多线程访问volatile关键字不会阻塞，synchronized可能会阻塞</p>
-</li>
-<li><p>volatile能保证数据的可见性，不能保证原子性；synchronized两者都可以保证</p>
-</li>
-<li><p>volatile主要解决多线程之间数据的可见性问题；synchronized解决多线程之间数据的同步性问题</p>
-</li>
-</ul>
-<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><ul>
-<li><p>每个线程的专属变量，不会被其他线程访问到</p>
-</li>
-<li><p>ThreadLocal中有一个静态内部类ThreadLocalMap，可以理解为ThreadLocal的定制化HashMap实现。KEY为线程对象，Value为set进去的值</p>
-</li>
-<li><p><strong>内存泄漏问题</strong></p>
-<blockquote>
-<p>ThreadLocalMap中的Key为ThreadLocal的弱引用，而Value是强引用。所以在ThreadLocal没有被外部强引用的时候，在垃圾回收时会把Key给回收掉，而Value却不会被回收。这样会出来Key为null的Entry。如果我们不做什么措施，Value就永远无法被回收，发生内存泄漏。ThreadLocal已经考虑了这种情况，在调用set()、get()和remove()方法时，会清理掉Key为null的Entry</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -835,7 +835,41 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
   <entry>
     <title>原型模式</title>
     <url>/blog/article/20211305081317.html</url>
-    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>经典定义：</strong> 一种基于现有对象的模板，通过克隆的方式创建对象的模式。<br><br>原型模式的核心思想是，通过拷贝指定的“原型实例（对象）”，创建跟该对象一样的新对象。简单理解就是“克隆指定对象“。<br><br><strong>注意：</strong> 需要拷贝的<strong>原型类必须实现”java.lang.Cloneable”接口</strong>，然后重写Object类中的clone方法，从而才可以实现类的拷贝。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** <span class="doctag">@author</span>  unascribed</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>     java.lang.CloneNotSupportedException</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>     java.lang.Object#clone()</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span>   JDK1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：Cloneable是一个<strong>标记接口</strong>，所谓标记接口就是该接口为定义任何内容。标记接口的作用就是为所有实现该接口的类赋予一种特殊标记。<br><br>只有当一个类实现了接口Cloneable接口后，该类才被赋予调用重写Object类的clone()方法的权利。否则会抛出“<strong>CloneNotSupportedException</strong>“异常。</p>
+</blockquote>
+<h2 id="两种方式"><a href="#两种方式" class="headerlink" title="两种方式"></a>两种方式</h2><blockquote>
+<p>对拷贝得到副本的数据修改，不会影响到原来的对象。这是因为copy的对象是一个独立的对象，可以通过打印原型类对象，与拷贝对象的地址值，进行对比。</p>
+</blockquote>
+<h3 id="一、“浅拷贝”"><a href="#一、“浅拷贝”" class="headerlink" title="一、“浅拷贝”"></a>一、“浅拷贝”</h3><blockquote>
+<p>1、当类的成员变量是基本数据类型时，浅拷贝会复制该属性的值赋值给新对象。<br><br>2、当成员变量是引用数据类型时，浅拷贝复制的是引用数据类型的地址值。这种情况下，当拷贝出的某一个类修改了引用数据类型的成员变量后，会导致所有拷贝出的类都发生改变。</p>
+</blockquote>
+<h4 id="代码场景"><a href="#代码场景" class="headerlink" title="代码场景"></a>代码场景</h4><blockquote>
+<p>案例：一个人，名叫“小菜鸟”，职业是“程序员”。现在因项目需求剧增，导致一个人无法按时完成任务，从而需要克隆出来属性与其一模一样的优秀程序员。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原型类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String occupation;</span><br><span class="line">    <span class="comment">// ... 省略构造方法，setter,getter方法</span></span><br><span class="line">  </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Person person = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">// 调用父类的clone(),完成浅拷贝。</span></span><br><span class="line">        person = (Person) <span class="keyword">super</span>.clone();</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">catch</span> (CloneNotSupportedException e)&#123;</span><br><span class="line">       e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> person;</span><br><span class="line">   &#125;     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单元测试</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Person person = <span class="keyword">new</span> Person(<span class="string">&quot;原型类&quot;</span>,<span class="string">&quot;这是原型类哦~&quot;</span>);</span><br><span class="line">        Person copyPersion = (Persion)person.clone();</span><br><span class="line">        System.err.println(<span class="string">&quot;原型类：&quot;</span>+person);</span><br><span class="line">        System.err.println(<span class="string">&quot;浅拷贝类：&quot;</span>+copyPersion);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、“深拷贝”"><a href="#二、“深拷贝”" class="headerlink" title="二、“深拷贝”"></a>二、“深拷贝”</h3><blockquote>
+<p>深拷贝不仅会复制成员变量为基本数据类型的值，给新对象。还会给是引用数据类型的成员变量申请储存空间，并复制引用数据类型成员变量的对象。这样拷贝出的新对象就不怕修改了是引用数据类型的成员变量后，对其它拷贝出的对象造成影响了</p>
+</blockquote>
+<h4 id="代码场景-1"><a href="#代码场景-1" class="headerlink" title="代码场景"></a>代码场景</h4><blockquote>
+<p>在Person类中添加一个是引用数据类型的成员属性Computer。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Computer类 -- 将作为原型类的成员变量类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> <span class="keyword">implements</span> <span class="title">Cloneable</span>,<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> seriaVersion = <span class="number">1L</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String color;</span><br><span class="line">    <span class="keyword">private</span> String brand;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ...省略构造方法，setter,getter</span></span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span>   </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="comment">///由于该类的成员变量均为String，所以使用浅拷贝即可。</span></span><br><span class="line">        <span class="keyword">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原型类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Cloneable</span>,<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> seriaVersion = <span class="number">11L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String occupation;</span><br><span class="line">    <span class="keyword">private</span> Computer computer;</span><br><span class="line">    <span class="comment">// ... 省略构造方法，setter,getter方法</span></span><br><span class="line">  </span><br><span class="line">   <span class="comment">// 对于成员变量是Computer,所以这里有两种方式</span></span><br><span class="line">   <span class="comment">// 方式一 ： 缺陷，需要单独处理所有要克隆的类中的引用数据类型。</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Person person = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">// 调用父类的clone(),完成浅拷贝。-- 只会拷贝父类中基本数据类型String的数据</span></span><br><span class="line">        person = (Person) <span class="keyword">super</span>.clone();</span><br><span class="line">        <span class="comment">// 调用引用类中的clone()克隆出一个新的对象，并赋值给当前原型类的该引用类的成员变量</span></span><br><span class="line">        <span class="comment">// 这样的操作之后，该成员变量computer不再是复制的地址值，从而解决浅拷贝的问题。</span></span><br><span class="line">        person.computer = (Computer) <span class="keyword">this</span>.computer.clone();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (CloneNotSupportedException e)&#123;</span><br><span class="line">       e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> person;</span><br><span class="line">   &#125;  </span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 方式二 ： 通过序列化对象实现深拷贝。（推荐该方式）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">deepClone</span> <span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 声明流对象</span></span><br><span class="line">        ByteArrayOutputStream bos = <span class="keyword">null</span>;</span><br><span class="line">        ByteArrayInputSteam bis = <span class="keyword">null</span>;</span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line">        ObjectInputStream ois = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">// 创建序列化流</span></span><br><span class="line">            bos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">            oos = <span class="keyword">new</span> ObjectOutputStream(bos);</span><br><span class="line">        </span><br><span class="line">            <span class="comment">// 将当前对象以对象流输出</span></span><br><span class="line">            oos.writeObject(<span class="keyword">this</span>);</span><br><span class="line">        </span><br><span class="line">            <span class="comment">// 创建反序列化流</span></span><br><span class="line">            bis = <span class="keyword">new</span> ByteArrayInputSteam(bos.toByteArray());</span><br><span class="line">            ois = <span class="keyword">new</span> ObjectInputStream(bis);</span><br><span class="line">        </span><br><span class="line">            <span class="comment">// 将流对象反序列化，从而实现深拷贝</span></span><br><span class="line">            <span class="keyword">return</span> ois.readObject();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">               <span class="comment">// 释放资源</span></span><br><span class="line">                bos.close();</span><br><span class="line">                bis.close();</span><br><span class="line">                oos.close();</span><br><span class="line">                ois.close();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException ioException)&#123;</span><br><span class="line">                ioException.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDeepCopyDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Person person = <span class="keyword">new</span> Person(<span class="string">&quot;原型类&quot;</span>,<span class="string">&quot;原型类哦~&quot;</span>,<span class="keyword">new</span> Computer(<span class="string">&quot;黑色&quot;</span>,<span class="string">&quot;联想&quot;</span>));</span><br><span class="line">        System.err.println(<span class="string">&quot;原型类：&quot;</span>+person);</span><br><span class="line">        <span class="comment">// 方式一</span></span><br><span class="line">        Person deepCopyPerson1 = (Person)person.clone();</span><br><span class="line">        System.err.println(<span class="string">&quot;方式一深拷贝：&quot;</span>+deepCopyPerson1); </span><br><span class="line">        <span class="comment">// 方式二</span></span><br><span class="line">        Person deepCopyPerson2 = (Person)person.deepClone();</span><br><span class="line">        System.err.println(<span class="string">&quot;方式二深拷贝：&quot;</span>+deepCopyPerson2); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<ol>
+<li>通过原型模式可以简化创建重量级对象的过程，并提高程序的效率。<br></li>
+<li>原型设计模式是动态获取对象运行时的状态进行创建对象的。<br></li>
+<li>使用原型设计模式可以使代码变的更加灵活，因为当原型类发生变化（增、减属性）时，克隆的对象也会做出相应的改变。<br></li>
+<li>对已经创建好的类进行改造，使其支持克隆时需要修改源代码，这就是违背了ocp原则。</li>
+</ol>
+</blockquote>
+<hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
@@ -1006,6 +1040,22 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>装饰模式</title>
+    <url>/blog/article/20211805081847.html</url>
+    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>桥接模式</title>
     <url>/blog/article/20211705081738.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
@@ -1024,22 +1074,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
   <entry>
     <title>组合模式</title>
     <url>/blog/article/20211805081829.html</url>
-    <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>结构型模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>装饰模式</title>
-    <url>/blog/article/20211805081847.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1150,8 +1184,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>策略模式</title>
-    <url>/blog/article/20210305204333.html</url>
+    <title>观察者模式</title>
+    <url>/blog/article/20210305205733.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1166,8 +1200,8 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>观察者模式</title>
-    <url>/blog/article/20210305205733.html</url>
+    <title>策略模式</title>
+    <url>/blog/article/20210305204333.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
@@ -1230,6 +1264,42 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>单一职责原则</title>
+    <url>/blog/article/20210605080651.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>不要存在多于一个导致类变更的原因。通俗的说，即一个类只负责一项职责。</p>
+</blockquote>
+<h3 id="问题举例以及按照原则的处理办法"><a href="#问题举例以及按照原则的处理办法" class="headerlink" title="问题举例以及按照原则的处理办法"></a>问题举例以及按照原则的处理办法</h3><h4 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h4><blockquote>
+<p>类T负责两个不同的职责：职责P1，职责P2。<br><br>当由于职责P1需求发生改变而需要修改类T时，有可能会导致原本运行正常的职责P2功能发生故障。</p>
+</blockquote>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
+<p>遵循单一职责原则。分别建立两个类T1、T2，使T1完成职责P1功能，T2完成职责P2功能。<br><br>这样，当修改类T1时，不会使职责P2发生故障风险；同理，当修改T2时，也不会使职责P1发生故障风险。</p>
+</blockquote>
+<blockquote>
+<p>说到单一职责原则，很多人都会不屑一顾。因为它太简单了。稍有经验的程序员即使从来没有读过设计模式、从来没有听说过单一职责原则，在设计软件时也会自觉的遵守这一重要原则，因为这是常识。<br><br>在软件编程中，谁也不希望因为修改了一个功能导致其他的功能发生故障。而避免出现这一问题的方法便是遵循单一职责原则。虽然单一职责原则如此简单，并且被认为是常识，但是即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。<br><br>为什么会出现这种现象呢？因为有职责扩散。<strong>所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2</strong>。</p>
+</blockquote>
+<h4 id="遵循单一职责原的优点"><a href="#遵循单一职责原的优点" class="headerlink" title="遵循单一职责原的优点"></a>遵循单一职责原的优点</h4><blockquote>
+<ul>
+<li>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br></li>
+<li>提高类的可读性，提高系统的可维护性；<br></li>
+<li>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响;<br></li>
+<li>需要说明的一点是单一职责原则不只是面向对象编程思想所特有的，只要是模块化的程序设计，都适用单一职责原则。<br></li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
     <title></title>
     <url>/blog/article/20210305205834.html</url>
     <content><![CDATA[<h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
@@ -1265,42 +1335,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单一职责原则</title>
-    <url>/blog/article/20210605080651.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>不要存在多于一个导致类变更的原因。通俗的说，即一个类只负责一项职责。</p>
-</blockquote>
-<h3 id="问题举例以及按照原则的处理办法"><a href="#问题举例以及按照原则的处理办法" class="headerlink" title="问题举例以及按照原则的处理办法"></a>问题举例以及按照原则的处理办法</h3><h4 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h4><blockquote>
-<p>类T负责两个不同的职责：职责P1，职责P2。<br><br>当由于职责P1需求发生改变而需要修改类T时，有可能会导致原本运行正常的职责P2功能发生故障。</p>
-</blockquote>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
-<p>遵循单一职责原则。分别建立两个类T1、T2，使T1完成职责P1功能，T2完成职责P2功能。<br><br>这样，当修改类T1时，不会使职责P2发生故障风险；同理，当修改T2时，也不会使职责P1发生故障风险。</p>
-</blockquote>
-<blockquote>
-<p>说到单一职责原则，很多人都会不屑一顾。因为它太简单了。稍有经验的程序员即使从来没有读过设计模式、从来没有听说过单一职责原则，在设计软件时也会自觉的遵守这一重要原则，因为这是常识。<br><br>在软件编程中，谁也不希望因为修改了一个功能导致其他的功能发生故障。而避免出现这一问题的方法便是遵循单一职责原则。虽然单一职责原则如此简单，并且被认为是常识，但是即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。<br><br>为什么会出现这种现象呢？因为有职责扩散。<strong>所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2</strong>。</p>
-</blockquote>
-<h4 id="遵循单一职责原的优点"><a href="#遵循单一职责原的优点" class="headerlink" title="遵循单一职责原的优点"></a>遵循单一职责原的优点</h4><blockquote>
-<ul>
-<li>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br></li>
-<li>提高类的可读性，提高系统的可维护性；<br></li>
-<li>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响;<br></li>
-<li>需要说明的一点是单一职责原则不只是面向对象编程思想所特有的，只要是模块化的程序设计，都适用单一职责原则。<br></li>
-</ul>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-]]></content>
       <categories>
         <category>设计原则</category>
       </categories>
