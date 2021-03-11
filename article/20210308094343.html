@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>IO流 | Persian博客</title>
+  <meta name="description" content="概念 流： 代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象流的本质： 数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。作用: 为数据源和目的地建立一个输送通道。  Java IO所采用的模型 Java的IO模型设计非常优秀，它使用Decorator(装饰者)模式，按功能划分Stream，可以动态装配这些Stream，以便获得要的功能。  IO流的分类1、按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IO流">
+<meta property="og:url" content="http://persian.gitee.io/blog/article/20210308094343.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="概念 流： 代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象流的本质： 数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。作用: 为数据源和目的地建立一个输送通道。  Java IO所采用的模型 Java的IO模型设计非常优秀，它使用Decorator(装饰者)模式，按功能划分Stream，可以动态装配这些Stream，以便获得要的功能。  IO流的分类1、按">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+<meta property="article:published_time" content="2021-03-11T14:12:06.043Z">
+<meta property="article:modified_time" content="2021-03-11T14:12:06.043Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="IO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://persian.gitee.io/blog/article/20210308094343.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/PersianLL" target="_blank">
+          <img class="img-circle img-rotate" src="/blog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Persian</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">时刻学习Java的一枚小小学生。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">23</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IO/" rel="tag">IO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bean/" rel="tag">bean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" rel="tag">java关键字</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/spring/" rel="tag">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" rel="tag">对象创建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%A6%96%E9%A1%B5/" rel="tag">首页</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/blog/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/blog/tags/IO/" style="font-size: 13px;">IO</a> <a href="/blog/tags/JVM/" style="font-size: 13.17px;">JVM</a> <a href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 13.17px;">Java基础</a> <a href="/blog/tags/bean/" style="font-size: 13px;">bean</a> <a href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" style="font-size: 13px;">java关键字</a> <a href="/blog/tags/spring/" style="font-size: 13px;">spring</a> <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.33px;">创建型模式</a> <a href="/blog/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 13px;">反射</a> <a href="/blog/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 13.67px;">基础</a> <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" style="font-size: 13px;">对象创建</a> <a href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.5px;">结构型模式</a> <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.83px;">行为型模式</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 13.5px;">设计原则</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px;">设计模式</a> <a href="/blog/tags/%E9%9B%86%E5%90%88/" style="font-size: 13px;">集合</a> <a href="/blog/tags/%E9%A6%96%E9%A1%B5/" style="font-size: 13px;">首页</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/03/">三月 2021</a><span class="archive-list-count">43</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/undefined.html" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210308094343.html" class="title">IO流</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210311095333.html" class="title">java关键字</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20211405081412.html" class="title">工厂方法模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20211405081445.html" class="title">建造者模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Java基础-IO流" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IO流
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/blog/article/20210308094343.html" class="article-date">
+	  <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/blog/tags/IO/" rel="tag">IO</a>, <a class="article-tag-link-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/blog/article/20210308094343.html#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>流：</strong> 代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象<Thinking in Java><br><br><strong>流的本质：</strong> 数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。<br><br><strong>作用:</strong> 为数据源和目的地建立一个输送通道。</p>
+</blockquote>
+<h2 id="Java-IO所采用的模型"><a href="#Java-IO所采用的模型" class="headerlink" title="Java IO所采用的模型"></a>Java IO所采用的模型</h2><blockquote>
+<p>Java的IO模型设计非常优秀，它使用Decorator(装饰者)模式，按功能划分Stream，可以动态装配这些Stream，以便获得要的功能。</p>
+</blockquote>
+<h2 id="IO流的分类"><a href="#IO流的分类" class="headerlink" title="IO流的分类"></a>IO流的分类</h2><h3 id="1、按数据流的方向分为-输入流、输出流"><a href="#1、按数据流的方向分为-输入流、输出流" class="headerlink" title="1、按数据流的方向分为 输入流、输出流"></a>1、按数据流的方向分为 输入流、输出流</h3><blockquote>
+<p>此输入、输出是相对于我们写的代码程序而言<br></p>
+<ul>
+<li><strong>输入流：</strong> 从别的地方(本地文件，网络上的资源等)获取资源 输入到 我们的程序中<br></li>
+<li><strong>输出流：</strong> 从我们的程序中 输出到 别的地方(本地文件)， 将一个字符串保存到本地文件中，就需要使用输出流。</li>
+</ul>
+</blockquote>
+<h3 id="2、按处理数据单位不同分为-字节流、字符流"><a href="#2、按处理数据单位不同分为-字节流、字符流" class="headerlink" title="2、按处理数据单位不同分为 字节流、字符流"></a>2、按处理数据单位不同分为 字节流、字符流</h3><blockquote>
+<p>1字符 = 2字节、1字节(byte) = 8位(bit)、一个汉字占两个字节长度<br></p>
+<ul>
+<li><strong>字节流：</strong> 每次读取(写出)一个字节，当传输的资源文件有中文时，就会出现乱码;<br></li>
+<li><strong>字符流：</strong> 每次读取(写出)两个字节，有中文时，使用该流就可以正确传输显示中文。</li>
+</ul>
+</blockquote>
+<h3 id="3、按功能不同分为-节点流、处理流"><a href="#3、按功能不同分为-节点流、处理流" class="headerlink" title="3、按功能不同分为 节点流、处理流"></a>3、按功能不同分为 节点流、处理流</h3><blockquote>
+<ul>
+<li><strong>节点流：</strong> 以从或向一个特定的地方（节点）读写数据。如FileInputStream;<br></li>
+<li><strong>处理流：</strong> 是对一个已存在的流的连接和封装，通过所封装的流的功能调用实现数据读写。如BufferedReader。处理流的构造方法总是要带一个其他的流对象做参数。一个流对象经过其他流的多次包装，</li>
+</ul>
+</blockquote>
+<h3 id="4、四个基本的抽象流类型，所有的流都继承这四个"><a href="#4、四个基本的抽象流类型，所有的流都继承这四个" class="headerlink" title="4、四个基本的抽象流类型，所有的流都继承这四个"></a>4、四个基本的抽象流类型，所有的流都继承这四个</h3><blockquote>
+<p><strong>字节流:</strong>　　InputStream　　OutputStream<br><br><strong>字符流:</strong>　　Reader　　　　  Writer</p>
+</blockquote>
+<h3 id="5、关于分类的小结"><a href="#5、关于分类的小结" class="headerlink" title="5、关于分类的小结"></a>5、关于分类的小结</h3><blockquote>
+<p>看上面的几个分类，可能对于初次学io的同学会感觉到有些混乱，那什么时候用字节流，什么时候该用输出流呢？其实非常简单，举一个例子就学会了<br><br>1、首先自己要知道是选择输入流还是输出流，这就要根据自己的情况而定，如果你想从程序写东西到别的地方，那么就选择输出流，反之用输入流<br><br>2、然后考虑你传输数据时，是选择使用字节流传输还是字符流，也就是每次传1个字节还是2个字节，有中文肯定就选择字符流了。（详情见1.8）<br><br>3、前面两步就可以选出一个合适的节点流了，比如字节输入流inputStream，如果要在此基础上增强功能，那么就在处理流中选择一个合适的即可。<br></p>
+</blockquote>
+<blockquote>
+<p><strong>字符流的由来：</strong><br><br>Java中字符是采用Unicode标准，一个字符是16位，即一个字符使用两个字节来表示。<br><br>为此，JAVA中引入了处理字符的流。因为数据编码的不同，而有了对字符进行高效操作的流对象。本质其实就是基于字节流读取时，去查了指定的码表。</p>
+</blockquote>
+<h2 id="IO流特性"><a href="#IO流特性" class="headerlink" title="IO流特性"></a>IO流特性</h2><blockquote>
+<ul>
+<li><strong>先进先出</strong>，最先写入输出流的数据最先被输入流读取到。<br></li>
+<li><strong>顺序存取</strong>，可以一个接一个地往流中写入一串字节，读出时也将按写入顺序读取一串字节，不能随机访问中间的数据。（RandomAccessFile可以从文件的任意位置进行存取（输入输出）操作）<br></li>
+<li><strong>只读或只写</strong>，每个流只能是输入流或输出流的一种，不能同时具备两个功能，输入流只能进行读操作，对输出流只能进行写操作。在一个数据传输通道中，如果既要写入数据，又要读取数据，则要分别提供两个流。<br></li>
+</ul>
+</blockquote>
+<h2 id="IO流常用到的五类一接口"><a href="#IO流常用到的五类一接口" class="headerlink" title="IO流常用到的五类一接口"></a>IO流常用到的五类一接口</h2><blockquote>
+<p>在整个Java.io包中最重要的就是5个类和一个接口。<br><br>5个类指的是File、OutputStream、InputStream、Writer、Reader；<br><br>一个接口指的是Serializable。掌握了这些IO的核心操作那么对于Java中的IO体系也就有了一个初步的认识了。</p>
+</blockquote>
+<h3 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h3><blockquote>
+<ul>
+<li><strong>File</strong>（文件特征与管理）：File类是对文件系统中文件以及文件夹进行封装的对象，可以通过对象的思想来操作文件和文件夹。 File类保存文件或目录的各种元数据信息，包括文件名、文件长度、最后修改时间、是否可读、获取当前文件的路径名，判断指定文件是否存在、获得当前目录中的文件列表，创建、删除文件和目录等方法。<br><br> * <strong>InputStream</strong>（二进制格式操作）：抽象类，基于字节的输入操作，是所有输入流的父类。定义了所有输入流都具有的共同特征。<br><br> * <strong>OutputStream</strong>（二进制格式操作）：抽象类。基于字节的输出操作。是所有输出流的父类。定义了所有输出流都具有的共同特征。<br><br> * <strong>Reader</strong>（文件格式操作）：抽象类，基于字符的输入操作。<br></li>
+<li><strong>Writer</strong>（文件格式操作）：抽象类，基于字符的输出操作。<br></li>
+<li><strong>RandomAccessFile</strong>（随机文件操作）：一个独立的类，直接继承至Object.它的功能丰富，可以从文件的任意位置进行存取（输入输出）操作。<br></li>
+</ul>
+</blockquote>
+<h2 id="Java-IO流对象"><a href="#Java-IO流对象" class="headerlink" title="Java IO流对象"></a>Java IO流对象</h2><h3 id="输入字节流InputStream"><a href="#输入字节流InputStream" class="headerlink" title="输入字节流InputStream"></a>输入字节流InputStream</h3><blockquote>
+<ul>
+<li><strong>ByteArrayInputStream</strong>：字节数组输入流，该类的功能就是从字节数组(byte[])中进行以字节为单位的读取，也就是将资源文件都以字节的形式存入到该类中的字节数组中去，我们拿也是从这个字节数组中拿<br></li>
+<li><strong>PipedInputStream</strong>：管道字节输入流，它和PipedOutputStream一起使用，能实现多线程间的管道通信<br></li>
+<li><strong>FilterInputStream</strong>:装饰者模式中处于装饰者，具体的装饰者都要继承它，所以在该类的子类下都是用来装饰别的流的，也就是处理类。具体装饰者模式在下面会讲解到，到时就明白了<br></li>
+<li><strong>BufferedInputStream</strong>：缓冲流，对处理流进行装饰，增强，内部会有一个缓存区，用来存放字节，每次都是将缓存区存满然后发送，而不是一个字节或两个字节这样发送。效率更高<br></li>
+<li><strong>DataInputStream</strong>：数据输入流，它是用来装饰其它输入流，它“允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型”<br></li>
+<li><strong>FileInputSream</strong>：文件输入流。它通常用于对文件进行读取操作<br></li>
+<li><strong>File</strong>：对指定目录的文件进行操作，具体可以查看讲解File的博文。注意，该类虽然是在IO包下，但是并不继承自四大基础类。<br><br> * <strong>ObjectInputStream</strong>：对象输入流，用来提供对“基本数据或对象”的持久存储。通俗点讲，也就是能直接传输对象（反序列化中使用）<br></li>
+</ul>
+</blockquote>
+<h3 id="输出字节流OutputStream"><a href="#输出字节流OutputStream" class="headerlink" title="输出字节流OutputStream"></a>输出字节流OutputStream</h3><blockquote>
+<ul>
+<li><strong>OutputStream</strong>： 是所有的输出字节流的父类，它是一个抽象类。<br></li>
+<li><strong>ByteArrayOutputStream</strong>、<strong>FileOutputStream</strong> 是两种基本的介质流，它们分别向Byte数组、和本地文件中写入数据。<br></li>
+<li><strong>PipedOutputStream</strong>是向与其它线程共用的管道中写入数据；<br></li>
+<li><strong>ObjectOutputStream</strong>和所有FilterOutputStream的子类都是装饰流(序列化中使用)。<br></li>
+</ul>
+</blockquote>
+<h3 id="字符输入流Reader"><a href="#字符输入流Reader" class="headerlink" title="字符输入流Reader"></a>字符输入流Reader</h3><blockquote>
+<ul>
+<li><strong>Reader</strong>: 是所有的输入字符流的父类，它是一个抽象类。<br></li>
+<li><strong>CharReader</strong>、<strong>StringReader</strong>：是两种基本的介质流，它们分别将Char 数组、String中读取数据。<br></li>
+<li><strong>PipedReader</strong>：是从与其它线程共用的管道中读取数据。<br></li>
+<li><strong>BufferedReader</strong>：很明显就是一个装饰器，它和其子类负责装饰其它Reader 对象。<br></li>
+<li><strong>FilterReader</strong>：是所有自定义具体装饰流的父类，其子类PushbackReader 对Reader 对象进行装饰，会增加一个行号。<br></li>
+<li><strong>InputStreamReader</strong>: 是一个连接字节流和字符流的桥梁，它将字节流转变为字符流。</li>
+<li><strong>FileReader</strong>：可以说是一个达到此功能、常用的工具类，在其源代码中明显使用了将FileInputStream 转变为Reader的方法。<br><br>我们可以从这个类中得到一定的技巧。Reader 中各个类的用途和使用方法基本和InputStream 中的类使用一致。后面会有Reader 与InputStream 的对应关系。<br></li>
+</ul>
+</blockquote>
+<h3 id="字符输出流Writer"><a href="#字符输出流Writer" class="headerlink" title="字符输出流Writer"></a>字符输出流Writer</h3><blockquote>
+<ul>
+<li><strong>Writer</strong>：是所有的输出字符流的父类，它是一个抽象类。<br></li>
+<li><strong>CharArrayWriter</strong>、<strong>StringWriter</strong>：是两种基本的介质流，它们分别向Char 数组、String 中写入数据。PipedWriter 是向与其它线程共用的管道中写入数据;<br></li>
+<li><strong>BufferedWriter</strong>：是一个装饰器为Writer 提供缓冲功能。<br></li>
+<li><strong>PrintWriter</strong>：和PrintStream 极其类似，功能和使用也非常相似。<br></li>
+<li><strong>OutputStreamWriter</strong>：是OutputStream 到Writer 转换的桥梁，它的子类FileWiter 其实就是一个实现此功能的具体类（具体可以研究一SourceCode）。<br><br>功能和使用和OutputStream 极其类似，后面会有它们的对应图。<br></li>
+</ul>
+</blockquote>
+<h3 id="字节流和字符流使用情况：（重要）"><a href="#字节流和字符流使用情况：（重要）" class="headerlink" title="字节流和字符流使用情况：（重要）"></a>字节流和字符流使用情况：（重要）</h3><blockquote>
+<p>字符流和字节流的使用范围：<br></p>
+<ul>
+<li>字节流一般用来处理图像，视频，以及PPT，Word类型的文件。<br></li>
+<li>字符流一般用于处理纯文本类型的文件，如TXT文件等，字节流可以用来处理纯文本文件，但是字符流不能用于处理图像视频等非文本类型的文件。</li>
+</ul>
+</blockquote>
+<h2 id="字符流与字节流转换"><a href="#字符流与字节流转换" class="headerlink" title="字符流与字节流转换"></a>字符流与字节流转换</h2><blockquote>
+<p>转换流的作用，文本文件在硬盘中以字节流的形式存储时，通过InputStreamReader读取后转化为字符流给程序处理，程序处理的字符流通过OutputStreamWriter转换为字节流保存。</p>
+</blockquote>
+<h3 id="转换流的特点"><a href="#转换流的特点" class="headerlink" title="转换流的特点"></a>转换流的特点</h3><blockquote>
+<ul>
+<li>ta是字符流和字节流之间的桥梁<br></li>
+<li>可对读取到的字节数据经过指定编码转换成字符<br></li>
+<li>可对读取到的字符数据经过指定编码转换成字节<br></li>
+</ul>
+</blockquote>
+<h3 id="何时使用转换流？"><a href="#何时使用转换流？" class="headerlink" title="何时使用转换流？"></a>何时使用转换流？</h3><blockquote>
+<ul>
+<li>当字节和字符之间有转换动作时；<br></li>
+<li>流操作的数据需要编码或解码时。<br></li>
+</ul>
+</blockquote>
+<h3 id="具体的对象体现"><a href="#具体的对象体现" class="headerlink" title="具体的对象体现"></a>具体的对象体现</h3><blockquote>
+<p><strong>InputStreamReader</strong>:字节到字符的桥梁，将字节流以字符流输入。<br><br><strong>OutputStreamWriter</strong>:字符到字节的桥梁，将字节流以字符流输出。<br><br>这两个流对象是字符体系中的成员，它们有转换作用，本身又是字符流，所以在构造的时候需要传入字节流对象进来。</p>
+</blockquote>
+<h2 id="字节流和字符流的区别（重点）"><a href="#字节流和字符流的区别（重点）" class="headerlink" title="字节流和字符流的区别（重点）"></a>字节流和字符流的区别（重点）</h2><blockquote>
+<p>字节流没有缓冲区，是直接输出的，而字符流是输出到缓冲区的。<br><br> 因此在输出时，字节流不调用colse()方法时，信息已经输出了，而字符流只有在调用close()方法关闭缓冲区时，信息才输出。要想字符流在未关闭时输出信息，则需要手动调用flush()方法。<br><br> * 读写单位不同：字节流以字节（8bit）为单位，字符流以字符为单位，根据码表映射字符，一次可能读多个字节。<br><br>* 处理对象不同：字节流能处理所有类型的数据（如图片、avi等），而字符流只能处理字符类型的数据。<br><br><strong>结论</strong>：只要是处理纯文本数据，就优先考虑使用字符流。除此之外都使用字节流。</p>
+</blockquote>
+<h2 id="System类对IO的支持"><a href="#System类对IO的支持" class="headerlink" title="System类对IO的支持"></a>System类对IO的支持</h2><blockquote>
+<p>针对一些频繁的设备交互，Java语言系统预定了3个可以直接使用的流对象，分别是：<br></p>
+<ul>
+<li><strong>System.in</strong>（标准输入），通常代表键盘输入。<br></li>
+<li><strong>System.out</strong>（标准输出）：通常写往显示器。<br></li>
+<li><strong>System.err</strong>（标准错误输出）：通常写往显示器。<br><br> <strong>标准I/O</strong><br><br>    Java程序可通过命令行参数与外界进行简短的信息交换，同时，也规定了与标准输入、输出设备，如键盘、显示器进行信息交换的方式。而通过文件可以与外界进行任意数据形式的信息交换。</li>
+</ul>
+</blockquote>
+<h2 id="处理流BufferedReader，BufferedWriter-BufferedInputStream"><a href="#处理流BufferedReader，BufferedWriter-BufferedInputStream" class="headerlink" title="处理流BufferedReader，BufferedWriter,BufferedInputStream"></a>处理流BufferedReader，BufferedWriter,BufferedInputStream</h2><blockquote>
+<p>BufferedOutputsStream，都要包上一层节点流。<br><br>也就是说处理流是在节点流的基础之上进行的，带有Buffered的流又称为缓冲流，缓冲流处理文件的输入输出的速度是最快的。所以一般缓冲流的使用比较多。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://persian.gitee.io/blog/article/20210308094343.html" title="IO流" target="_blank" rel="external">http://persian.gitee.io/blog/article/20210308094343.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/PersianLL" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/blog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/PersianLL" target="_blank"><span class="text-dark">Persian</span><small class="ml-1x">时刻学习Java的一枚小小学生。</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/blog/article/undefined.html" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/blog/article/20210311095333.html" title="java关键字"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/PersianLL" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/blog/js/plugin.min.js"></script>
+
+
+<script src="/blog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/blog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+</body>
+</html>

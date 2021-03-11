@@ -17,18 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Persian博客</title>
-  <meta name="description" content="这里是内容 欢迎关注我的公众号，原创技术文章第一时间推送。">
+  <title>迭代器模式 | Persian博客</title>
+  <meta name="description" content="概念 定义：提供一个对象来顺序访问聚合对象中的一系列数据，而不暴露聚合对象的内部表示。迭代器模式是一种对象行为型模式。迭代器模式是通过将聚合对象的遍历行为分离出来，抽象成迭代器类来实现的，其目的是在不暴露聚合对象的内部结构的情况下，让外部代码透明地访问聚合的内部数据。在日常开发中，我们几乎不会自己写迭代器。除非需要定制一个自己实现的数据结构对应的迭代器，否则，开源框架提供的 API 完全够用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="迭代器模式">
 <meta property="og:url" content="http://persian.gitee.io/blog/article/20210305205834.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这里是内容 欢迎关注我的公众号，原创技术文章第一时间推送。">
+<meta property="og:description" content="概念 定义：提供一个对象来顺序访问聚合对象中的一系列数据，而不暴露聚合对象的内部表示。迭代器模式是一种对象行为型模式。迭代器模式是通过将聚合对象的遍历行为分离出来，抽象成迭代器类来实现的，其目的是在不暴露聚合对象的内部结构的情况下，让外部代码透明地访问聚合的内部数据。在日常开发中，我们几乎不会自己写迭代器。除非需要定制一个自己实现的数据结构对应的迭代器，否则，开源框架提供的 API 完全够用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
 <meta property="article:published_time" content="2021-03-05T13:02:06.589Z">
-<meta property="article:modified_time" content="2021-03-05T12:36:34.566Z">
+<meta property="article:modified_time" content="2021-03-11T16:17:11.525Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="行为型模式">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
   <!-- Canonical links -->
@@ -184,7 +186,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">22</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">23</span></li></ul>
     </div>
   </div>
 
@@ -194,7 +196,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bean/" rel="tag">bean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/spring/" rel="tag">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" rel="tag">对象创建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">22</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%A6%96%E9%A1%B5/" rel="tag">首页</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IO/" rel="tag">IO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bean/" rel="tag">bean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" rel="tag">java关键字</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/spring/" rel="tag">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" rel="tag">对象创建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%A6%96%E9%A1%B5/" rel="tag">首页</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -204,7 +206,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/blog/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/blog/tags/JVM/" style="font-size: 13.17px;">JVM</a> <a href="/blog/tags/bean/" style="font-size: 13px;">bean</a> <a href="/blog/tags/spring/" style="font-size: 13px;">spring</a> <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.33px;">创建型模式</a> <a href="/blog/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 13px;">反射</a> <a href="/blog/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 13.67px;">基础</a> <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" style="font-size: 13px;">对象创建</a> <a href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.5px;">结构型模式</a> <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.83px;">行为型模式</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 13.5px;">设计原则</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px;">设计模式</a> <a href="/blog/tags/%E9%9B%86%E5%90%88/" style="font-size: 13px;">集合</a> <a href="/blog/tags/%E9%A6%96%E9%A1%B5/" style="font-size: 13px;">首页</a>
+      <a href="/blog/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/blog/tags/IO/" style="font-size: 13px;">IO</a> <a href="/blog/tags/JVM/" style="font-size: 13.17px;">JVM</a> <a href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 13.17px;">Java基础</a> <a href="/blog/tags/bean/" style="font-size: 13px;">bean</a> <a href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" style="font-size: 13px;">java关键字</a> <a href="/blog/tags/spring/" style="font-size: 13px;">spring</a> <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.33px;">创建型模式</a> <a href="/blog/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 13px;">反射</a> <a href="/blog/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 13.67px;">基础</a> <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" style="font-size: 13px;">对象创建</a> <a href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.5px;">结构型模式</a> <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.83px;">行为型模式</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 13.5px;">设计原则</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px;">设计模式</a> <a href="/blog/tags/%E9%9B%86%E5%90%88/" style="font-size: 13px;">集合</a> <a href="/blog/tags/%E9%A6%96%E9%A1%B5/" style="font-size: 13px;">首页</a>
     </div>
   </div>
 
@@ -213,7 +215,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/03/">三月 2021</a><span class="archive-list-count">40</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/03/">三月 2021</a><span class="archive-list-count">43</span></li></ul>
     </div>
   </div>
 
@@ -229,13 +231,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a>
+                
               </p>
               <p class="item-title">
-                <a href="/blog/article/20210905080908.html" class="title">里氏代换原则</a>
+                <a href="/blog/article/undefined.html" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-03-05T13:02:06.599Z" itemprop="datePublished">2021-03-05</time>
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
               </p>
             </div>
           </li>
@@ -244,13 +246,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a>
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
               </p>
               <p class="item-title">
-                <a href="/blog/article/20210805080844.html" class="title">迪米特法则</a>
+                <a href="/blog/article/20210308094343.html" class="title">IO流</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-03-05T13:02:06.597Z" itemprop="datePublished">2021-03-05</time>
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
               </p>
             </div>
           </li>
@@ -259,13 +261,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a>
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
               </p>
               <p class="item-title">
-                <a href="/blog/article/20210805080815.html" class="title">接口隔离原则</a>
+                <a href="/blog/article/20210311095333.html" class="title">java关键字</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-03-05T13:02:06.596Z" itemprop="datePublished">2021-03-05</time>
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
               </p>
             </div>
           </li>
@@ -274,13 +276,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a>
+                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
               </p>
               <p class="item-title">
-                <a href="/blog/article/20210705080741.html" class="title">开闭原则</a>
+                <a href="/blog/article/20211405081412.html" class="title">工厂方法模式</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-03-05T13:02:06.595Z" itemprop="datePublished">2021-03-05</time>
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
               </p>
             </div>
           </li>
@@ -289,13 +291,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a>
+                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
               </p>
               <p class="item-title">
-                <a href="/blog/article/20210705080708.html" class="title">合成复用原则</a>
+                <a href="/blog/article/20211405081445.html" class="title">建造者模式</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-03-05T13:02:06.593Z" itemprop="datePublished">2021-03-05</time>
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
               </p>
             </div>
           </li>
@@ -317,6 +319,14 @@
     
     <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      迭代器模式
+    </h1>
+  
+
+      
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
@@ -325,7 +335,17 @@
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a>, <a class="article-tag-link-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>
+  </span>
+
 
         
 
@@ -335,7 +355,43 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="这里是内容"><a href="#这里是内容" class="headerlink" title="这里是内容"></a>这里是内容</h2><hr>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>定义：提供一个对象来顺序访问聚合对象中的一系列数据，而不暴露聚合对象的内部表示。迭代器模式是一种对象行为型模式。<br><br>迭代器模式是通过将聚合对象的遍历行为分离出来，抽象成迭代器类来实现的，其目的是在不暴露聚合对象的内部结构的情况下，让外部代码透明地访问聚合的内部数据。<br><br>在日常开发中，我们几乎不会自己写迭代器。除非需要定制一个自己实现的数据结构对应的迭代器，否则，开源框架提供的 API 完全够用。<br></p>
+</blockquote>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<ul>
+<li>访问一个聚合对象的内容而无须暴露它的内部表示。<br></li>
+<li>遍历任务交由迭代器完成，这简化了聚合类。<br></li>
+<li>它支持以不同方式遍历一个聚合，甚至可以自定义迭代器的子类以支持新的遍历。<br></li>
+<li>增加新的聚合类和迭代器类都很方便，无须修改原有代码。<br></li>
+<li>封装性良好，为遍历不同的聚合结构提供一个统一的接口。<br></li>
+</ul>
+</blockquote>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
+<p>增加了类的个数，这在一定程度上增加了系统的复杂性。</p>
+</blockquote>
+<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
+<ul>
+<li><strong>抽象聚合（Aggregate）角色：</strong> 定义存储、添加、删除聚合对象以及创建迭代器对象的接口。<br></li>
+<li><strong>具体聚合（ConcreteAggregate）角色：</strong> 实现抽象聚合类，返回一个具体迭代器的实例。<br></li>
+<li><strong>抽象迭代器（Iterator）角色：</strong> 定义访问和遍历聚合元素的接口，通常包含 hasNext()、first()、next() 等方法。<br></li>
+<li><strong>具体迭代器（Concretelterator）角色：</strong> 实现抽象迭代器接口中所定义的方法，完成对聚合对象的遍历，记录遍历的当前位置。<br></li>
+</ul>
+</blockquote>
+<p>###模式的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IteratorPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Aggregate ag = <span class="keyword">new</span> ConcreteAggregate();</span><br><span class="line">        ag.add(<span class="string">&quot;中山大学&quot;</span>);</span><br><span class="line">        ag.add(<span class="string">&quot;华南理工&quot;</span>);</span><br><span class="line">        ag.add(<span class="string">&quot;韶关学院&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;聚合的内容有：&quot;</span>);</span><br><span class="line">        Iterator it = ag.getIterator();</span><br><span class="line">        <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">            Object ob = it.next();</span><br><span class="line">            System.out.print(ob.toString() + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Object ob = it.first();</span><br><span class="line">        System.out.println(<span class="string">&quot;\nFirst：&quot;</span> + ob.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象聚合</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Aggregate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Object obj)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Object obj)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator <span class="title">getIterator</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体聚合</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteAggregate</span> <span class="keyword">implements</span> <span class="title">Aggregate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; list = <span class="keyword">new</span> ArrayList&lt;Object&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        list.add(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        list.remove(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">new</span> ConcreteIterator(list));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象迭代器</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span> </span>&#123;</span><br><span class="line">    <span class="function">Object <span class="title">first</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">Object <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体迭代器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; list = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index = -<span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteIterator</span><span class="params">(List&lt;Object&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.list = list;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; list.size() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">first</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        index = <span class="number">0</span>;</span><br><span class="line">        Object obj = list.get(index);</span><br><span class="line">        ;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Object obj = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.hasNext()) &#123;</span><br><span class="line">            obj = list.get(++index);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
+<ul>
+<li>当需要为聚合对象提供多种遍历方式时。<br></li>
+<li>当需要为遍历不同的聚合结构提供一个统一的接口时。<br></li>
+<li>当访问一个聚合对象的内容而无须暴露其内部细节的表示时。<br><br>由于聚合与迭代器的关系非常密切，所以大多数语言在实现聚合类时都提供了迭代器类，因此大数情况下使用语言中已有的聚合类的迭代器就已经够了。</li>
+</ul>
+</blockquote>
+<h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
+<p>迭代器模式常常与<strong>组合模式</strong>结合起来使用，在对组合模式中的容器构件进行访问时，经常将迭代器潜藏在组合模式的容器构成类中。当然，也可以构造一个外部迭代器来对容器构件进行访问。</p>
+</blockquote>
+<hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
@@ -348,7 +404,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://persian.gitee.io/blog/article/20210305205834.html" title="" target="_blank" rel="external">http://persian.gitee.io/blog/article/20210305205834.html</a>
+      <a href="http://persian.gitee.io/blog/article/20210305205834.html" title="迭代器模式" target="_blank" rel="external">http://persian.gitee.io/blog/article/20210305205834.html</a>
     </li>
     
     <li class="post-copyright-license">

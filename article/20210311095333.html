@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>java关键字 | Persian博客</title>
+  <meta name="description" content="概述 ① JAVA的关键字都是小写的② 在JAVA中目前一共有53个关键字：其中由51+2个保留字&#x3D;53个关键字。  一、JAVA的保留关键字（2个） ① const——常量，常数：用于修改字段或局部变量的声明。② goto——转到：指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。  二、访问修饰符的关键字（3个）  public（公有的）：可跨包 protected(受保护的)：当前包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java关键字">
+<meta property="og:url" content="http://persian.gitee.io/blog/article/20210311095333.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="概述 ① JAVA的关键字都是小写的② 在JAVA中目前一共有53个关键字：其中由51+2个保留字&#x3D;53个关键字。  一、JAVA的保留关键字（2个） ① const——常量，常数：用于修改字段或局部变量的声明。② goto——转到：指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。  二、访问修饰符的关键字（3个）  public（公有的）：可跨包 protected(受保护的)：当前包">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+<meta property="article:published_time" content="2021-03-11T14:12:06.043Z">
+<meta property="article:modified_time" content="2021-03-11T14:12:06.043Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java基础">
+<meta property="article:tag" content="java关键字">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://persian.gitee.io/blog/article/20210311095333.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/PersianLL" target="_blank">
+          <img class="img-circle img-rotate" src="/blog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Persian</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">时刻学习Java的一枚小小学生。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">23</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IO/" rel="tag">IO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bean/" rel="tag">bean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" rel="tag">java关键字</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/spring/" rel="tag">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" rel="tag">对象创建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%A6%96%E9%A1%B5/" rel="tag">首页</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/blog/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/blog/tags/IO/" style="font-size: 13px;">IO</a> <a href="/blog/tags/JVM/" style="font-size: 13.17px;">JVM</a> <a href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 13.17px;">Java基础</a> <a href="/blog/tags/bean/" style="font-size: 13px;">bean</a> <a href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" style="font-size: 13px;">java关键字</a> <a href="/blog/tags/spring/" style="font-size: 13px;">spring</a> <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.33px;">创建型模式</a> <a href="/blog/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 13px;">反射</a> <a href="/blog/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 13.67px;">基础</a> <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" style="font-size: 13px;">对象创建</a> <a href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.5px;">结构型模式</a> <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.83px;">行为型模式</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 13.5px;">设计原则</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px;">设计模式</a> <a href="/blog/tags/%E9%9B%86%E5%90%88/" style="font-size: 13px;">集合</a> <a href="/blog/tags/%E9%A6%96%E9%A1%B5/" style="font-size: 13px;">首页</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/03/">三月 2021</a><span class="archive-list-count">43</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/undefined.html" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210308094343.html" class="title">IO流</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210311095333.html" class="title">java关键字</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20211405081412.html" class="title">工厂方法模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20211405081445.html" class="title">建造者模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Java基础-java关键字" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java关键字
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/blog/article/20210311095333.html" class="article-date">
+	  <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a>, <a class="article-tag-link-link" href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" rel="tag">java关键字</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/blog/article/20210311095333.html#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p>① JAVA的关键字都是小写的<br><br>② 在JAVA中目前一共有53个关键字：其中由51+2个保留字=53个关键字。<br></p>
+</blockquote>
+<h3 id="一、JAVA的保留关键字（2个）"><a href="#一、JAVA的保留关键字（2个）" class="headerlink" title="一、JAVA的保留关键字（2个）"></a>一、JAVA的保留关键字（2个）</h3><blockquote>
+<p>① <strong>const</strong>——常量，常数：用于修改字段或局部变量的声明。<br><br>② <strong>goto</strong>——转到：指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。</p>
+</blockquote>
+<h3 id="二、访问修饰符的关键字（3个）"><a href="#二、访问修饰符的关键字（3个）" class="headerlink" title="二、访问修饰符的关键字（3个）"></a>二、访问修饰符的关键字（3个）</h3><blockquote>
+<ul>
+<li><strong>public</strong>（公有的）：可跨包</li>
+<li><strong>protected</strong>(受保护的)：当前包内可用</li>
+<li><strong>private</strong>(私有的)：当前类可用</li>
+</ul>
+</blockquote>
+<h3 id="三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）"><a href="#三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）" class="headerlink" title="三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）"></a>三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）</h3><blockquote>
+<ul>
+<li><strong>class</strong>(类)：public class A(){}花括号里是已实现的方法体，类名需要与文件名相同<br></li>
+<li><strong>interface</strong>(接口)：public interface B(){}花括号里有方法体，但没有实现，方法体句子后面是英文分号;结尾<br></li>
+<li><strong>abstract</strong>(声明抽象)：public abstract class C(){}介于类与接口中间，可以有，也可以没有已经实现的方法体<br></li>
+<li><strong>implemenst</strong>(实现)：用于类或接口，实现接口public class A interface B(){}<br></li>
+<li><strong>extends</strong>(继承)：用于类继承类public class A extends D(){}<br></li>
+<li><strong>new</strong>(创建新对象)：A a=new A();A表示一个类<br></li>
+</ul>
+</blockquote>
+<h3 id="四、包的关键字（2个）"><a href="#四、包的关键字（2个）" class="headerlink" title="四、包的关键字（2个）"></a>四、包的关键字（2个）</h3><blockquote>
+<ul>
+<li><strong>import</strong>(引入包的关键字)：当使用某个包的一些类时，仅需要类名，然后使用ctrl+shift+o或者选定类名（类或属性或方法）按住ctrl+单击，即可自动插入类所在的包；<br></li>
+<li><strong>package</strong>(定义包的关键字)：将所有相关的类放在一个包类以便查找修改等<br></li>
+</ul>
+</blockquote>
+<h3 id="五、数据类型的关键字（12个）"><a href="#五、数据类型的关键字（12个）" class="headerlink" title="五、数据类型的关键字（12个）"></a>五、数据类型的关键字（12个）</h3><blockquote>
+<ul>
+<li><strong>byte</strong>(字节型)：8bit<br></li>
+<li><strong>short</strong>(短整型)：16bit<br></li>
+<li><strong>int</strong>(整型)：32bit<br></li>
+<li><strong>long</strong>(长整型)：64bit<br></li>
+<li><strong>char</strong>(字节型)：16bit<br></li>
+<li><strong>boolean</strong>(布尔型)：–<br></li>
+<li><strong>float</strong>(浮点型)：32bit<br></li>
+<li><strong>double</strong>(双精度)：64bit<br></li>
+<li><strong>void</strong>(无返回)：public void A(){}其他需要反回的经常与return连用<br></li>
+<li><strong>null</strong>(空值)<br></li>
+<li><strong>true</strong>(真)<br></li>
+<li><strong>false</strong>(假）<br></li>
+</ul>
+</blockquote>
+<h3 id="六、条件循环（流程控制）（12个）"><a href="#六、条件循环（流程控制）（12个）" class="headerlink" title="六、条件循环（流程控制）（12个）"></a>六、条件循环（流程控制）（12个）</h3><blockquote>
+<ul>
+<li><strong>if</strong>(如果) ：if（条件语句｛执行代码｝如果条件语句成立，就开始执行｛｝里面的内容<br></li>
+<li><strong>else</strong>(否则，或者) ：常与if连用，用法相同：if(…){…}else{…}<br></li>
+<li><strong>while</strong>(当什么时候)：while（条件语句）｛执行代码｝<br></li>
+<li><strong>for</strong>（满足三个条件时）：for(初始化循环变量；判断条件；循环变量值｛｝<br></li>
+<li><strong>switch</strong>(选择结构)：switch(表达式）｛case 常量表达式1：语句1；…case 常量表达式2；语句2；default:语句；｝default就是如果没有匹配的case就执行它，default并不是必须的。case后的语句可以不用大括号。<br></li>
+<li><strong>case</strong>(匹配switch的表达式里的结果) ：同上<br></li>
+<li><strong>default</strong>(默认)： default就是如果没有匹配的case就执行它， default并不是必须的<br></li>
+<li><strong>do</strong>(运行) ：通长与while连用<br></li>
+<li><strong>break</strong>(跳出循环)：直接跳出循环，执行循环体后的代码<br></li>
+<li><strong>continue</strong>(继续) ： 中断本次循环，并开始下一轮循环<br></li>
+<li><strong>return</strong>(返回) ：return 一个返回值类型<br></li>
+<li><strong>instanceof</strong>(实例)：一个二元操作符，和==、&gt;、&lt;是同一类的。测试它左边的对象是否是它右边的类的实例，返回boolean类型的数据<br></li>
+</ul>
+</blockquote>
+<h3 id="七、修饰方法、类、属性和变量（9个）"><a href="#七、修饰方法、类、属性和变量（9个）" class="headerlink" title="七、修饰方法、类、属性和变量（9个）"></a>七、修饰方法、类、属性和变量（9个）</h3><blockquote>
+<ul>
+<li><strong>static</strong>(静态的)：属性和方法都可以用static修饰，直接使用类名、属性和方法名。只有内部类可以使用static关键字修饰，调用直接使用类名、内部类类名进行调用。static可以独立存在<br></li>
+<li><strong>final</strong>(最终的不可被改变)：方法和类都可用final来修饰；final修饰的类是不能被继承的；final修饰的方法是不能被子类重写。常量的定义：final修饰的属性就是常量<br></li>
+<li><strong>super</strong>(调用父类的方法)：常见public void paint(Graphics g){super.paint(g);…}<br></li>
+<li><strong>this</strong>(当前类的父类的对象)：调用当前类中的方法（表示调用这个方法的对象）this.addActionListener(al):等等<br></li>
+<li><strong>native</strong>(本地)<br></li>
+<li><strong>strictfp</strong>(严格，精准)<br></li>
+<li><strong>synchronized</strong>(线程，同步)：一个时间内只能有一个线程得到执行。另一个线程必须等待当前线程执行完这个代码块以后才能执行该代码块<br></li>
+<li><strong>transient</strong>(短暂)<br></li>
+<li><strong>volatile</strong>(易失)<br></li>
+</ul>
+</blockquote>
+<h3 id="八、错误处理（5个）"><a href="#八、错误处理（5个）" class="headerlink" title="八、错误处理（5个）"></a>八、错误处理（5个）</h3><blockquote>
+<ul>
+<li><strong>catch</strong>(处理异常)：<br><ul>
+<li>① try+catch 程序流程是：运行到try块中，如果有异常抛出，则转到catch块去处理。然后执行catch块后面的语句<br></li>
+<li>② try+catch+finally 程序流程是：运行到try块中，如果有异常抛出，则转到catch垮，catch块执行完毕后，执行finally块的代码，再执行finally块后面的代码。如果没有异常抛出，执行完try块，也要去执行finally块的代码。然后执行finally块后面的语句<br></li>
+<li>③ try+finally  程序流程是：运行到try块中，如果有异常抛出，则转到finally块的代码。<br></li>
+</ul>
+</li>
+<li><strong>try</strong>(捕获异常)<br></li>
+<li><strong>finally</strong>（有没有异常都执行）<br></li>
+<li><strong>throw</strong>(抛出一个异常对象)：一些可以导致程序出问题，比如书写错误，逻辑错误或者是api的应用错误等等。为力防止程序的崩溃就要预先检测这些因素，所以java使用了异常这个机制在java中异常是靠“抛出”  也就是英语的“throw”来使用的，意思是如果发现到什么异常的时候就把错误信息“抛出”<br>&gt;</li>
+<li><strong>throws</strong>(声明一个异常可能被抛出)：把异常交给他的上级管理，自己不进行异常处理<br></li>
+</ul>
+</blockquote>
+<h3 id="九、其他（2个）"><a href="#九、其他（2个）" class="headerlink" title="九、其他（2个）"></a>九、其他（2个）</h3><blockquote>
+<ul>
+<li><strong>enum</strong>(枚举，列举，型别)</li>
+<li><strong>assert</strong>(断言)</li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://persian.gitee.io/blog/article/20210311095333.html" title="java关键字" target="_blank" rel="external">http://persian.gitee.io/blog/article/20210311095333.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/PersianLL" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/blog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/PersianLL" target="_blank"><span class="text-dark">Persian</span><small class="ml-1x">时刻学习Java的一枚小小学生。</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/blog/article/20210308094343.html" title="IO流"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/blog/article/20211405081412.html" title="工厂方法模式"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/PersianLL" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/blog/js/plugin.min.js"></script>
+
+
+<script src="/blog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/blog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+</body>
+</html>
