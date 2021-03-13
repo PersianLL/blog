@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>RocketMQ安装 | Persian博客</title>
+  <meta name="description" content="前言 官网只有.zip版本，没有.tgz或.tar.gz版本。RocketMQ官网地址  下载安装包 可以在任意目录执行： wget http:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;rocketmq&#x2F;4.2.0&#x2F;rocketmq-all-4.2.0-bin-release.zip  script1234567891011[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ安装">
+<meta property="og:url" content="http://persian.gitee.io/blog/article/20210312095509.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言 官网只有.zip版本，没有.tgz或.tar.gz版本。RocketMQ官网地址  下载安装包 可以在任意目录执行： wget http:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;rocketmq&#x2F;4.2.0&#x2F;rocketmq-all-4.2.0-bin-release.zip  script1234567891011[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+<meta property="article:published_time" content="2021-03-13T06:10:09.619Z">
+<meta property="article:modified_time" content="2021-03-13T10:03:03.844Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="centos7">
+<meta property="article:tag" content="中间件安装">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://persian.gitee.io/blog/article/20210312095509.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/PersianLL" target="_blank">
+          <img class="img-circle img-rotate" src="/blog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Persian</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">时刻学习Java的一枚小小学生。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IO/" rel="tag">IO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bean/" rel="tag">bean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/centos7/" rel="tag">centos7</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" rel="tag">java关键字</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/spring/" rel="tag">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">中间件安装</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" rel="tag">对象创建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%A6%96%E9%A1%B5/" rel="tag">首页</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/blog/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/blog/tags/IO/" style="font-size: 13px;">IO</a> <a href="/blog/tags/JVM/" style="font-size: 13.17px;">JVM</a> <a href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 13.17px;">Java基础</a> <a href="/blog/tags/bean/" style="font-size: 13px;">bean</a> <a href="/blog/tags/centos7/" style="font-size: 13.17px;">centos7</a> <a href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" style="font-size: 13px;">java关键字</a> <a href="/blog/tags/spring/" style="font-size: 13px;">spring</a> <a href="/blog/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E8%A3%85/" style="font-size: 13.17px;">中间件安装</a> <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.33px;">创建型模式</a> <a href="/blog/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 13px;">反射</a> <a href="/blog/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 13.67px;">基础</a> <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" style="font-size: 13px;">对象创建</a> <a href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.5px;">结构型模式</a> <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.83px;">行为型模式</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 13.5px;">设计原则</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px;">设计模式</a> <a href="/blog/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 13.17px;">运维</a> <a href="/blog/tags/%E9%9B%86%E5%90%88/" style="font-size: 13px;">集合</a> <a href="/blog/tags/%E9%A6%96%E9%A1%B5/" style="font-size: 13px;">首页</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/03/">三月 2021</a><span class="archive-list-count">45</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210313194332.html" class="title">Redis安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-13T06:10:09.619Z" itemprop="datePublished">2021-03-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210312095509.html" class="title">RocketMQ安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-13T06:10:09.619Z" itemprop="datePublished">2021-03-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/undefined.html" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210308094343.html" class="title">IO流</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210311095333.html" class="title">java关键字</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-运维-RocketMQ安装" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RocketMQ安装
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/blog/article/20210312095509.html" class="article-date">
+	  <time datetime="2021-03-13T06:10:09.619Z" itemprop="datePublished">2021-03-13</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/blog/tags/centos7/" rel="tag">centos7</a>, <a class="article-tag-link-link" href="/blog/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">中间件安装</a>, <a class="article-tag-link-link" href="/blog/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/blog/article/20210312095509.html#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>官网只有.zip版本，没有.tgz或.tar.gz版本。<br><br><a target="_blank" rel="noopener" href="http://rocketmq.apache.org/">RocketMQ官网地址</a></p>
+</blockquote>
+<h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3><blockquote>
+<p>可以在任意目录执行： wget <a target="_blank" rel="noopener" href="http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip">http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip</a></p>
+</blockquote>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# wget http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip</span><br><span class="line">--2021-03-12 13:40:46--  http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip</span><br><span class="line">Resolving archive.apache.org (archive.apache.org)... 138.201.131.134, 2a01:4f8:172:2ec5::2</span><br><span class="line">Connecting to archive.apache.org (archive.apache.org)|138.201.131.134|:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line">Length: 9080492 (8.7M) [application/zip]</span><br><span class="line">Saving to: ‘rocketmq-all-4.2.0-bin-release.zip’</span><br><span class="line"></span><br><span class="line"><span class="meta">100%</span><span class="bash">[=======================================================================================================================================================================================================&gt;] 9,080,492   15.2KB/s   <span class="keyword">in</span> 8m 51s</span> </span><br><span class="line"></span><br><span class="line">2021-03-12 13:49:38 (16.7 KB/s) - ‘rocketmq-all-4.2.0-bin-release.zip’ saved [9080492/9080492]</span><br></pre></td></tr></table></figure>
+
+<h3 id="解压安装包至指定目录下"><a href="#解压安装包至指定目录下" class="headerlink" title="解压安装包至指定目录下"></a>解压安装包至指定目录下</h3><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# unzip rocketmq-all-4.2.0-bin-release.zip -d /usr/local/rocketmq-4.2.0</span><br><span class="line">-bash: unzip: command not found</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# yum install unzip zip</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Determining fastest mirrors</span><br><span class="line">... 这里将细节省略掉...</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line">... 这里将细节省略掉...</span><br><span class="line"></span><br><span class="line">Total download size: 171 k</span><br><span class="line">Installed size: 365 k</span><br><span class="line">Is this ok [y/d/N]: y</span><br><span class="line">Downloading packages:</span><br><span class="line">unzip-6.0-21.el7.x86_64.rpm                                                                                                                                                                                               | 171 kB  00:00:00     </span><br><span class="line">Running transaction check</span><br><span class="line">Running transaction test</span><br><span class="line">Transaction test succeeded</span><br><span class="line">Running transaction</span><br><span class="line">  Installing : unzip-6.0-21.el7.x86_64                                                                                                                                                                                                       1/1 </span><br><span class="line">  Verifying  : unzip-6.0-21.el7.x86_64                                                                                                                                                                                                       1/1 </span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  unzip.x86_64 0:6.0-21.el7                                                                                                                                                                                                                      </span><br><span class="line"></span><br><span class="line">Complete!</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# unzip rocketmq-all-4.2.0-bin-release.zip -d /usr/local/rocketmq-4.2.0</span><br><span class="line">Archive:  rocketmq-all-4.2.0-bin-release.zip</span><br><span class="line">   creating: /usr/local/rocketmq-4.2.0/conf/</span><br><span class="line">   creating: /usr/local/rocketmq-4.2.0/conf/2m-2s-async/</span><br><span class="line">   creating: /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/</span><br><span class="line">   ... 这里将细节省略掉...</span><br><span class="line"></span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-openmessaging-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-example-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-common-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-store-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-srvutil-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/commons-cli-1.2.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/guava-19.0.jar</span><br><span class="line">  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 看一下有没有解压到指定目录</span></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# cd /usr/local/rocketmq-4.2.0/</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# ls</span><br><span class="line">benchmark  bin  conf  lib  LICENSE  NOTICE  README.md</span><br></pre></td></tr></table></figure>
+<h4 id="此外还有在这个目录下新建一些文件夹："><a href="#此外还有在这个目录下新建一些文件夹：" class="headerlink" title="此外还有在这个目录下新建一些文件夹："></a>此外还有在这个目录下新建一些文件夹：</h4><blockquote>
+<p>mkdir logs  ——  存储RocketMQ日志目录<br><br>mkdir store  ——  存储RocketMQ数据文件目录<br><br>cd store<br><br>mkdir commitlog  ——  存储RocketMQ消息信息<br><br>mkdir consumequeue  ——  存储消息的索引数据<br><br>mkdir index  ——  存储消息的索引数据<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# mkdir logs</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# ls</span><br><span class="line">benchmark  bin  conf  lib  LICENSE  logs  NOTICE  README.md</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# mkdir store</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# ls</span><br><span class="line">benchmark  bin  conf  lib  LICENSE  logs  NOTICE  README.md  store</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# cd store</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# pwd</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# mkdir commitlog</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# mkdir consumequeue</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# mkdir index</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# ls</span><br><span class="line">commitlog  consumequeue  index</span><br></pre></td></tr></table></figure>
+
+<h3 id="conf目录配置文件说明"><a href="#conf目录配置文件说明" class="headerlink" title="conf目录配置文件说明"></a>conf目录配置文件说明</h3><blockquote>
+<p>2m-2s-async ： 2主2从异步<br><br>2m-2s-sync ： 2主2从同步<br><br>2m-noslave ： 2主没有从<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# cd conf&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# ls</span><br><span class="line">2m-2s-async  2m-2s-sync  2m-noslave  broker.conf  logback_broker.xml  logback_filtersrv.xml  logback_namesrv.xml  logback_tools.xml</span><br><span class="line"></span><br><span class="line">## 以2主2从同步内部配置文件为例</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# cd 2m-2s-sync&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z 2m-2s-sync]# ls</span><br><span class="line">broker-a.properties  broker-a-s.properties  broker-b.properties  broker-b-s.properties</span><br><span class="line"></span><br><span class="line">broker-a.properties broker-b.properties -- 2主的配置文件</span><br><span class="line">broker-a-s.properties broker-b-s.properties -- 2从-2主各自的从文件</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于我这里是单机的配置，因此只修改一下broker-a.properties 文件即可</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># 集群名称</span><br><span class="line">brokerClusterName&#x3D;rocketmq-cluster</span><br><span class="line"># broker名字,注意此处不同的配置文件填写的不一样</span><br><span class="line">brokerName&#x3D;broker-a</span><br><span class="line"># 0 表示Master,&gt;0 表示Slave</span><br><span class="line">brokerId&#x3D;0</span><br><span class="line"># nameServer地址,多个地址时用分号分割（这里地址可以是域名，也可以使IP+端口号，看具体的集群环境所定） -- 比如我目前部署MQ的机器的IP 是 192.168.30.32</span><br><span class="line">namesrvAddr&#x3D;192.168.30.32:9876</span><br><span class="line"># 在发送消息时,自动创建服务器不存在的Topic,默认创建的队列数</span><br><span class="line">defaultTopicQueueNums&#x3D;4</span><br><span class="line"># 是否允许Broker 自动创建Topic, 建议线下开启, 线上关闭</span><br><span class="line">autoCreateTopicEnable&#x3D;true</span><br><span class="line"># 是否允许Broker 自动创建订阅组, 建议线下开启, 线上关闭</span><br><span class="line">autoCreateSubscriptionGroup&#x3D;true</span><br><span class="line"># Broker 对外服务的地址（这个IP地址跟 namesrvAddr 是一致的，可以不设置值，那么将默认使用该机器的内网地址）</span><br><span class="line">brokerIP1&#x3D;192.168.30.32 </span><br><span class="line"># Broker 对外服务的监听端口 -- 使用阿里云时，这个端口要配置安全组的，范围设置： 10900&#x2F;10999就足够了，如果是 内网环境的</span><br><span class="line">listenPort&#x3D;10911 </span><br><span class="line"># 删除文件时间点,默认是凌晨4点</span><br><span class="line">deleteWhen&#x3D;04</span><br><span class="line"># 文件保留时间,默认是48小时</span><br><span class="line">fileReservedTime&#x3D;48</span><br><span class="line"># commitLog每个文件的大小默认1G</span><br><span class="line">mapedFileSizeCommitLog&#x3D;1073741824</span><br><span class="line"># ConsumeQueue每个文件默认存30w条, 根据业务情况调整</span><br><span class="line">mapedFileSizeConsumeQueue&#x3D;30000</span><br><span class="line"># destroyMapedFileIntervalForcibly&#x3D;12000</span><br><span class="line"># redeleteHangedFileInterval&#x3D;12000</span><br><span class="line"># 检测物理文件磁盘空间</span><br><span class="line">diskMaxUsedSpaceRatio&#x3D;88</span><br><span class="line"># 存储路径</span><br><span class="line">storePathRootDir&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store</span><br><span class="line"># commitLog存储路径</span><br><span class="line">storePathCommitLog&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;commitlog</span><br><span class="line"># 消息队列储存路径</span><br><span class="line">storePathConsumeQueue&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;consumequeue</span><br><span class="line"># 消息索引粗存路径</span><br><span class="line">storePathIndex&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;index</span><br><span class="line"># checkpoint 文件储存路径</span><br><span class="line">storeCheckpoint&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;checkpoint</span><br><span class="line"># abort 文件存储路径</span><br><span class="line">abortFile&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;abort</span><br><span class="line"># 限制的消息大小</span><br><span class="line">maxMessageSize&#x3D;65536</span><br><span class="line"># flushCommitLogLeastPages&#x3D;4</span><br><span class="line"># flushConsumeQueueLeastPages&#x3D;2</span><br><span class="line"># flushCommitLogThoroughInterval&#x3D;10000</span><br><span class="line"># flushConsumeQueueThoroughInterval&#x3D;60000</span><br><span class="line"># Broker的角色</span><br><span class="line"># -ASYNC_MASTER 异步复制Master</span><br><span class="line"># -SYNC_MASTER 同步双写Master</span><br><span class="line"># -SLAVE</span><br><span class="line">brokerRole&#x3D;ASYNC_MASTER</span><br><span class="line"># 刷盘方式</span><br><span class="line"># - ASYNC_FLUSH 异步刷盘</span><br><span class="line"># - SYNC_FLUSH 同步刷盘</span><br><span class="line">flushDiskType&#x3D;ASYNC_FLUSH</span><br><span class="line"># checkTransactionMessageEnable&#x3D;false</span><br><span class="line"># 发消息线程池数量</span><br><span class="line"># sendMessageTreadPoolNums&#x3D;128</span><br><span class="line"># 拉消息线程池数量</span><br><span class="line"># pullMessageTreadPoolNums&#x3D;128lushDiskType&#x3D;ASYNC_FLUSHH</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于日志文件的存储,默认的存储路径跟我们实际的logs路径一般是不一致的，因此我们需要做一下修改<br><br>进入conf目录，替换所有xml文件中的${user.home}，保证日志路径正确</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#39;s#$&#123;user.home&#125;#&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0#g&#39; *.xml</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# cd conf&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# ls</span><br><span class="line">2m-2s-async  2m-2s-sync  2m-noslave  broker.conf  logback_broker.xml  logback_filtersrv.xml  logback_namesrv.xml  logback_tools.xml</span><br><span class="line"># 修改前先看一下，里面会有一个这个的描述</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# cat logback_broker.xml</span><br><span class="line"># 里面会有一个这个的描述</span><br><span class="line"> &lt;file&gt;$&#123;user.home&#125;&#x2F;logs&#x2F;rocketmqlogs&#x2F;filtersrv.log&lt;&#x2F;file&gt;</span><br><span class="line"># 替换之后再看</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# sed -i &#39;s#$&#123;user.home&#125;#&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0#g&#39; *.xml</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# cat logback_broker.xml</span><br><span class="line"># 这里改变了</span><br><span class="line">&lt;file&gt;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;logs&#x2F;rocketmqlogs&#x2F;filtersrv_default.log&lt;&#x2F;file&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意： set -i ‘s#目标字符串#新字符串#g’ 目标文件 （*.表示全部）</p>
+</blockquote>
+<h4 id="修改一下参数"><a href="#修改一下参数" class="headerlink" title="修改一下参数"></a>修改一下参数</h4><blockquote>
+<p>RocketMQ要求内存，至少为1G，而默认的是设置的8G ,所以我这里修改一下，主要我测试机内存也不没这么多</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# vim runbroker.sh  </span><br><span class="line"># JVM Configuration </span><br><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">修改前： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms8g -Xmx8g -Xmn4g&quot;</span><br><span class="line">修改后： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms1g -Xmx1g -Xmn1g&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# vim runserver.sh </span><br><span class="line"># JVM Configuration</span><br><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">修改前： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms4g -Xmx4g -Xmn2g -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;320m&quot;</span><br><span class="line">修改后： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms1g -Xmx1g -Xmn1g -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;320m&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bin目录下启动"><a href="#bin目录下启动" class="headerlink" title="bin目录下启动"></a>bin目录下启动</h3><blockquote>
+<p>先启动 namesrv<br><br>nohup sh mqnamesrv &amp; <br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# nohup sh mqnamesrv &amp;</span><br><span class="line">[1] 30711</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# nohup: ignoring input and appending output to ‘nohup.out’</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>再启动 broker <br><br>nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]<span class="meta"># nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</span></span><br><span class="line">[<span class="number">2</span>] <span class="number">31806</span></span><br></pre></td></tr></table></figure>
+<h4 id="输入-jps-查看进程"><a href="#输入-jps-查看进程" class="headerlink" title="输入 jps 查看进程"></a>输入 jps 查看进程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">31633 NamesrvStartup</span><br><span class="line">31813 BrokerStartup</span><br><span class="line">31864 Jps</span><br></pre></td></tr></table></figure>
+
+<h3 id="bin目录下停止服务"><a href="#bin目录下停止服务" class="headerlink" title="bin目录下停止服务"></a>bin目录下停止服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown namesrv</span><br><span class="line">The mqnamesrv(31633) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(31633) OK</span><br><span class="line"></span><br><span class="line">## 这里关闭broker时，是有延迟的</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown broker</span><br><span class="line">The mqbroker(31813) is running...</span><br><span class="line">Send shutdown request to mqbroker(31813) OK</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">3695 Jps</span><br></pre></td></tr></table></figure>
+
+<h3 id="清除zip"><a href="#清除zip" class="headerlink" title="清除zip"></a>清除zip</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z ~]# cd &#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  rocketmq-all-4.2.0-bin-release.zip  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf rocketmq-all-4.2.0-bin-release.zip </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="RocketMq控制台安装"><a href="#RocketMq控制台安装" class="headerlink" title="RocketMq控制台安装"></a>RocketMq控制台安装</h3><blockquote>
+<ul>
+<li>下载源码： <a target="_blank" rel="noopener" href="https://github.com/apache/rocketmq-externals">https://github.com/apache/rocketmq-externals</a></li>
+<li>找到rocketmq-console，<br><ul>
+<li>先编辑一下rocketmq-console里面的application.properties文件，将项目使用的rocketmq.config.namesrvAddr配置上去（或者在项目启动时，以参数的形式配进去）<br></li>
+<li>见上面的文件，我配置的是  namesrvAddr=192.168.30.32:9876</li>
+</ul>
+</li>
+<li>打成jar包，并把jar部署到 RocketMQ安装的这台机器上（因为上面配置的是 内网地址） <br><pre><code>当然可以将这个后台监控jar部署到另外的机器，如果脱离同一个局域网了的话，需要把上面的内网IP改为外网的，并做好端口号开放。       
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://persian.gitee.io/blog/article/20210312095509.html" title="RocketMQ安装" target="_blank" rel="external">http://persian.gitee.io/blog/article/20210312095509.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/PersianLL" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/blog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/PersianLL" target="_blank"><span class="text-dark">Persian</span><small class="ml-1x">时刻学习Java的一枚小小学生。</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/blog/article/20210313194332.html" title="Redis安装"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/blog/article/undefined.html" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/PersianLL" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/blog/js/plugin.min.js"></script>
+
+
+<script src="/blog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/blog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+</body>
+</html>

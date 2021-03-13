@@ -231,53 +231,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JVM面试</title>
-    <url>/blog/article/20213903103919.html</url>
-    <content><![CDATA[<p><strong>1、说一下JVM的主要组成部分及其作用</strong></p>
-<p>JVM包括类装载子系统、运行时数据区、执行引擎、本地接口四个部分；</p>
-<p>类装载子系统通过类加载器将class字节码加载到JVM运行时数据区的方法区（jdk1.8及以后改为了元空间）；运行时数据区用于存储程序运行时所产生的各种数据；执行引擎负责将class字节码解析为机器指令并交给CPU进行处理，这个过程中可能会调用到系统提供的native方法；</p>
-<p><strong>2、描述一下JVM运行时数据区（通常也被叫作JVM内存模型，要区别于Java内存模型~JMM）</strong></p>
-<p>JVM运行时数据区主要包括堆区、方法区（jdk1.8及以后改为了元空间）、虚拟机栈、本地方法栈、程序计数器五个区域，其中堆区、方法区属于所有线程共享内存区域，虚拟机栈、本地方法栈、程序计数器属于每个线程独享的内存区域；</p>
-<ul>
-<li>堆区用于存放对象实例；</li>
-<li>方法区用于存储类信息、常量、静态变量、即时编译器编译后的代码等；</li>
-<li>虚拟机栈用于存储一个线程在执行方法的过程中产生的数据，一个方法开始被调用就会有一个栈帧入栈，方法执行完毕栈帧出栈，栈帧中包括局部变量表、操作数栈、动态链接、方法出口等；</li>
-<li>本地方法栈与虚拟机栈的作用类似，区别在于本地方法栈用于存储线程执行的native方法产生的数据；</li>
-<li>程序计数器用于记录线程执行代码的位置，分支、循环、跳转、异常、线程恢复等都依赖于程序计数器，程序计数器也是JVM规范中唯一没有规定OOM（OutOfMemeryError）的内存区域。</li>
-</ul>
-<p><strong>3、说一下几种垃圾收集算法及其应用场景</strong></p>
-<p>垃圾收集算法主要有标记清除、标记整理、复制算法三种，还有一种分代收集的理论；</p>
-<ul>
-<li>标记清除算法标记存活对象，然后清除无用对象，缺点是效率不高，会产生垃圾碎片，主要用于老年代收集，CMS垃圾收集器使用该算法实现；</li>
-<li>标记整理算法标记存活对象，然后将存活对象向内存的一端移动，然后清理另一端的内存空间，优点是解决了标记清除算法产生碎片的问题，缺点是需要移动对象，一定程度上降低了垃圾收集效率，SerialOld、ParallelOld、G1收集器使用该算法实现；</li>
-<li>复制算法将内存分为大小相等的两块，每次只使用其中的一块，在进行垃圾收集时，将存活对象复制到另一块空闲的内存区域，然后清除掉垃圾对象，复制算法主要应用于年轻代收集，因为年轻的对象大都是存活时间短，存活对象少，使用复制算法效率高，缺点是内存利用率低，Serial、ParNew、Parallel Scavenge收集器使用该算法实现。</li>
-</ul>
-<p><strong>4、说一下常见的垃圾收集器及其所使用的垃圾收集算法</strong></p>
-<p>目前常用的垃圾收集器大概有七种，其中年轻代垃圾收集器包括Serial、ParNew、Parallel Scavenge，这三种垃圾收集器使用复制算法实现，老年代收集器包括SerialOld、ParallelOld、CMS，其中SerialOld、ParallelOld使用标记整理算法实现，CMS使用标记清除算法实现，整堆垃圾收集器G1使用标记整理算法实现。</p>
-<ul>
-<li>Serial是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
-<li>Parallel Scavenge是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
-<li>ParNew与Parallel Scavenge类似，但是由于Parallel Scavenge不能与CMS进行配合使用，所以才有了ParNew垃圾收集器；</li>
-<li>SerialOld是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
-<li>ParallelOld是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
-<li>CMS是一种以获取最短回收停顿时间为目标的收集器，主要包括初始标记、并发标记、重新标记、并发收集、并发清除五个阶段，初始标记扫描gcroot根对象，该阶段需要STW（Stop The World），并发标记基于初始标扫描的gcroot根对象继续查找，标记出所有与gcroot关联的存活对象，该阶段标记线程与用户线程并发执行，重新标记用于修复在并发标记过程中多标和漏标的情况，多标会产生浮动垃圾，可以在下一次GC进行清理，漏标则会清理存活对象，导致致命bug，漏标的情况在CMS中会使用三色标记中的增量更新进行处理，该阶段需要STW（Stop The World）。并发清理阶段清理线程与用户线程并发执行，用于清除在标记阶段为存活对象打的标记，用户线程新产生的对象会被直接标记为黑色不进行回收，CMS也可以通过参数配置进行内存整理等功能；</li>
-<li>整堆收集器G1，使用标记整理算法实现（目前很少用，暂不做详细描述）。</li>
-</ul>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JVM复习点</title>
     <url>/blog/article/20213303113340.html</url>
     <content><![CDATA[<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><ul>
@@ -441,6 +394,53 @@
       </tags>
   </entry>
   <entry>
+    <title>JVM面试</title>
+    <url>/blog/article/20213903103919.html</url>
+    <content><![CDATA[<p><strong>1、说一下JVM的主要组成部分及其作用</strong></p>
+<p>JVM包括类装载子系统、运行时数据区、执行引擎、本地接口四个部分；</p>
+<p>类装载子系统通过类加载器将class字节码加载到JVM运行时数据区的方法区（jdk1.8及以后改为了元空间）；运行时数据区用于存储程序运行时所产生的各种数据；执行引擎负责将class字节码解析为机器指令并交给CPU进行处理，这个过程中可能会调用到系统提供的native方法；</p>
+<p><strong>2、描述一下JVM运行时数据区（通常也被叫作JVM内存模型，要区别于Java内存模型~JMM）</strong></p>
+<p>JVM运行时数据区主要包括堆区、方法区（jdk1.8及以后改为了元空间）、虚拟机栈、本地方法栈、程序计数器五个区域，其中堆区、方法区属于所有线程共享内存区域，虚拟机栈、本地方法栈、程序计数器属于每个线程独享的内存区域；</p>
+<ul>
+<li>堆区用于存放对象实例；</li>
+<li>方法区用于存储类信息、常量、静态变量、即时编译器编译后的代码等；</li>
+<li>虚拟机栈用于存储一个线程在执行方法的过程中产生的数据，一个方法开始被调用就会有一个栈帧入栈，方法执行完毕栈帧出栈，栈帧中包括局部变量表、操作数栈、动态链接、方法出口等；</li>
+<li>本地方法栈与虚拟机栈的作用类似，区别在于本地方法栈用于存储线程执行的native方法产生的数据；</li>
+<li>程序计数器用于记录线程执行代码的位置，分支、循环、跳转、异常、线程恢复等都依赖于程序计数器，程序计数器也是JVM规范中唯一没有规定OOM（OutOfMemeryError）的内存区域。</li>
+</ul>
+<p><strong>3、说一下几种垃圾收集算法及其应用场景</strong></p>
+<p>垃圾收集算法主要有标记清除、标记整理、复制算法三种，还有一种分代收集的理论；</p>
+<ul>
+<li>标记清除算法标记存活对象，然后清除无用对象，缺点是效率不高，会产生垃圾碎片，主要用于老年代收集，CMS垃圾收集器使用该算法实现；</li>
+<li>标记整理算法标记存活对象，然后将存活对象向内存的一端移动，然后清理另一端的内存空间，优点是解决了标记清除算法产生碎片的问题，缺点是需要移动对象，一定程度上降低了垃圾收集效率，SerialOld、ParallelOld、G1收集器使用该算法实现；</li>
+<li>复制算法将内存分为大小相等的两块，每次只使用其中的一块，在进行垃圾收集时，将存活对象复制到另一块空闲的内存区域，然后清除掉垃圾对象，复制算法主要应用于年轻代收集，因为年轻的对象大都是存活时间短，存活对象少，使用复制算法效率高，缺点是内存利用率低，Serial、ParNew、Parallel Scavenge收集器使用该算法实现。</li>
+</ul>
+<p><strong>4、说一下常见的垃圾收集器及其所使用的垃圾收集算法</strong></p>
+<p>目前常用的垃圾收集器大概有七种，其中年轻代垃圾收集器包括Serial、ParNew、Parallel Scavenge，这三种垃圾收集器使用复制算法实现，老年代收集器包括SerialOld、ParallelOld、CMS，其中SerialOld、ParallelOld使用标记整理算法实现，CMS使用标记清除算法实现，整堆垃圾收集器G1使用标记整理算法实现。</p>
+<ul>
+<li>Serial是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
+<li>Parallel Scavenge是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
+<li>ParNew与Parallel Scavenge类似，但是由于Parallel Scavenge不能与CMS进行配合使用，所以才有了ParNew垃圾收集器；</li>
+<li>SerialOld是一种单线程垃圾收集器，标记和清理阶段都是单线程；</li>
+<li>ParallelOld是一种并行垃圾收集器，可以理解为Serial的多线程版本，特点是吞吐量高；</li>
+<li>CMS是一种以获取最短回收停顿时间为目标的收集器，主要包括初始标记、并发标记、重新标记、并发收集、并发清除五个阶段，初始标记扫描gcroot根对象，该阶段需要STW（Stop The World），并发标记基于初始标扫描的gcroot根对象继续查找，标记出所有与gcroot关联的存活对象，该阶段标记线程与用户线程并发执行，重新标记用于修复在并发标记过程中多标和漏标的情况，多标会产生浮动垃圾，可以在下一次GC进行清理，漏标则会清理存活对象，导致致命bug，漏标的情况在CMS中会使用三色标记中的增量更新进行处理，该阶段需要STW（Stop The World）。并发清理阶段清理线程与用户线程并发执行，用于清除在标记阶段为存活对象打的标记，用户线程新产生的对象会被直接标记为黑色不进行回收，CMS也可以通过参数配置进行内存整理等功能；</li>
+<li>整堆收集器G1，使用标记整理算法实现（目前很少用，暂不做详细描述）。</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java多线程</title>
     <url>/blog/article/20211204101246.html</url>
     <content><![CDATA[<blockquote>
@@ -590,72 +590,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java创建对象的5种方式</title>
-    <url>/blog/article/20215905075928.html</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>依赖函数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>使用new关键字</td>
-<td>} → 调用了构造函数</td>
-</tr>
-<tr>
-<td>使用Class类的newInstance方法</td>
-<td>} → 调用了构造函数</td>
-</tr>
-<tr>
-<td>使用Constructor类的newInstance方法</td>
-<td>} → 调用了构造函数</td>
-</tr>
-<tr>
-<td>使用clone方法</td>
-<td>} → 没有调用构造函数</td>
-</tr>
-<tr>
-<td>使用反序列化——需要实现Serializable接口</td>
-<td>} → 没有调用构造函数</td>
-</tr>
-</tbody></table>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><blockquote>
-<ul>
-<li>1.使用Constructor类的newInstance方法<br><br>和Class类的newInstance方法很像， java.lang.reflect.Constructor类里也有一个newInstance方法可以创建对象<br></li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Constructor&lt;Employee&gt; constructor &#x3D; Employee.class.getConstructor();</span><br><span class="line">Employee emp3 &#x3D; constructor.newInstance();</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>2.使用clone方法<br><br>无论何时我们调用一个对象的clone方法，jvm就会创建一个新的对象，将前面对象的内容全部拷贝进去。用clone方法创建对象并不会调用任何构造函数<br><br>要使用clone方法，我们需要先实现Cloneable接口并实现其定义的clone方法<br></li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object o2 &#x3D; object.clone();</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>3.使用反序列化<br><br>当我们序列化和反序列化一个对象，jvm会给我们创建一个单独的对象。在反序列化时，jvm创建对象并不会调用任何构造函数<br></li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ObjectInputStream in &#x3D; new ObjectInputStream(new FileInputStream(&quot;data.obj&quot;));</span><br><span class="line">Object object &#x3D; (Object) in.readObject();</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p> 欢迎关注我的公众号，原创技术文章第一时间推送。</p>
- <center>
-     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
- </center>
-]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>对象创建</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java关键字</title>
     <url>/blog/article/20210311095333.html</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
@@ -766,6 +700,64 @@
       </tags>
   </entry>
   <entry>
+    <title>Java集合</title>
+    <url>/blog/article/20211903111947.html</url>
+    <content><![CDATA[<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><h4 id="Arraylist"><a href="#Arraylist" class="headerlink" title="Arraylist"></a>Arraylist</h4><ul>
+<li>动态数组</li>
+<li>能够实现随机存取 – 实现了RandomAccess接口</li>
+<li>fail-fast机制<br>① modCount在Abstractlist中定义<br>② 在使用迭代器遍历list时，如果modCount和exceptedCount不匹配，就会直接抛出异常<br>③ 使用迭代器自带的remove时，如果删除了list中元素，不会出现fail-fast，<br> 因为迭代器会调整modCount和expectedCount值</li>
+<li>自定义序列化方法<br>① 因为arraylist的底层数组中，可能存在值为null的元素，序列化这些元素是没意义的，<br>  因此自定义序列化方法，只序列化数组中非null的元素<br>② 通过readObject和writeObject方法实现</li>
+<li>有一个初始容量（16）<br>① 扩容：capacity = 1.5 * capacity<br>② 通过Arrays.copyOf() - &gt; System.copyOf()<br>③ Arraylist是插入前扩容，扩容逻辑为ensureCapacityInternal() –&gt; ensureExplicitCapacity() —&gt; grow()</li>
+<li>插入时，判断容器中的元素是否超过某个阈值，超过则代表快溢出，会进行扩容</li>
+</ul>
+<h4 id="Linkedlist"><a href="#Linkedlist" class="headerlink" title="Linkedlist"></a>Linkedlist</h4><ul>
+<li>动态数组</li>
+<li>双向链表</li>
+<li>不能随机访问，不能通过下标获取元素</li>
+<li>适合插入删除多的场合 – 更新，删除元素效率高</li>
+</ul>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
+<li>不保证元素顺序</li>
+<li>元素插入的顺序与输出顺序不一致</li>
+<li>在Set中元素还是有顺序的，根据元素的hashcode排序</li>
+</ul>
+<h4 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h4><ul>
+<li>基于LinkedHashMap实现</li>
+<li>使用链表维护元素的次序</li>
+</ul>
+<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h4><ul>
+<li>底层基于TreeMap实现</li>
+<li>两种排序：① 自然排序 ② 定制排序 </li>
+<li>不是通过hashcodeh和equals来比较元素，是通过compare或compareTo来判断元素是否相等</li>
+</ul>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
+<li>扩容，需要遍历旧table，再遍历每个table中每个元素的单向链表，取得entry后，<br>重新计算hash，然后存放到新table的对应位置</li>
+</ul>
+<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><ul>
+<li>哈希表和链表实现</li>
+<li>每个元素用双向链表进行连接</li>
+<li>扩容时遍历双向链表，重新计算每个元素的hash即可</li>
+</ul>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><ul>
+<li>基于红黑树</li>
+<li>自然排序<br>  ① 所有key必须实现Comparable接口 – 每一个key-value节点作为红黑树的一个节点</li>
+<li>定制排序<br>  ① 定义TreeMap时，创建一个comparator对象，该对象对所有的key进行排序</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+    ]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>集合</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java高级特性——反射</title>
     <url>/blog/article/20215805075828.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -834,64 +826,6 @@
       <tags>
         <tag>基础</tag>
         <tag>反射</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java集合</title>
-    <url>/blog/article/20211903111947.html</url>
-    <content><![CDATA[<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><h4 id="Arraylist"><a href="#Arraylist" class="headerlink" title="Arraylist"></a>Arraylist</h4><ul>
-<li>动态数组</li>
-<li>能够实现随机存取 – 实现了RandomAccess接口</li>
-<li>fail-fast机制<br>① modCount在Abstractlist中定义<br>② 在使用迭代器遍历list时，如果modCount和exceptedCount不匹配，就会直接抛出异常<br>③ 使用迭代器自带的remove时，如果删除了list中元素，不会出现fail-fast，<br> 因为迭代器会调整modCount和expectedCount值</li>
-<li>自定义序列化方法<br>① 因为arraylist的底层数组中，可能存在值为null的元素，序列化这些元素是没意义的，<br>  因此自定义序列化方法，只序列化数组中非null的元素<br>② 通过readObject和writeObject方法实现</li>
-<li>有一个初始容量（16）<br>① 扩容：capacity = 1.5 * capacity<br>② 通过Arrays.copyOf() - &gt; System.copyOf()<br>③ Arraylist是插入前扩容，扩容逻辑为ensureCapacityInternal() –&gt; ensureExplicitCapacity() —&gt; grow()</li>
-<li>插入时，判断容器中的元素是否超过某个阈值，超过则代表快溢出，会进行扩容</li>
-</ul>
-<h4 id="Linkedlist"><a href="#Linkedlist" class="headerlink" title="Linkedlist"></a>Linkedlist</h4><ul>
-<li>动态数组</li>
-<li>双向链表</li>
-<li>不能随机访问，不能通过下标获取元素</li>
-<li>适合插入删除多的场合 – 更新，删除元素效率高</li>
-</ul>
-<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
-<li>不保证元素顺序</li>
-<li>元素插入的顺序与输出顺序不一致</li>
-<li>在Set中元素还是有顺序的，根据元素的hashcode排序</li>
-</ul>
-<h4 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h4><ul>
-<li>基于LinkedHashMap实现</li>
-<li>使用链表维护元素的次序</li>
-</ul>
-<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h4><ul>
-<li>底层基于TreeMap实现</li>
-<li>两种排序：① 自然排序 ② 定制排序 </li>
-<li>不是通过hashcodeh和equals来比较元素，是通过compare或compareTo来判断元素是否相等</li>
-</ul>
-<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
-<li>扩容，需要遍历旧table，再遍历每个table中每个元素的单向链表，取得entry后，<br>重新计算hash，然后存放到新table的对应位置</li>
-</ul>
-<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><ul>
-<li>哈希表和链表实现</li>
-<li>每个元素用双向链表进行连接</li>
-<li>扩容时遍历双向链表，重新计算每个元素的hash即可</li>
-</ul>
-<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><ul>
-<li>基于红黑树</li>
-<li>自然排序<br>  ① 所有key必须实现Comparable接口 – 每一个key-value节点作为红黑树的一个节点</li>
-<li>定制排序<br>  ① 定义TreeMap时，创建一个comparator对象，该对象对所有的key进行排序</li>
-</ul>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-    ]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>集合</tag>
       </tags>
   </entry>
   <entry>
@@ -1283,6 +1217,72 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>Java创建对象的5种方式</title>
+    <url>/blog/article/20215905075928.html</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>依赖函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>使用new关键字</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用Class类的newInstance方法</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用Constructor类的newInstance方法</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用clone方法</td>
+<td>} → 没有调用构造函数</td>
+</tr>
+<tr>
+<td>使用反序列化——需要实现Serializable接口</td>
+<td>} → 没有调用构造函数</td>
+</tr>
+</tbody></table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><blockquote>
+<ul>
+<li>1.使用Constructor类的newInstance方法<br><br>和Class类的newInstance方法很像， java.lang.reflect.Constructor类里也有一个newInstance方法可以创建对象<br></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Constructor&lt;Employee&gt; constructor &#x3D; Employee.class.getConstructor();</span><br><span class="line">Employee emp3 &#x3D; constructor.newInstance();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>2.使用clone方法<br><br>无论何时我们调用一个对象的clone方法，jvm就会创建一个新的对象，将前面对象的内容全部拷贝进去。用clone方法创建对象并不会调用任何构造函数<br><br>要使用clone方法，我们需要先实现Cloneable接口并实现其定义的clone方法<br></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object o2 &#x3D; object.clone();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>3.使用反序列化<br><br>当我们序列化和反序列化一个对象，jvm会给我们创建一个单独的对象。在反序列化时，jvm创建对象并不会调用任何构造函数<br></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ObjectInputStream in &#x3D; new ObjectInputStream(new FileInputStream(&quot;data.obj&quot;));</span><br><span class="line">Object object &#x3D; (Object) in.readObject();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p> 欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+ <center>
+     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+ </center>
+]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>对象创建</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>抽象工厂模式</title>
     <url>/blog/article/20211505081501.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -1413,6 +1413,62 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>外观模式</title>
+    <url>/blog/article/20211705081715.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>外观（Facade）模式又叫作<strong>门面模式</strong>，是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。<br><br>该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。<br><br>在日常编码工作中，我们都在有意无意的大量使用外观模式。只要是高层模块需要调度多个子系统（2个以上的类对象），我们都会自觉地创建一个新的类封装这些子系统，提供精简的接口，让高层模块可以更加容易地间接调用这些子系统的功能。尤其是现阶段各种第三方SDK、开源类库，很大概率都会使用外观模式。<br></p>
+</blockquote>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<p>外观（Facade）模式是“迪米特法则”的典型应用，它有以下主要优点：<br></p>
+<ul>
+<li>降低了子系统与客户端之间的耦合度，使得子系统的变化不会影响调用它的客户类。<br></li>
+<li>对客户屏蔽了子系统组件，减少了客户处理的对象数目，并使得子系统使用起来更加容易。<br></li>
+<li>降低了大型软件系统中的编译依赖性，简化了系统在不同平台之间的移植过程，因为编译一个子系统不会影响其他的子系统，也不会影响外观对象。<br></li>
+</ul>
+</blockquote>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
+<ul>
+<li>不能很好地限制客户使用子系统类，很容易带来未知风险。<br></li>
+<li>增加新的子系统可能需要修改外观类或客户端的源代码，违背了“开闭原则”。<br></li>
+</ul>
+</blockquote>
+<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><blockquote>
+<p>外观（Facade）模式的结构比较简单，主要是定义了一个高层接口。它包含了对各个子系统的引用，客户端可以通过它访问各个子系统的功能。现在来分析其基本结构和实现方法。</p>
+</blockquote>
+<h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
+<ul>
+<li><strong>外观（Facade）角色：</strong> 为多个子系统对外提供一个共同的接口。<br></li>
+<li><strong>子系统（Sub System）角色：</strong> 实现系统的部分功能，客户可以通过外观角色访问它。<br></li>
+<li><strong>客户（Client）角色：</strong> 通过一个外观角色访问各个子系统的功能。<br></li>
+</ul>
+</blockquote>
+<h3 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FacadePattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Facade f = <span class="keyword">new</span> Facade();</span><br><span class="line">        f.method();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//外观角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Facade</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SubSystem01 obj1 = <span class="keyword">new</span> SubSystem01();</span><br><span class="line">    <span class="keyword">private</span> SubSystem02 obj2 = <span class="keyword">new</span> SubSystem02();</span><br><span class="line">    <span class="keyword">private</span> SubSystem03 obj3 = <span class="keyword">new</span> SubSystem03();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        obj1.method1();</span><br><span class="line">        obj2.method2();</span><br><span class="line">        obj3.method3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子系统角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子系统01的method1()被调用！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子系统角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子系统02的method2()被调用！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子系统角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem03</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子系统03的method3()被调用！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
+<p>通常在以下情况下可以考虑使用外观模式。<br></p>
+<ul>
+<li>对分层结构系统构建时，使用外观模式定义子系统中每层的入口点可以简化子系统之间的依赖关系。<br></li>
+<li>当一个复杂系统的子系统很多时，外观模式可以为系统设计一个简单的接口供外界访问。<br></li>
+<li>当客户端与多个子系统之间存在很大的联系时，引入外观模式可将它们分离，从而提高子系统的独立性和可移植性。<br></li>
+</ul>
+</blockquote>
+<h2 id="外观模式的扩展"><a href="#外观模式的扩展" class="headerlink" title="外观模式的扩展"></a>外观模式的扩展</h2><blockquote>
+<p>在外观模式中，当增加或移除子系统时需要修改外观类，这违背了“开闭原则”。如果引入抽象外观类，则在一定程度上解决了该问题。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代理模式</title>
     <url>/blog/article/20211605081641.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -1470,62 +1526,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 </blockquote>
 <blockquote>
 <p><strong>总结：</strong><br><br>  CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高，但是CGLIB创建代理对象时所花费的时间却比JDK多得多。所以对于单例的对象，因为无需频繁创建对象，用CGLIB合适，反之使用JDK方式要更为合适一些。同时由于CGLib由于是采用动态创建子类的方法，对于final修饰的方法无法进行代理。</p>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>结构型模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>外观模式</title>
-    <url>/blog/article/20211705081715.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>外观（Facade）模式又叫作<strong>门面模式</strong>，是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。<br><br>该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。<br><br>在日常编码工作中，我们都在有意无意的大量使用外观模式。只要是高层模块需要调度多个子系统（2个以上的类对象），我们都会自觉地创建一个新的类封装这些子系统，提供精简的接口，让高层模块可以更加容易地间接调用这些子系统的功能。尤其是现阶段各种第三方SDK、开源类库，很大概率都会使用外观模式。<br></p>
-</blockquote>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
-<p>外观（Facade）模式是“迪米特法则”的典型应用，它有以下主要优点：<br></p>
-<ul>
-<li>降低了子系统与客户端之间的耦合度，使得子系统的变化不会影响调用它的客户类。<br></li>
-<li>对客户屏蔽了子系统组件，减少了客户处理的对象数目，并使得子系统使用起来更加容易。<br></li>
-<li>降低了大型软件系统中的编译依赖性，简化了系统在不同平台之间的移植过程，因为编译一个子系统不会影响其他的子系统，也不会影响外观对象。<br></li>
-</ul>
-</blockquote>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
-<ul>
-<li>不能很好地限制客户使用子系统类，很容易带来未知风险。<br></li>
-<li>增加新的子系统可能需要修改外观类或客户端的源代码，违背了“开闭原则”。<br></li>
-</ul>
-</blockquote>
-<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><blockquote>
-<p>外观（Facade）模式的结构比较简单，主要是定义了一个高层接口。它包含了对各个子系统的引用，客户端可以通过它访问各个子系统的功能。现在来分析其基本结构和实现方法。</p>
-</blockquote>
-<h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
-<ul>
-<li><strong>外观（Facade）角色：</strong> 为多个子系统对外提供一个共同的接口。<br></li>
-<li><strong>子系统（Sub System）角色：</strong> 实现系统的部分功能，客户可以通过外观角色访问它。<br></li>
-<li><strong>客户（Client）角色：</strong> 通过一个外观角色访问各个子系统的功能。<br></li>
-</ul>
-</blockquote>
-<h3 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FacadePattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Facade f = <span class="keyword">new</span> Facade();</span><br><span class="line">        f.method();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//外观角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Facade</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SubSystem01 obj1 = <span class="keyword">new</span> SubSystem01();</span><br><span class="line">    <span class="keyword">private</span> SubSystem02 obj2 = <span class="keyword">new</span> SubSystem02();</span><br><span class="line">    <span class="keyword">private</span> SubSystem03 obj3 = <span class="keyword">new</span> SubSystem03();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        obj1.method1();</span><br><span class="line">        obj2.method2();</span><br><span class="line">        obj3.method3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子系统角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子系统01的method1()被调用！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子系统角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子系统02的method2()被调用！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子系统角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystem03</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子系统03的method3()被调用！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
-<p>通常在以下情况下可以考虑使用外观模式。<br></p>
-<ul>
-<li>对分层结构系统构建时，使用外观模式定义子系统中每层的入口点可以简化子系统之间的依赖关系。<br></li>
-<li>当一个复杂系统的子系统很多时，外观模式可以为系统设计一个简单的接口供外界访问。<br></li>
-<li>当客户端与多个子系统之间存在很大的联系时，引入外观模式可将它们分离，从而提高子系统的独立性和可移植性。<br></li>
-</ul>
-</blockquote>
-<h2 id="外观模式的扩展"><a href="#外观模式的扩展" class="headerlink" title="外观模式的扩展"></a>外观模式的扩展</h2><blockquote>
-<p>在外观模式中，当增加或移除子系统时需要修改外观类，这违背了“开闭原则”。如果引入抽象外观类，则在一定程度上解决了该问题。</p>
 </blockquote>
 <hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
@@ -2373,42 +2373,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>单一职责原则</title>
-    <url>/blog/article/20210605080651.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>不要存在多于一个导致类变更的原因。通俗的说，即一个类只负责一项职责。</p>
-</blockquote>
-<h3 id="问题举例以及按照原则的处理办法"><a href="#问题举例以及按照原则的处理办法" class="headerlink" title="问题举例以及按照原则的处理办法"></a>问题举例以及按照原则的处理办法</h3><h4 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h4><blockquote>
-<p>类T负责两个不同的职责：职责P1，职责P2。<br><br>当由于职责P1需求发生改变而需要修改类T时，有可能会导致原本运行正常的职责P2功能发生故障。</p>
-</blockquote>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
-<p>遵循单一职责原则。分别建立两个类T1、T2，使T1完成职责P1功能，T2完成职责P2功能。<br><br>这样，当修改类T1时，不会使职责P2发生故障风险；同理，当修改T2时，也不会使职责P1发生故障风险。</p>
-</blockquote>
-<blockquote>
-<p>说到单一职责原则，很多人都会不屑一顾。因为它太简单了。稍有经验的程序员即使从来没有读过设计模式、从来没有听说过单一职责原则，在设计软件时也会自觉的遵守这一重要原则，因为这是常识。<br><br>在软件编程中，谁也不希望因为修改了一个功能导致其他的功能发生故障。而避免出现这一问题的方法便是遵循单一职责原则。虽然单一职责原则如此简单，并且被认为是常识，但是即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。<br><br>为什么会出现这种现象呢？因为有职责扩散。<strong>所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2</strong>。</p>
-</blockquote>
-<h4 id="遵循单一职责原的优点"><a href="#遵循单一职责原的优点" class="headerlink" title="遵循单一职责原的优点"></a>遵循单一职责原的优点</h4><blockquote>
-<ul>
-<li>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br></li>
-<li>提高类的可读性，提高系统的可维护性；<br></li>
-<li>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响;<br></li>
-<li>需要说明的一点是单一职责原则不只是面向对象编程思想所特有的，只要是模块化的程序设计，都适用单一职责原则。<br></li>
-</ul>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>迭代器模式</title>
     <url>/blog/article/20210305205834.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -2495,6 +2459,42 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>单一职责原则</title>
+    <url>/blog/article/20210605080651.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>不要存在多于一个导致类变更的原因。通俗的说，即一个类只负责一项职责。</p>
+</blockquote>
+<h3 id="问题举例以及按照原则的处理办法"><a href="#问题举例以及按照原则的处理办法" class="headerlink" title="问题举例以及按照原则的处理办法"></a>问题举例以及按照原则的处理办法</h3><h4 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h4><blockquote>
+<p>类T负责两个不同的职责：职责P1，职责P2。<br><br>当由于职责P1需求发生改变而需要修改类T时，有可能会导致原本运行正常的职责P2功能发生故障。</p>
+</blockquote>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
+<p>遵循单一职责原则。分别建立两个类T1、T2，使T1完成职责P1功能，T2完成职责P2功能。<br><br>这样，当修改类T1时，不会使职责P2发生故障风险；同理，当修改T2时，也不会使职责P1发生故障风险。</p>
+</blockquote>
+<blockquote>
+<p>说到单一职责原则，很多人都会不屑一顾。因为它太简单了。稍有经验的程序员即使从来没有读过设计模式、从来没有听说过单一职责原则，在设计软件时也会自觉的遵守这一重要原则，因为这是常识。<br><br>在软件编程中，谁也不希望因为修改了一个功能导致其他的功能发生故障。而避免出现这一问题的方法便是遵循单一职责原则。虽然单一职责原则如此简单，并且被认为是常识，但是即便是经验丰富的程序员写出的程序，也会有违背这一原则的代码存在。<br><br>为什么会出现这种现象呢？因为有职责扩散。<strong>所谓职责扩散，就是因为某种原因，职责P被分化为粒度更细的职责P1和P2</strong>。</p>
+</blockquote>
+<h4 id="遵循单一职责原的优点"><a href="#遵循单一职责原的优点" class="headerlink" title="遵循单一职责原的优点"></a>遵循单一职责原的优点</h4><blockquote>
+<ul>
+<li>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br></li>
+<li>提高类的可读性，提高系统的可维护性；<br></li>
+<li>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响;<br></li>
+<li>需要说明的一点是单一职责原则不只是面向对象编程思想所特有的，只要是模块化的程序设计，都适用单一职责原则。<br></li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>合成复用原则</title>
     <url>/blog/article/20210705080708.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -2569,6 +2569,154 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </categories>
       <tags>
         <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis安装</title>
+    <url>/blog/article/20210313194332.html</url>
+    <content><![CDATA[<h3 id="一、安装gcc依赖"><a href="#一、安装gcc依赖" class="headerlink" title="一、安装gcc依赖"></a>一、安装gcc依赖</h3><blockquote>
+<p>由于 redis 是用 C 语言开发，安装之前必先确认是否安装 gcc 环境（查询命令gcc -v），如果没有安装，执行以下命令进行安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# gcc -v</span><br><span class="line">    Using built-in specs.</span><br><span class="line">    COLLECT_GCC&#x3D;gcc</span><br><span class="line">    COLLECT_LTO_WRAPPER&#x3D;&#x2F;usr&#x2F;libexec&#x2F;gcc&#x2F;x86_64-redhat-linux&#x2F;4.8.5&#x2F;lto-wrapper</span><br><span class="line">    Target: x86_64-redhat-linux</span><br><span class="line">    Configured with: ..&#x2F;configure --prefix&#x3D;&#x2F;usr --mandir&#x3D;&#x2F;usr&#x2F;share&#x2F;man --infodir&#x3D;&#x2F;usr&#x2F;share&#x2F;info --with-bugurl&#x3D;http:&#x2F;&#x2F;bugzilla.redhat.com&#x2F;bugzilla --enable-bootstrap --enable-shared --enable-threads&#x3D;posix --enable-checking&#x3D;release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style&#x3D;gnu --enable-languages&#x3D;c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl&#x3D;&#x2F;builddir&#x2F;build&#x2F;BUILD&#x2F;gcc-4.8.5-20150702&#x2F;obj-x86_64-redhat-linux&#x2F;isl-install --with-cloog&#x3D;&#x2F;builddir&#x2F;build&#x2F;BUILD&#x2F;gcc-4.8.5-20150702&#x2F;obj-x86_64-redhat-linux&#x2F;cloog-install --enable-gnu-indirect-function --with-tune&#x3D;generic --with-arch_32&#x3D;x86-64 --build&#x3D;x86_64-redhat-linux</span><br><span class="line">    Thread model: posix</span><br><span class="line">    gcc version 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC) </span><br><span class="line"></span><br><span class="line">如上，我的环境时存在的。</span><br><span class="line"></span><br><span class="line">若没有，执行下面命令</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# yum install -y gcc </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="二、下载并解压安装包"><a href="#二、下载并解压安装包" class="headerlink" title="二、下载并解压安装包"></a>二、下载并解压安装包</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]#  wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-5.0.3.tar.gz</span><br><span class="line">    --2021-03-12 10:12:40--  http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-5.0.3.tar.gz</span><br><span class="line">    Resolving download.redis.io (download.redis.io)... 45.60.125.1</span><br><span class="line">    Connecting to download.redis.io (download.redis.io)|45.60.125.1|:80... connected.</span><br><span class="line">    HTTP request sent, awaiting response... 200 OK</span><br><span class="line">    Length: 1959445 (1.9M) [application&#x2F;octet-stream]</span><br><span class="line">    Saving to: ‘redis-5.0.3.tar.gz’</span><br><span class="line"></span><br><span class="line">    100%[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;] 1,959,445   4.14MB&#x2F;s   in 0.5s   </span><br><span class="line"></span><br><span class="line">    2021-03-12 10:12:42 (4.14 MB&#x2F;s) - ‘redis-5.0.3.tar.gz’ saved [1959445&#x2F;1959445]</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# tar -zxvf redis-5.0.3.tar.gz</span><br><span class="line">redis-5.0.3&#x2F;</span><br><span class="line">redis-5.0.3&#x2F;.gitignore</span><br><span class="line">redis-5.0.3&#x2F;00-RELEASENOTES</span><br><span class="line">redis-5.0.3&#x2F;BUGS</span><br><span class="line">redis-5.0.3&#x2F;CONTRIBUTING</span><br><span class="line">redis-5.0.3&#x2F;COPYING</span><br><span class="line">redis-5.0.3&#x2F;INSTALL</span><br><span class="line">redis-5.0.3&#x2F;MANIFESTO</span><br><span class="line">redis-5.0.3&#x2F;Makefile</span><br><span class="line">redis-5.0.3&#x2F;README.md</span><br><span class="line">redis-5.0.3&#x2F;deps&#x2F;</span><br><span class="line">redis-5.0.3&#x2F;deps&#x2F;Makefile</span><br><span class="line">... 特别多，这里进行忽略...</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;01_create_tarball.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;02_upload_tarball.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;03_test_release.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;04_release_hash.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;changelog.tcl</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;speed-regression.tcl</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;whatisdoing.sh</span><br><span class="line"></span><br><span class="line"> 可以按照，压缩包，以及解压的包都有了：redis-5.0.3  redis-5.0.3.tar.gz</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  redis-5.0.3  redis-5.0.3.tar.gz  root  run  sbin  srv  sys  tmp  usr  var  www</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="三、cd切换到redis解压目录下，执行编译"><a href="#三、cd切换到redis解压目录下，执行编译" class="headerlink" title="三、cd切换到redis解压目录下，执行编译"></a>三、cd切换到redis解压目录下，执行编译</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# cd &#x2F;redis-5.0.3</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis-5.0.3]# ls</span><br><span class="line">00-RELEASENOTES  BUGS  CONTRIBUTING  COPYING  deps  INSTALL  Makefile  MANIFESTO  README.md  redis.conf  runtest  runtest-cluster  runtest-sentinel  sentinel.conf  src  tests  utils</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis-5.0.3]# make</span><br><span class="line">cd src &amp;&amp; make all</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">    CC Makefile.dep</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">rm -rf redis-server redis-sentinel redis-cli redis-benchmark redis-check-rdb redis-check-aof *.o *.gcda *.gcno *.gcov redis.info lcov-html Makefile.dep dict-benchmark</span><br><span class="line">(cd ..&#x2F;deps &amp;&amp; make distclean)</span><br><span class="line">make[2]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;deps&#39;</span><br><span class="line">... 这里同样省略很多具体的编译细节...</span><br><span class="line">    CC listpack.o</span><br><span class="line">    CC localtime.o</span><br><span class="line">    CC lolwut.o</span><br><span class="line">    CC lolwut5.o</span><br><span class="line">    LINK redis-server</span><br><span class="line">    INSTALL redis-sentinel</span><br><span class="line">    CC redis-cli.o</span><br><span class="line">    LINK redis-cli</span><br><span class="line">    CC redis-benchmark.o</span><br><span class="line">    LINK redis-benchmark</span><br><span class="line">    INSTALL redis-check-rdb</span><br><span class="line">    INSTALL redis-check-aof</span><br><span class="line"></span><br><span class="line">Hint: It&#39;s a good idea to run &#39;make test&#39; ;)</span><br><span class="line"></span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="四、安装并指定安装目录"><a href="#四、安装并指定安装目录" class="headerlink" title="四、安装并指定安装目录"></a>四、安装并指定安装目录</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis-5.0.3]# make install PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;redis</span><br><span class="line">cd src &amp;&amp; make install</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">    CC Makefile.dep</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line"></span><br><span class="line">Hint: It&#39;s a good idea to run &#39;make test&#39; ;)</span><br><span class="line"></span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line"></span><br><span class="line"># 可以看到，redis-cli redis-server 已经安装到指定目录下了</span><br><span class="line">redis-cli:[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# find &#x2F; -name redis-cli</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;redis-cli  -- 指定安装的目录</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;src&#x2F;redis-cli      -- 原始目录</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# find &#x2F; -name redis-server</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;redis-server  -- 指定安装的目录</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;src&#x2F;redis-server      -- 原始目录</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、启动服务"><a href="#五、启动服务" class="headerlink" title="五、启动服务"></a>五、启动服务</h3><h4 id="5-1前台启动"><a href="#5-1前台启动" class="headerlink" title="5.1前台启动"></a>5.1前台启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis]# cd &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# ls</span><br><span class="line">redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis-sentinel  redis-server</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# .&#x2F;redis-server </span><br><span class="line">6968:C 12 Mar 2021 10:25:51.651 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">6968:C 12 Mar 2021 10:25:51.651 # Redis version&#x3D;5.0.3, bits&#x3D;64, commit&#x3D;00000000, modified&#x3D;0, pid&#x3D;6968, just started</span><br><span class="line">6968:C 12 Mar 2021 10:25:51.651 # Warning: no config file specified, using the default config. In order to specify a config file use .&#x2F;redis-server &#x2F;path&#x2F;to&#x2F;redis.conf</span><br><span class="line">                _._                                                  </span><br><span class="line">           _.-&#96;&#96;__ &#39;&#39;-._                                             </span><br><span class="line">      _.-&#96;&#96;    &#96;.  &#96;_.  &#39;&#39;-._           Redis 5.0.3 (00000000&#x2F;0) 64 bit</span><br><span class="line">  .-&#96;&#96; .-&#96;&#96;&#96;.  &#96;&#96;&#96;\&#x2F;    _.,_ &#39;&#39;-._                                   </span><br><span class="line"> (    &#39;      ,       .-&#96;  | &#96;,    )     Running in standalone mode</span><br><span class="line"> |&#96;-._&#96;-...-&#96; __...-.&#96;&#96;-._|&#39;&#96; _.-&#39;|     Port: 6379</span><br><span class="line"> |    &#96;-._   &#96;._    &#x2F;     _.-&#39;    |     PID: 6968</span><br><span class="line">  &#96;-._    &#96;-._  &#96;-.&#x2F;  _.-&#39;    _.-&#39;                                   </span><br><span class="line"> |&#96;-._&#96;-._    &#96;-.__.-&#39;    _.-&#39;_.-&#39;|                                  </span><br><span class="line"> |    &#96;-._&#96;-._        _.-&#39;_.-&#39;    |           http:&#x2F;&#x2F;redis.io        </span><br><span class="line">  &#96;-._    &#96;-._&#96;-.__.-&#39;_.-&#39;    _.-&#39;                                   </span><br><span class="line"> |&#96;-._&#96;-._    &#96;-.__.-&#39;    _.-&#39;_.-&#39;|                                  </span><br><span class="line"> |    &#96;-._&#96;-._        _.-&#39;_.-&#39;    |                                  </span><br><span class="line">  &#96;-._    &#96;-._&#96;-.__.-&#39;_.-&#39;    _.-&#39;                                   </span><br><span class="line">      &#96;-._    &#96;-.__.-&#39;    _.-&#39;                                       </span><br><span class="line">          &#96;-._        _.-&#39;                                           </span><br><span class="line">              &#96;-.__.-&#39;                                               </span><br><span class="line"></span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # WARNING: The TCP backlog setting of 511 cannot be enforced because &#x2F;proc&#x2F;sys&#x2F;net&#x2F;core&#x2F;somaxconn is set to the lower value of 128.</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # Server initialized</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &#39;vm.overcommit_memory &#x3D; 1&#39; to &#x2F;etc&#x2F;sysctl.conf and then reboot or run the command &#39;sysctl vm.overcommit_memory&#x3D;1&#39; for this to take effect.</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &#39;echo never &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;transparent_hugepage&#x2F;enabled&#39; as root, and add it to your &#x2F;etc&#x2F;rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 * DB loaded from disk: 0.000 seconds</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 * Ready to accept connections</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后可以通过相应的工具，进行连接了，这里是没有设置密码的，并且必须保持这个状态，退出后，redis也会被关掉。想要后台运行，看下面操作。</p>
+</blockquote>
+<h4 id="5-2后台启动"><a href="#5-2后台启动" class="headerlink" title="5.2后台启动"></a>5.2后台启动</h4><blockquote>
+<p>从 redis 的源码目录中复制 redis.conf 到 redis 的安装目录</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 先看下源目录在哪里？</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# find &#x2F; -name redis.conf</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;redis.conf</span><br><span class="line"></span><br><span class="line">## 再复制到指定目录</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# cp &#x2F;redis-5.0.3&#x2F;redis.conf &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin</span><br><span class="line"></span><br><span class="line">## 再查找一下，看下目标文件是不是在指定目录下了</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# find &#x2F; -name redis.conf</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;redis.conf  -- 指定目录</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;redis.conf</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# cd &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# ls</span><br><span class="line">    dump.rdb  redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis.conf  redis-sentinel  redis-server</span><br><span class="line"></span><br><span class="line">## 修改 redis.conf 文件，把 daemonize no 改为 daemonize yes</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# vim redis.conf </span><br><span class="line">################################# GENERAL #####################################</span><br><span class="line"></span><br><span class="line"># By default Redis does not run as a daemon. Use &#39;yes&#39; if you need it.</span><br><span class="line"># Note that Redis will write a pid file in &#x2F;var&#x2F;run&#x2F;redis.pid when daemonized.</span><br><span class="line">daemonize no -- 这里把no 改为yes</span><br><span class="line"></span><br><span class="line">## 后台启动</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# .&#x2F;redis-server redis.conf </span><br><span class="line">7626:C 12 Mar 2021 10:38:59.125 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">7626:C 12 Mar 2021 10:38:59.125 # Redis version&#x3D;5.0.3, bits&#x3D;64, commit&#x3D;00000000, modified&#x3D;0, pid&#x3D;7626, just started</span><br><span class="line">7626:C 12 Mar 2021 10:38:59.125 # Configuration loaded</span><br><span class="line">## 查看运行状态</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# ps -ef | grep redis</span><br><span class="line">root      7627     1  0 10:38 ?        00:00:00 .&#x2F;redis-server 127.0.0.1:6379</span><br><span class="line">root      7652  2128  0 10:39 pts&#x2F;2    00:00:00 grep --color&#x3D;auto redis</span><br><span class="line">## 停止服务</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]kill -9 7627</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、将redis添加至linux服务列表，这样以后的启动，就会方便很多"><a href="#七、将redis添加至linux服务列表，这样以后的启动，就会方便很多" class="headerlink" title="七、将redis添加至linux服务列表，这样以后的启动，就会方便很多"></a>七、将redis添加至linux服务列表，这样以后的启动，就会方便很多</h3><blockquote>
+<p> service redis start – 启动<br> service redis stop  – 关闭</p>
+</blockquote>
+<h4 id="具体操作如下"><a href="#具体操作如下" class="headerlink" title="具体操作如下"></a>具体操作如下</h4><blockquote>
+<p>创建服务脚本<br><br> sudo vim /etc/init.d/redis <br><br>脚本内容如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#! &#x2F;bin&#x2F;sh</span><br><span class="line"># chkconfig: - 85 15</span><br><span class="line"></span><br><span class="line">PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin</span><br><span class="line"></span><br><span class="line">SERVER&#x3D;redis-server</span><br><span class="line">NAME&#x3D;redis</span><br><span class="line">REDIS_DAEMON&#x3D;$PATH&#x2F;$SERVER</span><br><span class="line">CONFIGFILE&#x3D;$PATH&#x2F;$NAME.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SCRIPTNAME&#x3D;&#x2F;etc&#x2F;init.d&#x2F;$NAME</span><br><span class="line"></span><br><span class="line">set -e</span><br><span class="line">[ -x &quot;$REDIS_DAEMON&quot; ] || exit 0</span><br><span class="line"></span><br><span class="line">do_start() &#123;</span><br><span class="line">    .$REDIS_DAEMON $CONFIGFILE || echo -n &quot;redis already running&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">do_stop() &#123;</span><br><span class="line">    pids&#x3D;$(ps -ef | grep $&#123;SERVER&#125; |grep -v grep | awk &#39;&#123;print $2&#125;&#39;)</span><br><span class="line">    for pid in $&#123;pids&#125;</span><br><span class="line">    do</span><br><span class="line">     kill -9 $pid</span><br><span class="line">    done</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line">echo -n &quot;Starting $REDIS_DAEMONE&quot;</span><br><span class="line">do_start</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">stop)</span><br><span class="line">echo -n &quot;Stopping $REDIS_DAEMON&quot;</span><br><span class="line">do_stop</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">reload|graceful)</span><br><span class="line">echo -n &quot;Reloading $CONFIGFILE configuration...&quot;</span><br><span class="line">do_stop</span><br><span class="line">do_start</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">restart)</span><br><span class="line">echo -n &quot;Restarting $REDIS_DAEMON&quot;</span><br><span class="line">do_stop</span><br><span class="line">do_start</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo &quot;Usage: $SCRIPTNAME &#123;start|stop|reload|restart&#125;&quot; &gt;&amp;2</span><br><span class="line">exit 3</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>添加服务 <br><br> chkconfig –add redis</p>
+</blockquote>
+<blockquote>
+<p>测试 启动 停止 重启 重载<br><br> service redis start<br><br> service redis stop – 暂不能用<br><br> service redis restart<br><br> service redis reload    <br></p>
+</blockquote>
+<blockquote>
+<p> 测试结果- 权限不够<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# service redis stop</span><br><span class="line">   env: &#x2F;etc&#x2F;init.d&#x2F;redis: Permission denied</span><br><span class="line">     --  chmod a+x &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>还可以添加开机自启动 – 看需要添加<br><br> chkconfig redis on</p>
+</blockquote>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# service redis stop</span><br><span class="line">   env: &#x2F;etc&#x2F;init.d&#x2F;redis: No such file or directory</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为我的/etc/init.d/redis 脚本是在window下，完成后倒入到linux上的，所以会有这样的问题<br><br>因此执行入下操作，即可。<br><br>大多是windows下创建的文件，非unix格式，用vim转换一下就好。<br><br>  vim打开<bR><br>  先 ctrl + c <br><br>  再输入 :set ff=unix <br><br>  最后 :wq 保存退出  <br></p>
+</blockquote>
+<h3 id="收尾处理"><a href="#收尾处理" class="headerlink" title="收尾处理"></a>收尾处理</h3><blockquote>
+<p>既然已经安装完了redis，就将下载的压缩包与解压包删除掉</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  redis-5.0.3  redis-5.0.3.tar.gz  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf redis-5.0.3</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  redis-5.0.3.tar.gz  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf redis-5.0.3.tar.gz </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  www</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>运维</tag>
+        <tag>centos7</tag>
+        <tag>中间件安装</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RocketMQ安装</title>
+    <url>/blog/article/20210312095509.html</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>官网只有.zip版本，没有.tgz或.tar.gz版本。<br><br><a href="http://rocketmq.apache.org/">RocketMQ官网地址</a></p>
+</blockquote>
+<h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3><blockquote>
+<p>可以在任意目录执行： wget <a href="http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip">http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip</a></p>
+</blockquote>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# wget http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip</span><br><span class="line">--2021-03-12 13:40:46--  http://archive.apache.org/dist/rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip</span><br><span class="line">Resolving archive.apache.org (archive.apache.org)... 138.201.131.134, 2a01:4f8:172:2ec5::2</span><br><span class="line">Connecting to archive.apache.org (archive.apache.org)|138.201.131.134|:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line">Length: 9080492 (8.7M) [application/zip]</span><br><span class="line">Saving to: ‘rocketmq-all-4.2.0-bin-release.zip’</span><br><span class="line"></span><br><span class="line"><span class="meta">100%</span><span class="bash">[=======================================================================================================================================================================================================&gt;] 9,080,492   15.2KB/s   <span class="keyword">in</span> 8m 51s</span> </span><br><span class="line"></span><br><span class="line">2021-03-12 13:49:38 (16.7 KB/s) - ‘rocketmq-all-4.2.0-bin-release.zip’ saved [9080492/9080492]</span><br></pre></td></tr></table></figure>
+
+<h3 id="解压安装包至指定目录下"><a href="#解压安装包至指定目录下" class="headerlink" title="解压安装包至指定目录下"></a>解压安装包至指定目录下</h3><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# unzip rocketmq-all-4.2.0-bin-release.zip -d /usr/local/rocketmq-4.2.0</span><br><span class="line">-bash: unzip: command not found</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# yum install unzip zip</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Determining fastest mirrors</span><br><span class="line">... 这里将细节省略掉...</span><br><span class="line"></span><br><span class="line">Dependencies Resolved</span><br><span class="line">... 这里将细节省略掉...</span><br><span class="line"></span><br><span class="line">Total download size: 171 k</span><br><span class="line">Installed size: 365 k</span><br><span class="line">Is this ok [y/d/N]: y</span><br><span class="line">Downloading packages:</span><br><span class="line">unzip-6.0-21.el7.x86_64.rpm                                                                                                                                                                                               | 171 kB  00:00:00     </span><br><span class="line">Running transaction check</span><br><span class="line">Running transaction test</span><br><span class="line">Transaction test succeeded</span><br><span class="line">Running transaction</span><br><span class="line">  Installing : unzip-6.0-21.el7.x86_64                                                                                                                                                                                                       1/1 </span><br><span class="line">  Verifying  : unzip-6.0-21.el7.x86_64                                                                                                                                                                                                       1/1 </span><br><span class="line"></span><br><span class="line">Installed:</span><br><span class="line">  unzip.x86_64 0:6.0-21.el7                                                                                                                                                                                                                      </span><br><span class="line"></span><br><span class="line">Complete!</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# unzip rocketmq-all-4.2.0-bin-release.zip -d /usr/local/rocketmq-4.2.0</span><br><span class="line">Archive:  rocketmq-all-4.2.0-bin-release.zip</span><br><span class="line">   creating: /usr/local/rocketmq-4.2.0/conf/</span><br><span class="line">   creating: /usr/local/rocketmq-4.2.0/conf/2m-2s-async/</span><br><span class="line">   creating: /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/</span><br><span class="line">   ... 这里将细节省略掉...</span><br><span class="line"></span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-openmessaging-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-example-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-common-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-store-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/rocketmq-srvutil-4.2.0.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/commons-cli-1.2.jar  </span><br><span class="line">  inflating: /usr/local/rocketmq-4.2.0/lib/guava-19.0.jar</span><br><span class="line">  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 看一下有没有解压到指定目录</span></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z /]# cd /usr/local/rocketmq-4.2.0/</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# ls</span><br><span class="line">benchmark  bin  conf  lib  LICENSE  NOTICE  README.md</span><br></pre></td></tr></table></figure>
+<h4 id="此外还有在这个目录下新建一些文件夹："><a href="#此外还有在这个目录下新建一些文件夹：" class="headerlink" title="此外还有在这个目录下新建一些文件夹："></a>此外还有在这个目录下新建一些文件夹：</h4><blockquote>
+<p>mkdir logs  ——  存储RocketMQ日志目录<br><br>mkdir store  ——  存储RocketMQ数据文件目录<br><br>cd store<br><br>mkdir commitlog  ——  存储RocketMQ消息信息<br><br>mkdir consumequeue  ——  存储消息的索引数据<br><br>mkdir index  ——  存储消息的索引数据<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# mkdir logs</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# ls</span><br><span class="line">benchmark  bin  conf  lib  LICENSE  logs  NOTICE  README.md</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# mkdir store</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# ls</span><br><span class="line">benchmark  bin  conf  lib  LICENSE  logs  NOTICE  README.md  store</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# cd store</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# pwd</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# mkdir commitlog</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# mkdir consumequeue</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# mkdir index</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z store]# ls</span><br><span class="line">commitlog  consumequeue  index</span><br></pre></td></tr></table></figure>
+
+<h3 id="conf目录配置文件说明"><a href="#conf目录配置文件说明" class="headerlink" title="conf目录配置文件说明"></a>conf目录配置文件说明</h3><blockquote>
+<p>2m-2s-async ： 2主2从异步<br><br>2m-2s-sync ： 2主2从同步<br><br>2m-noslave ： 2主没有从<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# cd conf&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# ls</span><br><span class="line">2m-2s-async  2m-2s-sync  2m-noslave  broker.conf  logback_broker.xml  logback_filtersrv.xml  logback_namesrv.xml  logback_tools.xml</span><br><span class="line"></span><br><span class="line">## 以2主2从同步内部配置文件为例</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# cd 2m-2s-sync&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z 2m-2s-sync]# ls</span><br><span class="line">broker-a.properties  broker-a-s.properties  broker-b.properties  broker-b-s.properties</span><br><span class="line"></span><br><span class="line">broker-a.properties broker-b.properties -- 2主的配置文件</span><br><span class="line">broker-a-s.properties broker-b-s.properties -- 2从-2主各自的从文件</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于我这里是单机的配置，因此只修改一下broker-a.properties 文件即可</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 集群名称</span><br><span class="line">brokerClusterName&#x3D;rocketmq-cluster</span><br><span class="line"># broker名字,注意此处不同的配置文件填写的不一样</span><br><span class="line">brokerName&#x3D;broker-a</span><br><span class="line"># 0 表示Master,&gt;0 表示Slave</span><br><span class="line">brokerId&#x3D;0</span><br><span class="line"># nameServer地址,多个地址时用分号分割（这里地址可以是域名，也可以使IP+端口号，看具体的集群环境所定） -- 比如我目前部署MQ的机器的IP 是 192.168.30.32</span><br><span class="line">namesrvAddr&#x3D;192.168.30.32:9876</span><br><span class="line"># 在发送消息时,自动创建服务器不存在的Topic,默认创建的队列数</span><br><span class="line">defaultTopicQueueNums&#x3D;4</span><br><span class="line"># 是否允许Broker 自动创建Topic, 建议线下开启, 线上关闭</span><br><span class="line">autoCreateTopicEnable&#x3D;true</span><br><span class="line"># 是否允许Broker 自动创建订阅组, 建议线下开启, 线上关闭</span><br><span class="line">autoCreateSubscriptionGroup&#x3D;true</span><br><span class="line"># Broker 对外服务的地址（这个IP地址跟 namesrvAddr 是一致的，可以不设置值，那么将默认使用该机器的内网地址）</span><br><span class="line">brokerIP1&#x3D;192.168.30.32 </span><br><span class="line"># Broker 对外服务的监听端口 -- 使用阿里云时，这个端口要配置安全组的，范围设置： 10900&#x2F;10999就足够了，如果是 内网环境的</span><br><span class="line">listenPort&#x3D;10911 </span><br><span class="line"># 删除文件时间点,默认是凌晨4点</span><br><span class="line">deleteWhen&#x3D;04</span><br><span class="line"># 文件保留时间,默认是48小时</span><br><span class="line">fileReservedTime&#x3D;48</span><br><span class="line"># commitLog每个文件的大小默认1G</span><br><span class="line">mapedFileSizeCommitLog&#x3D;1073741824</span><br><span class="line"># ConsumeQueue每个文件默认存30w条, 根据业务情况调整</span><br><span class="line">mapedFileSizeConsumeQueue&#x3D;30000</span><br><span class="line"># destroyMapedFileIntervalForcibly&#x3D;12000</span><br><span class="line"># redeleteHangedFileInterval&#x3D;12000</span><br><span class="line"># 检测物理文件磁盘空间</span><br><span class="line">diskMaxUsedSpaceRatio&#x3D;88</span><br><span class="line"># 存储路径</span><br><span class="line">storePathRootDir&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store</span><br><span class="line"># commitLog存储路径</span><br><span class="line">storePathCommitLog&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;commitlog</span><br><span class="line"># 消息队列储存路径</span><br><span class="line">storePathConsumeQueue&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;consumequeue</span><br><span class="line"># 消息索引粗存路径</span><br><span class="line">storePathIndex&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;index</span><br><span class="line"># checkpoint 文件储存路径</span><br><span class="line">storeCheckpoint&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;checkpoint</span><br><span class="line"># abort 文件存储路径</span><br><span class="line">abortFile&#x3D;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;store&#x2F;abort</span><br><span class="line"># 限制的消息大小</span><br><span class="line">maxMessageSize&#x3D;65536</span><br><span class="line"># flushCommitLogLeastPages&#x3D;4</span><br><span class="line"># flushConsumeQueueLeastPages&#x3D;2</span><br><span class="line"># flushCommitLogThoroughInterval&#x3D;10000</span><br><span class="line"># flushConsumeQueueThoroughInterval&#x3D;60000</span><br><span class="line"># Broker的角色</span><br><span class="line"># -ASYNC_MASTER 异步复制Master</span><br><span class="line"># -SYNC_MASTER 同步双写Master</span><br><span class="line"># -SLAVE</span><br><span class="line">brokerRole&#x3D;ASYNC_MASTER</span><br><span class="line"># 刷盘方式</span><br><span class="line"># - ASYNC_FLUSH 异步刷盘</span><br><span class="line"># - SYNC_FLUSH 同步刷盘</span><br><span class="line">flushDiskType&#x3D;ASYNC_FLUSH</span><br><span class="line"># checkTransactionMessageEnable&#x3D;false</span><br><span class="line"># 发消息线程池数量</span><br><span class="line"># sendMessageTreadPoolNums&#x3D;128</span><br><span class="line"># 拉消息线程池数量</span><br><span class="line"># pullMessageTreadPoolNums&#x3D;128lushDiskType&#x3D;ASYNC_FLUSHH</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于日志文件的存储,默认的存储路径跟我们实际的logs路径一般是不一致的，因此我们需要做一下修改<br><br>进入conf目录，替换所有xml文件中的${user.home}，保证日志路径正确</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sed -i &#39;s#$&#123;user.home&#125;#&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0#g&#39; *.xml</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z rocketmq-4.2.0]# cd conf&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# ls</span><br><span class="line">2m-2s-async  2m-2s-sync  2m-noslave  broker.conf  logback_broker.xml  logback_filtersrv.xml  logback_namesrv.xml  logback_tools.xml</span><br><span class="line"># 修改前先看一下，里面会有一个这个的描述</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# cat logback_broker.xml</span><br><span class="line"># 里面会有一个这个的描述</span><br><span class="line"> &lt;file&gt;$&#123;user.home&#125;&#x2F;logs&#x2F;rocketmqlogs&#x2F;filtersrv.log&lt;&#x2F;file&gt;</span><br><span class="line"># 替换之后再看</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# sed -i &#39;s#$&#123;user.home&#125;#&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0#g&#39; *.xml</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z conf]# cat logback_broker.xml</span><br><span class="line"># 这里改变了</span><br><span class="line">&lt;file&gt;&#x2F;usr&#x2F;local&#x2F;rocketmq-4.2.0&#x2F;logs&#x2F;rocketmqlogs&#x2F;filtersrv_default.log&lt;&#x2F;file&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意： set -i ‘s#目标字符串#新字符串#g’ 目标文件 （*.表示全部）</p>
+</blockquote>
+<h4 id="修改一下参数"><a href="#修改一下参数" class="headerlink" title="修改一下参数"></a>修改一下参数</h4><blockquote>
+<p>RocketMQ要求内存，至少为1G，而默认的是设置的8G ,所以我这里修改一下，主要我测试机内存也不没这么多</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# vim runbroker.sh  </span><br><span class="line"># JVM Configuration </span><br><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">修改前： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms8g -Xmx8g -Xmn4g&quot;</span><br><span class="line">修改后： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms1g -Xmx1g -Xmn1g&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# vim runserver.sh </span><br><span class="line"># JVM Configuration</span><br><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">修改前： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms4g -Xmx4g -Xmn2g -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;320m&quot;</span><br><span class="line">修改后： JAVA_OPT&#x3D;&quot;$&#123;JAVA_OPT&#125; -server -Xms1g -Xmx1g -Xmn1g -XX:MetaspaceSize&#x3D;128m -XX:MaxMetaspaceSize&#x3D;320m&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bin目录下启动"><a href="#bin目录下启动" class="headerlink" title="bin目录下启动"></a>bin目录下启动</h3><blockquote>
+<p>先启动 namesrv<br><br>nohup sh mqnamesrv &amp; <br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# nohup sh mqnamesrv &amp;</span><br><span class="line">[1] 30711</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# nohup: ignoring input and appending output to ‘nohup.out’</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>再启动 broker <br><br>nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]<span class="meta"># nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</span></span><br><span class="line">[<span class="number">2</span>] <span class="number">31806</span></span><br></pre></td></tr></table></figure>
+<h4 id="输入-jps-查看进程"><a href="#输入-jps-查看进程" class="headerlink" title="输入 jps 查看进程"></a>输入 jps 查看进程</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">31633 NamesrvStartup</span><br><span class="line">31813 BrokerStartup</span><br><span class="line">31864 Jps</span><br></pre></td></tr></table></figure>
+
+<h3 id="bin目录下停止服务"><a href="#bin目录下停止服务" class="headerlink" title="bin目录下停止服务"></a>bin目录下停止服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown namesrv</span><br><span class="line">The mqnamesrv(31633) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(31633) OK</span><br><span class="line"></span><br><span class="line">## 这里关闭broker时，是有延迟的</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown broker</span><br><span class="line">The mqbroker(31813) is running...</span><br><span class="line">Send shutdown request to mqbroker(31813) OK</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">3695 Jps</span><br></pre></td></tr></table></figure>
+
+<h3 id="清除zip"><a href="#清除zip" class="headerlink" title="清除zip"></a>清除zip</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z ~]# cd &#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  rocketmq-all-4.2.0-bin-release.zip  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf rocketmq-all-4.2.0-bin-release.zip </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="RocketMq控制台安装"><a href="#RocketMq控制台安装" class="headerlink" title="RocketMq控制台安装"></a>RocketMq控制台安装</h3><blockquote>
+<ul>
+<li>下载源码： <a href="https://github.com/apache/rocketmq-externals">https://github.com/apache/rocketmq-externals</a></li>
+<li>找到rocketmq-console，<br><ul>
+<li>先编辑一下rocketmq-console里面的application.properties文件，将项目使用的rocketmq.config.namesrvAddr配置上去（或者在项目启动时，以参数的形式配进去）<br></li>
+<li>见上面的文件，我配置的是  namesrvAddr=192.168.30.32:9876</li>
+</ul>
+</li>
+<li>打成jar包，并把jar部署到 RocketMQ安装的这台机器上（因为上面配置的是 内网地址） <br><pre><code>当然可以将这个后台监控jar部署到另外的机器，如果脱离同一个局域网了的话，需要把上面的内网IP改为外网的，并做好端口号开放。       
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>运维</tag>
+        <tag>centos7</tag>
+        <tag>中间件安装</tag>
       </tags>
   </entry>
   <entry>
@@ -2663,30 +2811,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>Hello world!</title>
-    <url>/blog/article/20213903103925.html</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>初始化</category>
-      </categories>
-      <tags>
-        <tag>首页</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>里氏代换原则</title>
     <url>/blog/article/20210905080908.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -2717,6 +2841,30 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </categories>
       <tags>
         <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello world!</title>
+    <url>/blog/article/20213903103925.html</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>初始化</category>
+      </categories>
+      <tags>
+        <tag>首页</tag>
       </tags>
   </entry>
 </search>

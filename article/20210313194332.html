@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Redis安装 | Persian博客</title>
+  <meta name="description" content="一、安装gcc依赖 由于 redis 是用 C 语言开发，安装之前必先确认是否安装 gcc 环境（查询命令gcc -v），如果没有安装，执行以下命令进行安装  1234567891011121314[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# gcc -v    Using built-in specs.    COLLECT_GCC&#x3D;gcc    COL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis安装">
+<meta property="og:url" content="http://persian.gitee.io/blog/article/20210313194332.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、安装gcc依赖 由于 redis 是用 C 语言开发，安装之前必先确认是否安装 gcc 环境（查询命令gcc -v），如果没有安装，执行以下命令进行安装  1234567891011121314[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# gcc -v    Using built-in specs.    COLLECT_GCC&#x3D;gcc    COL">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+<meta property="article:published_time" content="2021-03-13T06:10:09.619Z">
+<meta property="article:modified_time" content="2021-03-13T11:43:39.976Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="centos7">
+<meta property="article:tag" content="中间件安装">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://persian.gitee.io/blog/article/20210313194332.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/PersianLL" target="_blank">
+          <img class="img-circle img-rotate" src="/blog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Persian</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">时刻学习Java的一枚小小学生。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%88%9D%E5%A7%8B%E5%8C%96/">初始化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/AOP/" rel="tag">AOP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/IO/" rel="tag">IO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/bean/" rel="tag">bean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/centos7/" rel="tag">centos7</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" rel="tag">java关键字</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/spring/" rel="tag">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">中间件安装</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" rel="tag">对象创建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">行为型模式</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" rel="tag">设计原则</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%A6%96%E9%A1%B5/" rel="tag">首页</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/blog/tags/AOP/" style="font-size: 13px;">AOP</a> <a href="/blog/tags/IO/" style="font-size: 13px;">IO</a> <a href="/blog/tags/JVM/" style="font-size: 13.17px;">JVM</a> <a href="/blog/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 13.17px;">Java基础</a> <a href="/blog/tags/bean/" style="font-size: 13px;">bean</a> <a href="/blog/tags/centos7/" style="font-size: 13.17px;">centos7</a> <a href="/blog/tags/java%E5%85%B3%E9%94%AE%E5%AD%97/" style="font-size: 13px;">java关键字</a> <a href="/blog/tags/spring/" style="font-size: 13px;">spring</a> <a href="/blog/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E8%A3%85/" style="font-size: 13.17px;">中间件安装</a> <a href="/blog/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.33px;">创建型模式</a> <a href="/blog/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 13px;">反射</a> <a href="/blog/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 13.67px;">基础</a> <a href="/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a> <a href="/blog/tags/%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA/" style="font-size: 13px;">对象创建</a> <a href="/blog/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.5px;">结构型模式</a> <a href="/blog/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" style="font-size: 13.83px;">行为型模式</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" style="font-size: 13.5px;">设计原则</a> <a href="/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px;">设计模式</a> <a href="/blog/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 13.17px;">运维</a> <a href="/blog/tags/%E9%9B%86%E5%90%88/" style="font-size: 13px;">集合</a> <a href="/blog/tags/%E9%A6%96%E9%A1%B5/" style="font-size: 13px;">首页</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/03/">三月 2021</a><span class="archive-list-count">45</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210313194332.html" class="title">Redis安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-13T06:10:09.619Z" itemprop="datePublished">2021-03-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210312095509.html" class="title">RocketMQ安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-13T06:10:09.619Z" itemprop="datePublished">2021-03-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/undefined.html" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210308094343.html" class="title">IO流</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/blog/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+              </p>
+              <p class="item-title">
+                <a href="/blog/article/20210311095333.html" class="title">java关键字</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-11T14:12:06.043Z" itemprop="datePublished">2021-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-运维-Redis安装" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redis安装
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/blog/article/20210313194332.html" class="article-date">
+	  <time datetime="2021-03-13T06:10:09.619Z" itemprop="datePublished">2021-03-13</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/blog/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/blog/tags/centos7/" rel="tag">centos7</a>, <a class="article-tag-link-link" href="/blog/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">中间件安装</a>, <a class="article-tag-link-link" href="/blog/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/blog/article/20210313194332.html#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="一、安装gcc依赖"><a href="#一、安装gcc依赖" class="headerlink" title="一、安装gcc依赖"></a>一、安装gcc依赖</h3><blockquote>
+<p>由于 redis 是用 C 语言开发，安装之前必先确认是否安装 gcc 环境（查询命令gcc -v），如果没有安装，执行以下命令进行安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# gcc -v</span><br><span class="line">    Using built-in specs.</span><br><span class="line">    COLLECT_GCC&#x3D;gcc</span><br><span class="line">    COLLECT_LTO_WRAPPER&#x3D;&#x2F;usr&#x2F;libexec&#x2F;gcc&#x2F;x86_64-redhat-linux&#x2F;4.8.5&#x2F;lto-wrapper</span><br><span class="line">    Target: x86_64-redhat-linux</span><br><span class="line">    Configured with: ..&#x2F;configure --prefix&#x3D;&#x2F;usr --mandir&#x3D;&#x2F;usr&#x2F;share&#x2F;man --infodir&#x3D;&#x2F;usr&#x2F;share&#x2F;info --with-bugurl&#x3D;http:&#x2F;&#x2F;bugzilla.redhat.com&#x2F;bugzilla --enable-bootstrap --enable-shared --enable-threads&#x3D;posix --enable-checking&#x3D;release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style&#x3D;gnu --enable-languages&#x3D;c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl&#x3D;&#x2F;builddir&#x2F;build&#x2F;BUILD&#x2F;gcc-4.8.5-20150702&#x2F;obj-x86_64-redhat-linux&#x2F;isl-install --with-cloog&#x3D;&#x2F;builddir&#x2F;build&#x2F;BUILD&#x2F;gcc-4.8.5-20150702&#x2F;obj-x86_64-redhat-linux&#x2F;cloog-install --enable-gnu-indirect-function --with-tune&#x3D;generic --with-arch_32&#x3D;x86-64 --build&#x3D;x86_64-redhat-linux</span><br><span class="line">    Thread model: posix</span><br><span class="line">    gcc version 4.8.5 20150623 (Red Hat 4.8.5-44) (GCC) </span><br><span class="line"></span><br><span class="line">如上，我的环境时存在的。</span><br><span class="line"></span><br><span class="line">若没有，执行下面命令</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# yum install -y gcc </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="二、下载并解压安装包"><a href="#二、下载并解压安装包" class="headerlink" title="二、下载并解压安装包"></a>二、下载并解压安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]#  wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-5.0.3.tar.gz</span><br><span class="line">    --2021-03-12 10:12:40--  http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-5.0.3.tar.gz</span><br><span class="line">    Resolving download.redis.io (download.redis.io)... 45.60.125.1</span><br><span class="line">    Connecting to download.redis.io (download.redis.io)|45.60.125.1|:80... connected.</span><br><span class="line">    HTTP request sent, awaiting response... 200 OK</span><br><span class="line">    Length: 1959445 (1.9M) [application&#x2F;octet-stream]</span><br><span class="line">    Saving to: ‘redis-5.0.3.tar.gz’</span><br><span class="line"></span><br><span class="line">    100%[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;] 1,959,445   4.14MB&#x2F;s   in 0.5s   </span><br><span class="line"></span><br><span class="line">    2021-03-12 10:12:42 (4.14 MB&#x2F;s) - ‘redis-5.0.3.tar.gz’ saved [1959445&#x2F;1959445]</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# tar -zxvf redis-5.0.3.tar.gz</span><br><span class="line">redis-5.0.3&#x2F;</span><br><span class="line">redis-5.0.3&#x2F;.gitignore</span><br><span class="line">redis-5.0.3&#x2F;00-RELEASENOTES</span><br><span class="line">redis-5.0.3&#x2F;BUGS</span><br><span class="line">redis-5.0.3&#x2F;CONTRIBUTING</span><br><span class="line">redis-5.0.3&#x2F;COPYING</span><br><span class="line">redis-5.0.3&#x2F;INSTALL</span><br><span class="line">redis-5.0.3&#x2F;MANIFESTO</span><br><span class="line">redis-5.0.3&#x2F;Makefile</span><br><span class="line">redis-5.0.3&#x2F;README.md</span><br><span class="line">redis-5.0.3&#x2F;deps&#x2F;</span><br><span class="line">redis-5.0.3&#x2F;deps&#x2F;Makefile</span><br><span class="line">... 特别多，这里进行忽略...</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;01_create_tarball.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;02_upload_tarball.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;03_test_release.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;04_release_hash.sh</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;releasetools&#x2F;changelog.tcl</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;speed-regression.tcl</span><br><span class="line">redis-5.0.3&#x2F;utils&#x2F;whatisdoing.sh</span><br><span class="line"></span><br><span class="line"> 可以按照，压缩包，以及解压的包都有了：redis-5.0.3  redis-5.0.3.tar.gz</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  redis-5.0.3  redis-5.0.3.tar.gz  root  run  sbin  srv  sys  tmp  usr  var  www</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="三、cd切换到redis解压目录下，执行编译"><a href="#三、cd切换到redis解压目录下，执行编译" class="headerlink" title="三、cd切换到redis解压目录下，执行编译"></a>三、cd切换到redis解压目录下，执行编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# cd &#x2F;redis-5.0.3</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis-5.0.3]# ls</span><br><span class="line">00-RELEASENOTES  BUGS  CONTRIBUTING  COPYING  deps  INSTALL  Makefile  MANIFESTO  README.md  redis.conf  runtest  runtest-cluster  runtest-sentinel  sentinel.conf  src  tests  utils</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis-5.0.3]# make</span><br><span class="line">cd src &amp;&amp; make all</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">    CC Makefile.dep</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">rm -rf redis-server redis-sentinel redis-cli redis-benchmark redis-check-rdb redis-check-aof *.o *.gcda *.gcno *.gcov redis.info lcov-html Makefile.dep dict-benchmark</span><br><span class="line">(cd ..&#x2F;deps &amp;&amp; make distclean)</span><br><span class="line">make[2]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;deps&#39;</span><br><span class="line">... 这里同样省略很多具体的编译细节...</span><br><span class="line">    CC listpack.o</span><br><span class="line">    CC localtime.o</span><br><span class="line">    CC lolwut.o</span><br><span class="line">    CC lolwut5.o</span><br><span class="line">    LINK redis-server</span><br><span class="line">    INSTALL redis-sentinel</span><br><span class="line">    CC redis-cli.o</span><br><span class="line">    LINK redis-cli</span><br><span class="line">    CC redis-benchmark.o</span><br><span class="line">    LINK redis-benchmark</span><br><span class="line">    INSTALL redis-check-rdb</span><br><span class="line">    INSTALL redis-check-aof</span><br><span class="line"></span><br><span class="line">Hint: It&#39;s a good idea to run &#39;make test&#39; ;)</span><br><span class="line"></span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="四、安装并指定安装目录"><a href="#四、安装并指定安装目录" class="headerlink" title="四、安装并指定安装目录"></a>四、安装并指定安装目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis-5.0.3]# make install PREFIX&#x3D;&#x2F;usr&#x2F;local&#x2F;redis</span><br><span class="line">cd src &amp;&amp; make install</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">    CC Makefile.dep</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line">make[1]: Entering directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line"></span><br><span class="line">Hint: It&#39;s a good idea to run &#39;make test&#39; ;)</span><br><span class="line"></span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">make[1]: Leaving directory &#96;&#x2F;redis-5.0.3&#x2F;src&#39;</span><br><span class="line"></span><br><span class="line"># 可以看到，redis-cli redis-server 已经安装到指定目录下了</span><br><span class="line">redis-cli:[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# find &#x2F; -name redis-cli</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;redis-cli  -- 指定安装的目录</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;src&#x2F;redis-cli      -- 原始目录</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# find &#x2F; -name redis-server</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;redis-server  -- 指定安装的目录</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;src&#x2F;redis-server      -- 原始目录</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、启动服务"><a href="#五、启动服务" class="headerlink" title="五、启动服务"></a>五、启动服务</h3><h4 id="5-1前台启动"><a href="#5-1前台启动" class="headerlink" title="5.1前台启动"></a>5.1前台启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z redis]# cd &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# ls</span><br><span class="line">redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis-sentinel  redis-server</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# .&#x2F;redis-server </span><br><span class="line">6968:C 12 Mar 2021 10:25:51.651 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">6968:C 12 Mar 2021 10:25:51.651 # Redis version&#x3D;5.0.3, bits&#x3D;64, commit&#x3D;00000000, modified&#x3D;0, pid&#x3D;6968, just started</span><br><span class="line">6968:C 12 Mar 2021 10:25:51.651 # Warning: no config file specified, using the default config. In order to specify a config file use .&#x2F;redis-server &#x2F;path&#x2F;to&#x2F;redis.conf</span><br><span class="line">                _._                                                  </span><br><span class="line">           _.-&#96;&#96;__ &#39;&#39;-._                                             </span><br><span class="line">      _.-&#96;&#96;    &#96;.  &#96;_.  &#39;&#39;-._           Redis 5.0.3 (00000000&#x2F;0) 64 bit</span><br><span class="line">  .-&#96;&#96; .-&#96;&#96;&#96;.  &#96;&#96;&#96;\&#x2F;    _.,_ &#39;&#39;-._                                   </span><br><span class="line"> (    &#39;      ,       .-&#96;  | &#96;,    )     Running in standalone mode</span><br><span class="line"> |&#96;-._&#96;-...-&#96; __...-.&#96;&#96;-._|&#39;&#96; _.-&#39;|     Port: 6379</span><br><span class="line"> |    &#96;-._   &#96;._    &#x2F;     _.-&#39;    |     PID: 6968</span><br><span class="line">  &#96;-._    &#96;-._  &#96;-.&#x2F;  _.-&#39;    _.-&#39;                                   </span><br><span class="line"> |&#96;-._&#96;-._    &#96;-.__.-&#39;    _.-&#39;_.-&#39;|                                  </span><br><span class="line"> |    &#96;-._&#96;-._        _.-&#39;_.-&#39;    |           http:&#x2F;&#x2F;redis.io        </span><br><span class="line">  &#96;-._    &#96;-._&#96;-.__.-&#39;_.-&#39;    _.-&#39;                                   </span><br><span class="line"> |&#96;-._&#96;-._    &#96;-.__.-&#39;    _.-&#39;_.-&#39;|                                  </span><br><span class="line"> |    &#96;-._&#96;-._        _.-&#39;_.-&#39;    |                                  </span><br><span class="line">  &#96;-._    &#96;-._&#96;-.__.-&#39;_.-&#39;    _.-&#39;                                   </span><br><span class="line">      &#96;-._    &#96;-.__.-&#39;    _.-&#39;                                       </span><br><span class="line">          &#96;-._        _.-&#39;                                           </span><br><span class="line">              &#96;-.__.-&#39;                                               </span><br><span class="line"></span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # WARNING: The TCP backlog setting of 511 cannot be enforced because &#x2F;proc&#x2F;sys&#x2F;net&#x2F;core&#x2F;somaxconn is set to the lower value of 128.</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # Server initialized</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &#39;vm.overcommit_memory &#x3D; 1&#39; to &#x2F;etc&#x2F;sysctl.conf and then reboot or run the command &#39;sysctl vm.overcommit_memory&#x3D;1&#39; for this to take effect.</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command &#39;echo never &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;transparent_hugepage&#x2F;enabled&#39; as root, and add it to your &#x2F;etc&#x2F;rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 * DB loaded from disk: 0.000 seconds</span><br><span class="line">6968:M 12 Mar 2021 10:25:51.652 * Ready to accept connections</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后可以通过相应的工具，进行连接了，这里是没有设置密码的，并且必须保持这个状态，退出后，redis也会被关掉。想要后台运行，看下面操作。</p>
+</blockquote>
+<h4 id="5-2后台启动"><a href="#5-2后台启动" class="headerlink" title="5.2后台启动"></a>5.2后台启动</h4><blockquote>
+<p>从 redis 的源码目录中复制 redis.conf 到 redis 的安装目录</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">## 先看下源目录在哪里？</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# find &#x2F; -name redis.conf</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;redis.conf</span><br><span class="line"></span><br><span class="line">## 再复制到指定目录</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# cp &#x2F;redis-5.0.3&#x2F;redis.conf &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin</span><br><span class="line"></span><br><span class="line">## 再查找一下，看下目标文件是不是在指定目录下了</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# find &#x2F; -name redis.conf</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;redis.conf  -- 指定目录</span><br><span class="line">&#x2F;redis-5.0.3&#x2F;redis.conf</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# cd &#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin&#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# ls</span><br><span class="line">    dump.rdb  redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis.conf  redis-sentinel  redis-server</span><br><span class="line"></span><br><span class="line">## 修改 redis.conf 文件，把 daemonize no 改为 daemonize yes</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# vim redis.conf </span><br><span class="line">################################# GENERAL #####################################</span><br><span class="line"></span><br><span class="line"># By default Redis does not run as a daemon. Use &#39;yes&#39; if you need it.</span><br><span class="line"># Note that Redis will write a pid file in &#x2F;var&#x2F;run&#x2F;redis.pid when daemonized.</span><br><span class="line">daemonize no -- 这里把no 改为yes</span><br><span class="line"></span><br><span class="line">## 后台启动</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# .&#x2F;redis-server redis.conf </span><br><span class="line">7626:C 12 Mar 2021 10:38:59.125 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">7626:C 12 Mar 2021 10:38:59.125 # Redis version&#x3D;5.0.3, bits&#x3D;64, commit&#x3D;00000000, modified&#x3D;0, pid&#x3D;7626, just started</span><br><span class="line">7626:C 12 Mar 2021 10:38:59.125 # Configuration loaded</span><br><span class="line">## 查看运行状态</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# ps -ef | grep redis</span><br><span class="line">root      7627     1  0 10:38 ?        00:00:00 .&#x2F;redis-server 127.0.0.1:6379</span><br><span class="line">root      7652  2128  0 10:39 pts&#x2F;2    00:00:00 grep --color&#x3D;auto redis</span><br><span class="line">## 停止服务</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]kill -9 7627</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、将redis添加至linux服务列表，这样以后的启动，就会方便很多"><a href="#七、将redis添加至linux服务列表，这样以后的启动，就会方便很多" class="headerlink" title="七、将redis添加至linux服务列表，这样以后的启动，就会方便很多"></a>七、将redis添加至linux服务列表，这样以后的启动，就会方便很多</h3><blockquote>
+<p> service redis start – 启动<br> service redis stop  – 关闭</p>
+</blockquote>
+<h4 id="具体操作如下"><a href="#具体操作如下" class="headerlink" title="具体操作如下"></a>具体操作如下</h4><blockquote>
+<p>创建服务脚本<br><br> sudo vim /etc/init.d/redis <br><br>脚本内容如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">#! &#x2F;bin&#x2F;sh</span><br><span class="line"># chkconfig: - 85 15</span><br><span class="line"></span><br><span class="line">PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;redis&#x2F;bin</span><br><span class="line"></span><br><span class="line">SERVER&#x3D;redis-server</span><br><span class="line">NAME&#x3D;redis</span><br><span class="line">REDIS_DAEMON&#x3D;$PATH&#x2F;$SERVER</span><br><span class="line">CONFIGFILE&#x3D;$PATH&#x2F;$NAME.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SCRIPTNAME&#x3D;&#x2F;etc&#x2F;init.d&#x2F;$NAME</span><br><span class="line"></span><br><span class="line">set -e</span><br><span class="line">[ -x &quot;$REDIS_DAEMON&quot; ] || exit 0</span><br><span class="line"></span><br><span class="line">do_start() &#123;</span><br><span class="line">    .$REDIS_DAEMON $CONFIGFILE || echo -n &quot;redis already running&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">do_stop() &#123;</span><br><span class="line">    pids&#x3D;$(ps -ef | grep $&#123;SERVER&#125; |grep -v grep | awk &#39;&#123;print $2&#125;&#39;)</span><br><span class="line">    for pid in $&#123;pids&#125;</span><br><span class="line">    do</span><br><span class="line">     kill -9 $pid</span><br><span class="line">    done</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line">echo -n &quot;Starting $REDIS_DAEMONE&quot;</span><br><span class="line">do_start</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">stop)</span><br><span class="line">echo -n &quot;Stopping $REDIS_DAEMON&quot;</span><br><span class="line">do_stop</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">reload|graceful)</span><br><span class="line">echo -n &quot;Reloading $CONFIGFILE configuration...&quot;</span><br><span class="line">do_stop</span><br><span class="line">do_start</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">restart)</span><br><span class="line">echo -n &quot;Restarting $REDIS_DAEMON&quot;</span><br><span class="line">do_stop</span><br><span class="line">do_start</span><br><span class="line">echo &quot;.&quot;</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo &quot;Usage: $SCRIPTNAME &#123;start|stop|reload|restart&#125;&quot; &gt;&amp;2</span><br><span class="line">exit 3</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>添加服务 <br><br> chkconfig –add redis</p>
+</blockquote>
+<blockquote>
+<p>测试 启动 停止 重启 重载<br><br> service redis start<br><br> service redis stop – 暂不能用<br><br> service redis restart<br><br> service redis reload    <br></p>
+</blockquote>
+<blockquote>
+<p> 测试结果- 权限不够<br></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# service redis stop</span><br><span class="line">   env: &#x2F;etc&#x2F;init.d&#x2F;redis: Permission denied</span><br><span class="line">     --  chmod a+x &#x2F;etc&#x2F;init.d&#x2F;redis</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>还可以添加开机自启动 – 看需要添加<br><br> chkconfig redis on</p>
+</blockquote>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# service redis stop</span><br><span class="line">   env: &#x2F;etc&#x2F;init.d&#x2F;redis: No such file or directory</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为我的/etc/init.d/redis 脚本是在window下，完成后倒入到linux上的，所以会有这样的问题<br><br>因此执行入下操作，即可。<br><br>大多是windows下创建的文件，非unix格式，用vim转换一下就好。<br><br>  vim打开<bR><br>  先 ctrl + c <br><br>  再输入 :set ff=unix <br><br>  最后 :wq 保存退出  <br></p>
+</blockquote>
+<h3 id="收尾处理"><a href="#收尾处理" class="headerlink" title="收尾处理"></a>收尾处理</h3><blockquote>
+<p>既然已经安装完了redis，就将下载的压缩包与解压包删除掉</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  redis-5.0.3  redis-5.0.3.tar.gz  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf redis-5.0.3</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  redis-5.0.3.tar.gz  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf redis-5.0.3.tar.gz </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  www</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://persian.gitee.io/blog/article/20210313194332.html" title="Redis安装" target="_blank" rel="external">http://persian.gitee.io/blog/article/20210313194332.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/PersianLL" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/blog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/PersianLL" target="_blank"><span class="text-dark">Persian</span><small class="ml-1x">时刻学习Java的一枚小小学生。</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/blog/article/20210312095509.html" title="RocketMQ安装"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/blog/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/PersianLL" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/blog/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/PersianLL" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/blog/js/plugin.min.js"></script>
+
+
+<script src="/blog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/blog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+</body>
+</html>
