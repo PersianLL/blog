@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://persian.gitee.io/md/static/image/qrcode.jpg">
 <meta property="article:published_time" content="2021-03-13T06:10:09.619Z">
-<meta property="article:modified_time" content="2021-03-13T10:03:03.844Z">
+<meta property="article:modified_time" content="2021-03-13T14:18:07.689Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta property="article:tag" content="centos7">
@@ -398,10 +398,17 @@
 <p>再启动 broker <br><br>nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]<span class="meta"># nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</span></span><br><span class="line">[<span class="number">2</span>] <span class="number">31806</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="或者不进入bin目录"><a href="#或者不进入bin目录" class="headerlink" title="或者不进入bin目录"></a>或者不进入bin目录</h4><blockquote>
+<p>先执行 nohup sh /usr/local/rocketmq-4.2.0/bin/mqnamesrv &amp; <br><br>再执行 nohup sh /usr/local/rocketmq-4.2.0/bin/mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</p>
+</blockquote>
 <h4 id="输入-jps-查看进程"><a href="#输入-jps-查看进程" class="headerlink" title="输入 jps 查看进程"></a>输入 jps 查看进程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">31633 NamesrvStartup</span><br><span class="line">31813 BrokerStartup</span><br><span class="line">31864 Jps</span><br></pre></td></tr></table></figure>
 
 <h3 id="bin目录下停止服务"><a href="#bin目录下停止服务" class="headerlink" title="bin目录下停止服务"></a>bin目录下停止服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown namesrv</span><br><span class="line">The mqnamesrv(31633) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(31633) OK</span><br><span class="line"></span><br><span class="line">## 这里关闭broker时，是有延迟的</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown broker</span><br><span class="line">The mqbroker(31813) is running...</span><br><span class="line">Send shutdown request to mqbroker(31813) OK</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">3695 Jps</span><br></pre></td></tr></table></figure>
 
+<h4 id="或者不进入bin目录-1"><a href="#或者不进入bin目录-1" class="headerlink" title="或者不进入bin目录"></a>或者不进入bin目录</h4><blockquote>
+<p>先执行 sh /usr/local/rocketmq-4.2.0/bin/mqshutdown namesrv <br><br>再执行 sh /usr/local/rocketmq-4.2.0/bin/mqshutdown broker </p>
+</blockquote>
 <h3 id="清除zip"><a href="#清除zip" class="headerlink" title="清除zip"></a>清除zip</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z ~]# cd &#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  rocketmq-all-4.2.0-bin-release.zip  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf rocketmq-all-4.2.0-bin-release.zip </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="RocketMq控制台安装"><a href="#RocketMq控制台安装" class="headerlink" title="RocketMq控制台安装"></a>RocketMq控制台安装</h3><blockquote>

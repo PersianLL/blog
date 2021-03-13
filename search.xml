@@ -441,6 +441,116 @@
       </tags>
   </entry>
   <entry>
+    <title>java关键字</title>
+    <url>/blog/article/20210311095333.html</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p>① JAVA的关键字都是小写的<br><br>② 在JAVA中目前一共有53个关键字：其中由51+2个保留字=53个关键字。<br></p>
+</blockquote>
+<h3 id="一、JAVA的保留关键字（2个）"><a href="#一、JAVA的保留关键字（2个）" class="headerlink" title="一、JAVA的保留关键字（2个）"></a>一、JAVA的保留关键字（2个）</h3><blockquote>
+<p>① <strong>const</strong>——常量，常数：用于修改字段或局部变量的声明。<br><br>② <strong>goto</strong>——转到：指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。</p>
+</blockquote>
+<h3 id="二、访问修饰符的关键字（3个）"><a href="#二、访问修饰符的关键字（3个）" class="headerlink" title="二、访问修饰符的关键字（3个）"></a>二、访问修饰符的关键字（3个）</h3><blockquote>
+<ul>
+<li><strong>public</strong>（公有的）：可跨包</li>
+<li><strong>protected</strong>(受保护的)：当前包内可用</li>
+<li><strong>private</strong>(私有的)：当前类可用</li>
+</ul>
+</blockquote>
+<h3 id="三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）"><a href="#三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）" class="headerlink" title="三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）"></a>三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）</h3><blockquote>
+<ul>
+<li><strong>class</strong>(类)：public class A(){}花括号里是已实现的方法体，类名需要与文件名相同<br></li>
+<li><strong>interface</strong>(接口)：public interface B(){}花括号里有方法体，但没有实现，方法体句子后面是英文分号;结尾<br></li>
+<li><strong>abstract</strong>(声明抽象)：public abstract class C(){}介于类与接口中间，可以有，也可以没有已经实现的方法体<br></li>
+<li><strong>implemenst</strong>(实现)：用于类或接口，实现接口public class A interface B(){}<br></li>
+<li><strong>extends</strong>(继承)：用于类继承类public class A extends D(){}<br></li>
+<li><strong>new</strong>(创建新对象)：A a=new A();A表示一个类<br></li>
+</ul>
+</blockquote>
+<h3 id="四、包的关键字（2个）"><a href="#四、包的关键字（2个）" class="headerlink" title="四、包的关键字（2个）"></a>四、包的关键字（2个）</h3><blockquote>
+<ul>
+<li><strong>import</strong>(引入包的关键字)：当使用某个包的一些类时，仅需要类名，然后使用ctrl+shift+o或者选定类名（类或属性或方法）按住ctrl+单击，即可自动插入类所在的包；<br></li>
+<li><strong>package</strong>(定义包的关键字)：将所有相关的类放在一个包类以便查找修改等<br></li>
+</ul>
+</blockquote>
+<h3 id="五、数据类型的关键字（12个）"><a href="#五、数据类型的关键字（12个）" class="headerlink" title="五、数据类型的关键字（12个）"></a>五、数据类型的关键字（12个）</h3><blockquote>
+<ul>
+<li><strong>byte</strong>(字节型)：8bit<br></li>
+<li><strong>short</strong>(短整型)：16bit<br></li>
+<li><strong>int</strong>(整型)：32bit<br></li>
+<li><strong>long</strong>(长整型)：64bit<br></li>
+<li><strong>char</strong>(字节型)：16bit<br></li>
+<li><strong>boolean</strong>(布尔型)：–<br></li>
+<li><strong>float</strong>(浮点型)：32bit<br></li>
+<li><strong>double</strong>(双精度)：64bit<br></li>
+<li><strong>void</strong>(无返回)：public void A(){}其他需要反回的经常与return连用<br></li>
+<li><strong>null</strong>(空值)<br></li>
+<li><strong>true</strong>(真)<br></li>
+<li><strong>false</strong>(假）<br></li>
+</ul>
+</blockquote>
+<h3 id="六、条件循环（流程控制）（12个）"><a href="#六、条件循环（流程控制）（12个）" class="headerlink" title="六、条件循环（流程控制）（12个）"></a>六、条件循环（流程控制）（12个）</h3><blockquote>
+<ul>
+<li><strong>if</strong>(如果) ：if（条件语句｛执行代码｝如果条件语句成立，就开始执行｛｝里面的内容<br></li>
+<li><strong>else</strong>(否则，或者) ：常与if连用，用法相同：if(…){…}else{…}<br></li>
+<li><strong>while</strong>(当什么时候)：while（条件语句）｛执行代码｝<br></li>
+<li><strong>for</strong>（满足三个条件时）：for(初始化循环变量；判断条件；循环变量值｛｝<br></li>
+<li><strong>switch</strong>(选择结构)：switch(表达式）｛case 常量表达式1：语句1；…case 常量表达式2；语句2；default:语句；｝default就是如果没有匹配的case就执行它，default并不是必须的。case后的语句可以不用大括号。<br></li>
+<li><strong>case</strong>(匹配switch的表达式里的结果) ：同上<br></li>
+<li><strong>default</strong>(默认)： default就是如果没有匹配的case就执行它， default并不是必须的<br></li>
+<li><strong>do</strong>(运行) ：通长与while连用<br></li>
+<li><strong>break</strong>(跳出循环)：直接跳出循环，执行循环体后的代码<br></li>
+<li><strong>continue</strong>(继续) ： 中断本次循环，并开始下一轮循环<br></li>
+<li><strong>return</strong>(返回) ：return 一个返回值类型<br></li>
+<li><strong>instanceof</strong>(实例)：一个二元操作符，和==、&gt;、&lt;是同一类的。测试它左边的对象是否是它右边的类的实例，返回boolean类型的数据<br></li>
+</ul>
+</blockquote>
+<h3 id="七、修饰方法、类、属性和变量（9个）"><a href="#七、修饰方法、类、属性和变量（9个）" class="headerlink" title="七、修饰方法、类、属性和变量（9个）"></a>七、修饰方法、类、属性和变量（9个）</h3><blockquote>
+<ul>
+<li><strong>static</strong>(静态的)：属性和方法都可以用static修饰，直接使用类名、属性和方法名。只有内部类可以使用static关键字修饰，调用直接使用类名、内部类类名进行调用。static可以独立存在<br></li>
+<li><strong>final</strong>(最终的不可被改变)：方法和类都可用final来修饰；final修饰的类是不能被继承的；final修饰的方法是不能被子类重写。常量的定义：final修饰的属性就是常量<br></li>
+<li><strong>super</strong>(调用父类的方法)：常见public void paint(Graphics g){super.paint(g);…}<br></li>
+<li><strong>this</strong>(当前类的父类的对象)：调用当前类中的方法（表示调用这个方法的对象）this.addActionListener(al):等等<br></li>
+<li><strong>native</strong>(本地)<br></li>
+<li><strong>strictfp</strong>(严格，精准)<br></li>
+<li><strong>synchronized</strong>(线程，同步)：一个时间内只能有一个线程得到执行。另一个线程必须等待当前线程执行完这个代码块以后才能执行该代码块<br></li>
+<li><strong>transient</strong>(短暂)<br></li>
+<li><strong>volatile</strong>(易失)<br></li>
+</ul>
+</blockquote>
+<h3 id="八、错误处理（5个）"><a href="#八、错误处理（5个）" class="headerlink" title="八、错误处理（5个）"></a>八、错误处理（5个）</h3><blockquote>
+<ul>
+<li><strong>catch</strong>(处理异常)：<br><ul>
+<li>① try+catch 程序流程是：运行到try块中，如果有异常抛出，则转到catch块去处理。然后执行catch块后面的语句<br></li>
+<li>② try+catch+finally 程序流程是：运行到try块中，如果有异常抛出，则转到catch垮，catch块执行完毕后，执行finally块的代码，再执行finally块后面的代码。如果没有异常抛出，执行完try块，也要去执行finally块的代码。然后执行finally块后面的语句<br></li>
+<li>③ try+finally  程序流程是：运行到try块中，如果有异常抛出，则转到finally块的代码。<br></li>
+</ul>
+</li>
+<li><strong>try</strong>(捕获异常)<br></li>
+<li><strong>finally</strong>（有没有异常都执行）<br></li>
+<li><strong>throw</strong>(抛出一个异常对象)：一些可以导致程序出问题，比如书写错误，逻辑错误或者是api的应用错误等等。为力防止程序的崩溃就要预先检测这些因素，所以java使用了异常这个机制在java中异常是靠“抛出”  也就是英语的“throw”来使用的，意思是如果发现到什么异常的时候就把错误信息“抛出”<br>&gt;</li>
+<li><strong>throws</strong>(声明一个异常可能被抛出)：把异常交给他的上级管理，自己不进行异常处理<br></li>
+</ul>
+</blockquote>
+<h3 id="九、其他（2个）"><a href="#九、其他（2个）" class="headerlink" title="九、其他（2个）"></a>九、其他（2个）</h3><blockquote>
+<ul>
+<li><strong>enum</strong>(枚举，列举，型别)</li>
+<li><strong>assert</strong>(断言)</li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>Java基础</tag>
+        <tag>java关键字</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java多线程</title>
     <url>/blog/article/20211204101246.html</url>
     <content><![CDATA[<blockquote>
@@ -590,171 +700,69 @@
       </tags>
   </entry>
   <entry>
-    <title>java关键字</title>
-    <url>/blog/article/20210311095333.html</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
-<p>① JAVA的关键字都是小写的<br><br>② 在JAVA中目前一共有53个关键字：其中由51+2个保留字=53个关键字。<br></p>
-</blockquote>
-<h3 id="一、JAVA的保留关键字（2个）"><a href="#一、JAVA的保留关键字（2个）" class="headerlink" title="一、JAVA的保留关键字（2个）"></a>一、JAVA的保留关键字（2个）</h3><blockquote>
-<p>① <strong>const</strong>——常量，常数：用于修改字段或局部变量的声明。<br><br>② <strong>goto</strong>——转到：指定跳转到标签，找到标签后，程序将处理从下一行开始的命令。</p>
-</blockquote>
-<h3 id="二、访问修饰符的关键字（3个）"><a href="#二、访问修饰符的关键字（3个）" class="headerlink" title="二、访问修饰符的关键字（3个）"></a>二、访问修饰符的关键字（3个）</h3><blockquote>
+    <title>Java创建对象的5种方式</title>
+    <url>/blog/article/20215905075928.html</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>依赖函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>使用new关键字</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用Class类的newInstance方法</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用Constructor类的newInstance方法</td>
+<td>} → 调用了构造函数</td>
+</tr>
+<tr>
+<td>使用clone方法</td>
+<td>} → 没有调用构造函数</td>
+</tr>
+<tr>
+<td>使用反序列化——需要实现Serializable接口</td>
+<td>} → 没有调用构造函数</td>
+</tr>
+</tbody></table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><blockquote>
 <ul>
-<li><strong>public</strong>（公有的）：可跨包</li>
-<li><strong>protected</strong>(受保护的)：当前包内可用</li>
-<li><strong>private</strong>(私有的)：当前类可用</li>
+<li>1.使用Constructor类的newInstance方法<br><br>和Class类的newInstance方法很像， java.lang.reflect.Constructor类里也有一个newInstance方法可以创建对象<br></li>
 </ul>
 </blockquote>
-<h3 id="三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）"><a href="#三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）" class="headerlink" title="三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）"></a>三、定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象（6个）</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Constructor&lt;Employee&gt; constructor &#x3D; Employee.class.getConstructor();</span><br><span class="line">Employee emp3 &#x3D; constructor.newInstance();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
 <ul>
-<li><strong>class</strong>(类)：public class A(){}花括号里是已实现的方法体，类名需要与文件名相同<br></li>
-<li><strong>interface</strong>(接口)：public interface B(){}花括号里有方法体，但没有实现，方法体句子后面是英文分号;结尾<br></li>
-<li><strong>abstract</strong>(声明抽象)：public abstract class C(){}介于类与接口中间，可以有，也可以没有已经实现的方法体<br></li>
-<li><strong>implemenst</strong>(实现)：用于类或接口，实现接口public class A interface B(){}<br></li>
-<li><strong>extends</strong>(继承)：用于类继承类public class A extends D(){}<br></li>
-<li><strong>new</strong>(创建新对象)：A a=new A();A表示一个类<br></li>
+<li>2.使用clone方法<br><br>无论何时我们调用一个对象的clone方法，jvm就会创建一个新的对象，将前面对象的内容全部拷贝进去。用clone方法创建对象并不会调用任何构造函数<br><br>要使用clone方法，我们需要先实现Cloneable接口并实现其定义的clone方法<br></li>
 </ul>
 </blockquote>
-<h3 id="四、包的关键字（2个）"><a href="#四、包的关键字（2个）" class="headerlink" title="四、包的关键字（2个）"></a>四、包的关键字（2个）</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object o2 &#x3D; object.clone();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
 <ul>
-<li><strong>import</strong>(引入包的关键字)：当使用某个包的一些类时，仅需要类名，然后使用ctrl+shift+o或者选定类名（类或属性或方法）按住ctrl+单击，即可自动插入类所在的包；<br></li>
-<li><strong>package</strong>(定义包的关键字)：将所有相关的类放在一个包类以便查找修改等<br></li>
+<li>3.使用反序列化<br><br>当我们序列化和反序列化一个对象，jvm会给我们创建一个单独的对象。在反序列化时，jvm创建对象并不会调用任何构造函数<br></li>
 </ul>
 </blockquote>
-<h3 id="五、数据类型的关键字（12个）"><a href="#五、数据类型的关键字（12个）" class="headerlink" title="五、数据类型的关键字（12个）"></a>五、数据类型的关键字（12个）</h3><blockquote>
-<ul>
-<li><strong>byte</strong>(字节型)：8bit<br></li>
-<li><strong>short</strong>(短整型)：16bit<br></li>
-<li><strong>int</strong>(整型)：32bit<br></li>
-<li><strong>long</strong>(长整型)：64bit<br></li>
-<li><strong>char</strong>(字节型)：16bit<br></li>
-<li><strong>boolean</strong>(布尔型)：–<br></li>
-<li><strong>float</strong>(浮点型)：32bit<br></li>
-<li><strong>double</strong>(双精度)：64bit<br></li>
-<li><strong>void</strong>(无返回)：public void A(){}其他需要反回的经常与return连用<br></li>
-<li><strong>null</strong>(空值)<br></li>
-<li><strong>true</strong>(真)<br></li>
-<li><strong>false</strong>(假）<br></li>
-</ul>
-</blockquote>
-<h3 id="六、条件循环（流程控制）（12个）"><a href="#六、条件循环（流程控制）（12个）" class="headerlink" title="六、条件循环（流程控制）（12个）"></a>六、条件循环（流程控制）（12个）</h3><blockquote>
-<ul>
-<li><strong>if</strong>(如果) ：if（条件语句｛执行代码｝如果条件语句成立，就开始执行｛｝里面的内容<br></li>
-<li><strong>else</strong>(否则，或者) ：常与if连用，用法相同：if(…){…}else{…}<br></li>
-<li><strong>while</strong>(当什么时候)：while（条件语句）｛执行代码｝<br></li>
-<li><strong>for</strong>（满足三个条件时）：for(初始化循环变量；判断条件；循环变量值｛｝<br></li>
-<li><strong>switch</strong>(选择结构)：switch(表达式）｛case 常量表达式1：语句1；…case 常量表达式2；语句2；default:语句；｝default就是如果没有匹配的case就执行它，default并不是必须的。case后的语句可以不用大括号。<br></li>
-<li><strong>case</strong>(匹配switch的表达式里的结果) ：同上<br></li>
-<li><strong>default</strong>(默认)： default就是如果没有匹配的case就执行它， default并不是必须的<br></li>
-<li><strong>do</strong>(运行) ：通长与while连用<br></li>
-<li><strong>break</strong>(跳出循环)：直接跳出循环，执行循环体后的代码<br></li>
-<li><strong>continue</strong>(继续) ： 中断本次循环，并开始下一轮循环<br></li>
-<li><strong>return</strong>(返回) ：return 一个返回值类型<br></li>
-<li><strong>instanceof</strong>(实例)：一个二元操作符，和==、&gt;、&lt;是同一类的。测试它左边的对象是否是它右边的类的实例，返回boolean类型的数据<br></li>
-</ul>
-</blockquote>
-<h3 id="七、修饰方法、类、属性和变量（9个）"><a href="#七、修饰方法、类、属性和变量（9个）" class="headerlink" title="七、修饰方法、类、属性和变量（9个）"></a>七、修饰方法、类、属性和变量（9个）</h3><blockquote>
-<ul>
-<li><strong>static</strong>(静态的)：属性和方法都可以用static修饰，直接使用类名、属性和方法名。只有内部类可以使用static关键字修饰，调用直接使用类名、内部类类名进行调用。static可以独立存在<br></li>
-<li><strong>final</strong>(最终的不可被改变)：方法和类都可用final来修饰；final修饰的类是不能被继承的；final修饰的方法是不能被子类重写。常量的定义：final修饰的属性就是常量<br></li>
-<li><strong>super</strong>(调用父类的方法)：常见public void paint(Graphics g){super.paint(g);…}<br></li>
-<li><strong>this</strong>(当前类的父类的对象)：调用当前类中的方法（表示调用这个方法的对象）this.addActionListener(al):等等<br></li>
-<li><strong>native</strong>(本地)<br></li>
-<li><strong>strictfp</strong>(严格，精准)<br></li>
-<li><strong>synchronized</strong>(线程，同步)：一个时间内只能有一个线程得到执行。另一个线程必须等待当前线程执行完这个代码块以后才能执行该代码块<br></li>
-<li><strong>transient</strong>(短暂)<br></li>
-<li><strong>volatile</strong>(易失)<br></li>
-</ul>
-</blockquote>
-<h3 id="八、错误处理（5个）"><a href="#八、错误处理（5个）" class="headerlink" title="八、错误处理（5个）"></a>八、错误处理（5个）</h3><blockquote>
-<ul>
-<li><strong>catch</strong>(处理异常)：<br><ul>
-<li>① try+catch 程序流程是：运行到try块中，如果有异常抛出，则转到catch块去处理。然后执行catch块后面的语句<br></li>
-<li>② try+catch+finally 程序流程是：运行到try块中，如果有异常抛出，则转到catch垮，catch块执行完毕后，执行finally块的代码，再执行finally块后面的代码。如果没有异常抛出，执行完try块，也要去执行finally块的代码。然后执行finally块后面的语句<br></li>
-<li>③ try+finally  程序流程是：运行到try块中，如果有异常抛出，则转到finally块的代码。<br></li>
-</ul>
-</li>
-<li><strong>try</strong>(捕获异常)<br></li>
-<li><strong>finally</strong>（有没有异常都执行）<br></li>
-<li><strong>throw</strong>(抛出一个异常对象)：一些可以导致程序出问题，比如书写错误，逻辑错误或者是api的应用错误等等。为力防止程序的崩溃就要预先检测这些因素，所以java使用了异常这个机制在java中异常是靠“抛出”  也就是英语的“throw”来使用的，意思是如果发现到什么异常的时候就把错误信息“抛出”<br>&gt;</li>
-<li><strong>throws</strong>(声明一个异常可能被抛出)：把异常交给他的上级管理，自己不进行异常处理<br></li>
-</ul>
-</blockquote>
-<h3 id="九、其他（2个）"><a href="#九、其他（2个）" class="headerlink" title="九、其他（2个）"></a>九、其他（2个）</h3><blockquote>
-<ul>
-<li><strong>enum</strong>(枚举，列举，型别)</li>
-<li><strong>assert</strong>(断言)</li>
-</ul>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ObjectInputStream in &#x3D; new ObjectInputStream(new FileInputStream(&quot;data.obj&quot;));</span><br><span class="line">Object object &#x3D; (Object) in.readObject();</span><br></pre></td></tr></table></figure>
+
 <hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>Java基础</category>
-      </categories>
-      <tags>
-        <tag>Java基础</tag>
-        <tag>java关键字</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java集合</title>
-    <url>/blog/article/20211903111947.html</url>
-    <content><![CDATA[<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><h4 id="Arraylist"><a href="#Arraylist" class="headerlink" title="Arraylist"></a>Arraylist</h4><ul>
-<li>动态数组</li>
-<li>能够实现随机存取 – 实现了RandomAccess接口</li>
-<li>fail-fast机制<br>① modCount在Abstractlist中定义<br>② 在使用迭代器遍历list时，如果modCount和exceptedCount不匹配，就会直接抛出异常<br>③ 使用迭代器自带的remove时，如果删除了list中元素，不会出现fail-fast，<br> 因为迭代器会调整modCount和expectedCount值</li>
-<li>自定义序列化方法<br>① 因为arraylist的底层数组中，可能存在值为null的元素，序列化这些元素是没意义的，<br>  因此自定义序列化方法，只序列化数组中非null的元素<br>② 通过readObject和writeObject方法实现</li>
-<li>有一个初始容量（16）<br>① 扩容：capacity = 1.5 * capacity<br>② 通过Arrays.copyOf() - &gt; System.copyOf()<br>③ Arraylist是插入前扩容，扩容逻辑为ensureCapacityInternal() –&gt; ensureExplicitCapacity() —&gt; grow()</li>
-<li>插入时，判断容器中的元素是否超过某个阈值，超过则代表快溢出，会进行扩容</li>
-</ul>
-<h4 id="Linkedlist"><a href="#Linkedlist" class="headerlink" title="Linkedlist"></a>Linkedlist</h4><ul>
-<li>动态数组</li>
-<li>双向链表</li>
-<li>不能随机访问，不能通过下标获取元素</li>
-<li>适合插入删除多的场合 – 更新，删除元素效率高</li>
-</ul>
-<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
-<li>不保证元素顺序</li>
-<li>元素插入的顺序与输出顺序不一致</li>
-<li>在Set中元素还是有顺序的，根据元素的hashcode排序</li>
-</ul>
-<h4 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h4><ul>
-<li>基于LinkedHashMap实现</li>
-<li>使用链表维护元素的次序</li>
-</ul>
-<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h4><ul>
-<li>底层基于TreeMap实现</li>
-<li>两种排序：① 自然排序 ② 定制排序 </li>
-<li>不是通过hashcodeh和equals来比较元素，是通过compare或compareTo来判断元素是否相等</li>
-</ul>
-<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
-<li>扩容，需要遍历旧table，再遍历每个table中每个元素的单向链表，取得entry后，<br>重新计算hash，然后存放到新table的对应位置</li>
-</ul>
-<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><ul>
-<li>哈希表和链表实现</li>
-<li>每个元素用双向链表进行连接</li>
-<li>扩容时遍历双向链表，重新计算每个元素的hash即可</li>
-</ul>
-<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><ul>
-<li>基于红黑树</li>
-<li>自然排序<br>  ① 所有key必须实现Comparable接口 – 每一个key-value节点作为红黑树的一个节点</li>
-<li>定制排序<br>  ① 定义TreeMap时，创建一个comparator对象，该对象对所有的key进行排序</li>
-</ul>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>
-    ]]></content>
+<p> 欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+ <center>
+     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+ </center>
+]]></content>
       <categories>
         <category>Java基础</category>
       </categories>
       <tags>
         <tag>基础</tag>
-        <tag>集合</tag>
+        <tag>对象创建</tag>
       </tags>
   </entry>
   <entry>
@@ -826,6 +834,64 @@
       <tags>
         <tag>基础</tag>
         <tag>反射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java集合</title>
+    <url>/blog/article/20211903111947.html</url>
+    <content><![CDATA[<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><h4 id="Arraylist"><a href="#Arraylist" class="headerlink" title="Arraylist"></a>Arraylist</h4><ul>
+<li>动态数组</li>
+<li>能够实现随机存取 – 实现了RandomAccess接口</li>
+<li>fail-fast机制<br>① modCount在Abstractlist中定义<br>② 在使用迭代器遍历list时，如果modCount和exceptedCount不匹配，就会直接抛出异常<br>③ 使用迭代器自带的remove时，如果删除了list中元素，不会出现fail-fast，<br> 因为迭代器会调整modCount和expectedCount值</li>
+<li>自定义序列化方法<br>① 因为arraylist的底层数组中，可能存在值为null的元素，序列化这些元素是没意义的，<br>  因此自定义序列化方法，只序列化数组中非null的元素<br>② 通过readObject和writeObject方法实现</li>
+<li>有一个初始容量（16）<br>① 扩容：capacity = 1.5 * capacity<br>② 通过Arrays.copyOf() - &gt; System.copyOf()<br>③ Arraylist是插入前扩容，扩容逻辑为ensureCapacityInternal() –&gt; ensureExplicitCapacity() —&gt; grow()</li>
+<li>插入时，判断容器中的元素是否超过某个阈值，超过则代表快溢出，会进行扩容</li>
+</ul>
+<h4 id="Linkedlist"><a href="#Linkedlist" class="headerlink" title="Linkedlist"></a>Linkedlist</h4><ul>
+<li>动态数组</li>
+<li>双向链表</li>
+<li>不能随机访问，不能通过下标获取元素</li>
+<li>适合插入删除多的场合 – 更新，删除元素效率高</li>
+</ul>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
+<li>不保证元素顺序</li>
+<li>元素插入的顺序与输出顺序不一致</li>
+<li>在Set中元素还是有顺序的，根据元素的hashcode排序</li>
+</ul>
+<h4 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h4><ul>
+<li>基于LinkedHashMap实现</li>
+<li>使用链表维护元素的次序</li>
+</ul>
+<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h4><ul>
+<li>底层基于TreeMap实现</li>
+<li>两种排序：① 自然排序 ② 定制排序 </li>
+<li>不是通过hashcodeh和equals来比较元素，是通过compare或compareTo来判断元素是否相等</li>
+</ul>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
+<li>扩容，需要遍历旧table，再遍历每个table中每个元素的单向链表，取得entry后，<br>重新计算hash，然后存放到新table的对应位置</li>
+</ul>
+<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><ul>
+<li>哈希表和链表实现</li>
+<li>每个元素用双向链表进行连接</li>
+<li>扩容时遍历双向链表，重新计算每个元素的hash即可</li>
+</ul>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><ul>
+<li>基于红黑树</li>
+<li>自然排序<br>  ① 所有key必须实现Comparable接口 – 每一个key-value节点作为红黑树的一个节点</li>
+<li>定制排序<br>  ① 定义TreeMap时，创建一个comparator对象，该对象对所有的key进行排序</li>
+</ul>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>
+    ]]></content>
+      <categories>
+        <category>Java基础</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>集合</tag>
       </tags>
   </entry>
   <entry>
@@ -1217,69 +1283,75 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>Java创建对象的5种方式</title>
-    <url>/blog/article/20215905075928.html</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th>方式</th>
-<th>依赖函数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>使用new关键字</td>
-<td>} → 调用了构造函数</td>
-</tr>
-<tr>
-<td>使用Class类的newInstance方法</td>
-<td>} → 调用了构造函数</td>
-</tr>
-<tr>
-<td>使用Constructor类的newInstance方法</td>
-<td>} → 调用了构造函数</td>
-</tr>
-<tr>
-<td>使用clone方法</td>
-<td>} → 没有调用构造函数</td>
-</tr>
-<tr>
-<td>使用反序列化——需要实现Serializable接口</td>
-<td>} → 没有调用构造函数</td>
-</tr>
-</tbody></table>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><blockquote>
+    <title>代理模式</title>
+    <url>/blog/article/20211605081641.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。通俗的来讲代理模式就是我们生活中常见的中介。</p>
+</blockquote>
+<h2 id="为什么要用代理模式？"><a href="#为什么要用代理模式？" class="headerlink" title="为什么要用代理模式？"></a>为什么要用代理模式？</h2><blockquote>
 <ul>
-<li>1.使用Constructor类的newInstance方法<br><br>和Class类的newInstance方法很像， java.lang.reflect.Constructor类里也有一个newInstance方法可以创建对象<br></li>
+<li><strong>中介隔离作用：</strong><br> <ul>
+<li>在某些情况下，一个客户类不想或者不能直接引用一个委托对象，而代理类对象可以在客户类和委托对象之间起到中介的作用，其特征是代理类和委托类实现相同的接口。<br></li>
+</ul>
+</li>
+<li><strong>开闭原则，增加功能：</strong> (用于AOP)<br><ul>
+<li>代理类除了是客户类和委托类的中介之外，我们还可以通过给代理类增加额外的功能来扩展委托类的功能，这样做我们只需要修改代理类而不需要再修改委托类，符合代码设计的开闭原则。代理类主要负责为委托类预处理消息、过滤消息、把消息转发给委托类，以及事后对返回结果的处理等。代理类本身并不真正实现服务，而是同过调用委托类的相关方法，来提供特定的服务。真正的业务功能还是由委托类来实现，但是可以在业务功能执行的前后加入一些公共的服务。例如我们想给项目加入缓存、日志这些功能，我们就可以使用代理类来完成，而没必要打开已经封装好的委托类。<br></li>
+</ul>
+</li>
 </ul>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Constructor&lt;Employee&gt; constructor &#x3D; Employee.class.getConstructor();</span><br><span class="line">Employee emp3 &#x3D; constructor.newInstance();</span><br></pre></td></tr></table></figure>
-
+<h2 id="有哪几种代理模式？"><a href="#有哪几种代理模式？" class="headerlink" title="有哪几种代理模式？"></a>有哪几种代理模式？</h2><blockquote>
+<ul>
+<li>静态代理</li>
+<li>动态代理（JDK接口代理）</li>
+<li>cglib动态代理</li>
+</ul>
+</blockquote>
+<h3 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1. 静态代理"></a>1. 静态代理</h3><blockquote>
+<ul>
+<li>需要定义接口或父类；<br></li>
+<li>代理对象与目标对象需要实现（或继承）同一个接口（或父类）；<br></li>
+<li><strong>缺点：</strong> <br><ul>
+<li>接口（或父类）改变时，代理对象与目标对象据需要一起改动；<br></li>
+<li>每个目标对象均需要创建相应的代理对象，不方便的源码的管理，并且编译的class包也比较臃肿；<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2. 动态代理"></a>2. 动态代理</h3><blockquote>
+<p>在动态代理中，我们不需要再为目标对象创建相应的代理对象，只需要创建一个代理对象生成工厂即可。真正的代理对象，JDK运行时会为我们动态创建。<br></p>
+<ul>
+<li>需要实现接口InvocationHandler.invoke() – 里面写一些增强处理的逻辑。<br></li>
+<li>自定义的代理工厂，使用 Proxy.newProxyInstance(接口对象的ClassLoader,接口对象的Class&lt;?&gt;[],InvocationHandler实现类)动态创建目标对象的代理对象；<br></li>
+<li><strong>缺点：</strong><br><ul>
+<li>由于动态代理也叫JDK接口代理，字面意思也说明了，目标对象必须是某个接口的实现类；<br></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="3-cglib动态代理-–-子类代理"><a href="#3-cglib动态代理-–-子类代理" class="headerlink" title="3. cglib动态代理 – 子类代理"></a>3. cglib动态代理 – 子类代理</h3><blockquote>
+<p>由于JDK实现动态代理需要实现类通过接口定义业务方法，对于没有接口的类，如何实现动态代理呢，这就需要CGLib了。<br><br>CGLib采用了非常底层的字节码技术，其原理是通过字节码技术<strong>为一个类创建子类</strong>，并在子类中采用方法拦截的技术拦截所有父类方法的调用，<br><strong>顺势织入横切逻辑</strong>。<br><br>但因为采用的是<strong>继承</strong>，所以不能对final修饰的类进行代理，并且被final修饰的方法，也不会被拦截。<br><br>JDK动态代理与CGLib动态代理均是实现Spring AOP的基础。<br></p>
+</blockquote>
 <blockquote>
 <ul>
-<li>2.使用clone方法<br><br>无论何时我们调用一个对象的clone方法，jvm就会创建一个新的对象，将前面对象的内容全部拷贝进去。用clone方法创建对象并不会调用任何构造函数<br><br>要使用clone方法，我们需要先实现Cloneable接口并实现其定义的clone方法<br></li>
+<li>① 实现接口MethodInterceptor，里面放一些<strong>增强处理</strong>的逻辑<br></li>
+<li>② 使用Enhancer创建目标类子类代理对象，并把实现了MethodInterceptor接口的实现类对象，放入enhancer.setCallback()中；<br></li>
 </ul>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object o2 &#x3D; object.clone();</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<ul>
-<li>3.使用反序列化<br><br>当我们序列化和反序列化一个对象，jvm会给我们创建一个单独的对象。在反序列化时，jvm创建对象并不会调用任何构造函数<br></li>
-</ul>
+<p><strong>总结：</strong><br><br>  CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高，但是CGLIB创建代理对象时所花费的时间却比JDK多得多。所以对于单例的对象，因为无需频繁创建对象，用CGLIB合适，反之使用JDK方式要更为合适一些。同时由于CGLib由于是采用动态创建子类的方法，对于final修饰的方法无法进行代理。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ObjectInputStream in &#x3D; new ObjectInputStream(new FileInputStream(&quot;data.obj&quot;));</span><br><span class="line">Object object &#x3D; (Object) in.readObject();</span><br></pre></td></tr></table></figure>
-
 <hr>
-<p> 欢迎关注我的公众号，原创技术文章第一时间推送。</p>
- <center>
-     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
- </center>
-]]></content>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
       <categories>
-        <category>Java基础</category>
+        <category>设计模式</category>
       </categories>
       <tags>
-        <tag>基础</tag>
-        <tag>对象创建</tag>
+        <tag>设计模式</tag>
+        <tag>结构型模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1454,78 +1526,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 </blockquote>
 <h2 id="外观模式的扩展"><a href="#外观模式的扩展" class="headerlink" title="外观模式的扩展"></a>外观模式的扩展</h2><blockquote>
 <p>在外观模式中，当增加或移除子系统时需要修改外观类，这违背了“开闭原则”。如果引入抽象外观类，则在一定程度上解决了该问题。</p>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>结构型模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代理模式</title>
-    <url>/blog/article/20211605081641.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。通俗的来讲代理模式就是我们生活中常见的中介。</p>
-</blockquote>
-<h2 id="为什么要用代理模式？"><a href="#为什么要用代理模式？" class="headerlink" title="为什么要用代理模式？"></a>为什么要用代理模式？</h2><blockquote>
-<ul>
-<li><strong>中介隔离作用：</strong><br> <ul>
-<li>在某些情况下，一个客户类不想或者不能直接引用一个委托对象，而代理类对象可以在客户类和委托对象之间起到中介的作用，其特征是代理类和委托类实现相同的接口。<br></li>
-</ul>
-</li>
-<li><strong>开闭原则，增加功能：</strong> (用于AOP)<br><ul>
-<li>代理类除了是客户类和委托类的中介之外，我们还可以通过给代理类增加额外的功能来扩展委托类的功能，这样做我们只需要修改代理类而不需要再修改委托类，符合代码设计的开闭原则。代理类主要负责为委托类预处理消息、过滤消息、把消息转发给委托类，以及事后对返回结果的处理等。代理类本身并不真正实现服务，而是同过调用委托类的相关方法，来提供特定的服务。真正的业务功能还是由委托类来实现，但是可以在业务功能执行的前后加入一些公共的服务。例如我们想给项目加入缓存、日志这些功能，我们就可以使用代理类来完成，而没必要打开已经封装好的委托类。<br></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h2 id="有哪几种代理模式？"><a href="#有哪几种代理模式？" class="headerlink" title="有哪几种代理模式？"></a>有哪几种代理模式？</h2><blockquote>
-<ul>
-<li>静态代理</li>
-<li>动态代理（JDK接口代理）</li>
-<li>cglib动态代理</li>
-</ul>
-</blockquote>
-<h3 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1. 静态代理"></a>1. 静态代理</h3><blockquote>
-<ul>
-<li>需要定义接口或父类；<br></li>
-<li>代理对象与目标对象需要实现（或继承）同一个接口（或父类）；<br></li>
-<li><strong>缺点：</strong> <br><ul>
-<li>接口（或父类）改变时，代理对象与目标对象据需要一起改动；<br></li>
-<li>每个目标对象均需要创建相应的代理对象，不方便的源码的管理，并且编译的class包也比较臃肿；<br></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h3 id="2-动态代理"><a href="#2-动态代理" class="headerlink" title="2. 动态代理"></a>2. 动态代理</h3><blockquote>
-<p>在动态代理中，我们不需要再为目标对象创建相应的代理对象，只需要创建一个代理对象生成工厂即可。真正的代理对象，JDK运行时会为我们动态创建。<br></p>
-<ul>
-<li>需要实现接口InvocationHandler.invoke() – 里面写一些增强处理的逻辑。<br></li>
-<li>自定义的代理工厂，使用 Proxy.newProxyInstance(接口对象的ClassLoader,接口对象的Class&lt;?&gt;[],InvocationHandler实现类)动态创建目标对象的代理对象；<br></li>
-<li><strong>缺点：</strong><br><ul>
-<li>由于动态代理也叫JDK接口代理，字面意思也说明了，目标对象必须是某个接口的实现类；<br></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h3 id="3-cglib动态代理-–-子类代理"><a href="#3-cglib动态代理-–-子类代理" class="headerlink" title="3. cglib动态代理 – 子类代理"></a>3. cglib动态代理 – 子类代理</h3><blockquote>
-<p>由于JDK实现动态代理需要实现类通过接口定义业务方法，对于没有接口的类，如何实现动态代理呢，这就需要CGLib了。<br><br>CGLib采用了非常底层的字节码技术，其原理是通过字节码技术<strong>为一个类创建子类</strong>，并在子类中采用方法拦截的技术拦截所有父类方法的调用，<br><strong>顺势织入横切逻辑</strong>。<br><br>但因为采用的是<strong>继承</strong>，所以不能对final修饰的类进行代理，并且被final修饰的方法，也不会被拦截。<br><br>JDK动态代理与CGLib动态代理均是实现Spring AOP的基础。<br></p>
-</blockquote>
-<blockquote>
-<ul>
-<li>① 实现接口MethodInterceptor，里面放一些<strong>增强处理</strong>的逻辑<br></li>
-<li>② 使用Enhancer创建目标类子类代理对象，并把实现了MethodInterceptor接口的实现类对象，放入enhancer.setCallback()中；<br></li>
-</ul>
-</blockquote>
-<blockquote>
-<p><strong>总结：</strong><br><br>  CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高，但是CGLIB创建代理对象时所花费的时间却比JDK多得多。所以对于单例的对象，因为无需频繁创建对象，用CGLIB合适，反之使用JDK方式要更为合适一些。同时由于CGLib由于是采用动态创建子类的方法，对于final修饰的方法无法进行代理。</p>
 </blockquote>
 <hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
@@ -1896,58 +1896,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>备忘录模式</title>
-    <url>/blog/article/20210305201732.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>定义：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，以便以后当需要时能将该对象恢复到原先保存的状态。该模式又叫<strong>快照模式</strong>。<br><br>备忘录模式的核心是设计备忘录类以及用于管理备忘录的管理者类。</p>
-</blockquote>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
-<ul>
-<li>提供了一种可以恢复状态的机制。当用户需要时能够比较方便地将数据恢复到某个历史的状态。<br></li>
-<li>实现了内部状态的封装。除了创建它的发起人之外，其他对象都不能够访问这些状态信息。<br></li>
-<li>简化了发起人类。发起人不需要管理和保存其内部状态的各个备份，所有状态信息都保存在备忘录中，并由管理者进行管理，这符合单一职责原则。<br> </li>
-</ul>
-</blockquote>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
-<p><strong>资源消耗大</strong>。如果要保存的内部状态信息过多或者特别频繁，将会占用比较大的内存资源。</p>
-</blockquote>
-<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
-<ul>
-<li><strong>发起人（Originator）角色：</strong> 记录当前时刻的内部状态信息，提供创建备忘录和恢复备忘录数据的功能，实现其他业务功能，它可以访问备忘录里的所有信息。<br></li>
-<li><strong>备忘录（Memento）角色：</strong> 负责存储发起人的内部状态，在需要的时候提供这些内部状态给发起人。<br></li>
-<li><strong>管理者（Caretaker）角色：</strong> 对备忘录进行管理，提供保存与获取备忘录的功能，但其不能对备忘录的内容进行访问与修改。<br></li>
-</ul>
-</blockquote>
-<h3 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MementoPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Originator or = <span class="keyword">new</span> Originator();</span><br><span class="line">        Caretaker cr = <span class="keyword">new</span> Caretaker();</span><br><span class="line">        or.setState(<span class="string">&quot;S0&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;初始状态:&quot;</span> + or.getState());</span><br><span class="line">        cr.setMemento(or.createMemento()); <span class="comment">//保存状态</span></span><br><span class="line">        or.setState(<span class="string">&quot;S1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;新的状态:&quot;</span> + or.getState());</span><br><span class="line">        or.restoreMemento(cr.getMemento()); <span class="comment">//恢复状态</span></span><br><span class="line">        System.out.println(<span class="string">&quot;恢复状态:&quot;</span> + or.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//备忘录</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String state;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//发起人</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String state;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Memento <span class="title">createMemento</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Memento(state);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">restoreMemento</span><span class="params">(Memento m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(m.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//管理者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Caretaker</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Memento memento;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMemento</span><span class="params">(Memento m)</span> </span>&#123;</span><br><span class="line">        memento = m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Memento <span class="title">getMemento</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> memento;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
-<ul>
-<li>需要保存与恢复数据的场景，如玩游戏时的中间结果的存档功能。<br></li>
-<li>需要提供一个可回滚操作的场景，如 Word、记事本、Photoshop，Eclipse 等软件在编辑时按 Ctrl+Z 组合键，还有数据库中事务操作。<br></li>
-</ul>
-</blockquote>
-<h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
-<ol>
-<li><strong>备忘录模式</strong>与<strong>原型模式</strong>混合使用。<br><br>在备忘录模式中，通过定义“备忘录”来备份“发起人”的信息，而原型模式的 clone() 方法具有自备份功能，所以，如果让发起人实现 Cloneable 接口就有备份自己的功能，这时可以删除备忘录类。</li>
-</ol>
-</blockquote>
-<blockquote>
-<p><strong>另外：</strong> Spring Webflow中DefaultMessageContext类实现了StateManageableMessageContext接口，查看其源码可以发现其主要逻辑就相当于给Message备份。</p>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>行为型模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>模板方法模式</title>
     <url>/blog/article/20210305204532.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -1993,6 +1941,58 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 </blockquote>
 <h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
 <p>在模板方法模式中，基本方法包含：抽象方法、具体方法和钩子方法，正确使用 <strong>“钩子方法”</strong> 可以使得子类控制父类的行为。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>备忘录模式</title>
+    <url>/blog/article/20210305201732.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>定义：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，以便以后当需要时能将该对象恢复到原先保存的状态。该模式又叫<strong>快照模式</strong>。<br><br>备忘录模式的核心是设计备忘录类以及用于管理备忘录的管理者类。</p>
+</blockquote>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<ul>
+<li>提供了一种可以恢复状态的机制。当用户需要时能够比较方便地将数据恢复到某个历史的状态。<br></li>
+<li>实现了内部状态的封装。除了创建它的发起人之外，其他对象都不能够访问这些状态信息。<br></li>
+<li>简化了发起人类。发起人不需要管理和保存其内部状态的各个备份，所有状态信息都保存在备忘录中，并由管理者进行管理，这符合单一职责原则。<br> </li>
+</ul>
+</blockquote>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
+<p><strong>资源消耗大</strong>。如果要保存的内部状态信息过多或者特别频繁，将会占用比较大的内存资源。</p>
+</blockquote>
+<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
+<ul>
+<li><strong>发起人（Originator）角色：</strong> 记录当前时刻的内部状态信息，提供创建备忘录和恢复备忘录数据的功能，实现其他业务功能，它可以访问备忘录里的所有信息。<br></li>
+<li><strong>备忘录（Memento）角色：</strong> 负责存储发起人的内部状态，在需要的时候提供这些内部状态给发起人。<br></li>
+<li><strong>管理者（Caretaker）角色：</strong> 对备忘录进行管理，提供保存与获取备忘录的功能，但其不能对备忘录的内容进行访问与修改。<br></li>
+</ul>
+</blockquote>
+<h3 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MementoPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Originator or = <span class="keyword">new</span> Originator();</span><br><span class="line">        Caretaker cr = <span class="keyword">new</span> Caretaker();</span><br><span class="line">        or.setState(<span class="string">&quot;S0&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;初始状态:&quot;</span> + or.getState());</span><br><span class="line">        cr.setMemento(or.createMemento()); <span class="comment">//保存状态</span></span><br><span class="line">        or.setState(<span class="string">&quot;S1&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;新的状态:&quot;</span> + or.getState());</span><br><span class="line">        or.restoreMemento(cr.getMemento()); <span class="comment">//恢复状态</span></span><br><span class="line">        System.out.println(<span class="string">&quot;恢复状态:&quot;</span> + or.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//备忘录</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String state;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//发起人</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String state;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Memento <span class="title">createMemento</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Memento(state);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">restoreMemento</span><span class="params">(Memento m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(m.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//管理者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Caretaker</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Memento memento;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMemento</span><span class="params">(Memento m)</span> </span>&#123;</span><br><span class="line">        memento = m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Memento <span class="title">getMemento</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> memento;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
+<ul>
+<li>需要保存与恢复数据的场景，如玩游戏时的中间结果的存档功能。<br></li>
+<li>需要提供一个可回滚操作的场景，如 Word、记事本、Photoshop，Eclipse 等软件在编辑时按 Ctrl+Z 组合键，还有数据库中事务操作。<br></li>
+</ul>
+</blockquote>
+<h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
+<ol>
+<li><strong>备忘录模式</strong>与<strong>原型模式</strong>混合使用。<br><br>在备忘录模式中，通过定义“备忘录”来备份“发起人”的信息，而原型模式的 clone() 方法具有自备份功能，所以，如果让发起人实现 Cloneable 接口就有备份自己的功能，这时可以删除备忘录类。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>另外：</strong> Spring Webflow中DefaultMessageContext类实现了StateManageableMessageContext接口，查看其源码可以发现其主要逻辑就相当于给Message备份。</p>
 </blockquote>
 <hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
@@ -2107,68 +2107,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 </blockquote>
 <h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
 <p>在一个使用策略模式的系统中，当存在的策略很多时，客户端管理所有策略算法将变得很复杂，如果在环境类中使用策略工厂模式来管理这些策略类将大大减少客户端的工作复杂度。</p>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>行为型模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>观察者模式</title>
-    <url>/blog/article/20210305205733.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>定义：指多个对象间存在一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。这种模式有时又称作<strong>发布-订阅模式</strong>、<strong>模型-视图模式</strong>，它是对象行为型模式。<br><br>实现观察者模式时要注意具体目标对象和具体观察者对象之间不能直接调用，否则将使两者之间紧密耦合起来，这违反了面向对象的设计原则。<br></p>
-</blockquote>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
-<ul>
-<li>降低了目标与观察者之间的耦合关系，两者之间是抽象耦合关系。符合依赖倒置原则。<br></li>
-<li>目标与观察者之间建立了一套触发机制。<br></li>
-</ul>
-</blockquote>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
-<ul>
-<li>目标与观察者之间的依赖关系并没有完全解除，而且有可能出现循环引用。<br></li>
-<li>当观察者对象很多时，通知的发布会花费很多时间，影响程序的效率。<br></li>
-</ul>
-</blockquote>
-<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
-<ul>
-<li><strong>抽象主题（Subject）角色：</strong> 也叫抽象目标类，它提供了一个用于保存观察者对象的聚集类和增加、删除观察者对象的方法，以及通知所有观察者的抽象方法。<br></li>
-<li><strong>具体主题（Concrete Subject）角色：</strong> 也叫具体目标类，它实现抽象目标中的通知方法，当具体主题的内部状态发生改变时，通知所有注册过的观察者对象。<br></li>
-<li><strong>抽象观察者（Observer）角色：</strong> 它是一个抽象类或接口，它包含了一个更新自己的抽象方法，当接到具体主题的更改通知时被调用。<br></li>
-<li><strong>具体观察者（Concrete Observer）角色：</strong> 实现抽象观察者中定义的抽象方法，以便在得到目标的更改通知时更新自身的状态。<br></li>
-</ul>
-</blockquote>
-<h3 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObserverPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Subject subject = <span class="keyword">new</span> ConcreteSubject();</span><br><span class="line">        Observer obs1 = <span class="keyword">new</span> ConcreteObserver1();</span><br><span class="line">        Observer obs2 = <span class="keyword">new</span> ConcreteObserver2();</span><br><span class="line">        subject.add(obs1);</span><br><span class="line">        subject.add(obs2);</span><br><span class="line">        subject.notifyObserver();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象目标</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> List&lt;Observer&gt; observers = <span class="keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line">    <span class="comment">//增加观察者方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        observers.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除观察者方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        observers.remove(observer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">notifyObserver</span><span class="params">()</span></span>; <span class="comment">//通知观察者方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体目标</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubject</span> <span class="keyword">extends</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObserver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体目标发生改变...&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;--------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Object obs : observers) &#123;</span><br><span class="line">            ((Observer) obs).response();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象观察者</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">response</span><span class="params">()</span></span>; <span class="comment">//反应</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体观察者1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver1</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">response</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体观察者1作出反应！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体观察者1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver2</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">response</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体观察者2作出反应！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
-<p>在软件系统中，当系统一方行为依赖另一方行为的变动时，可使用观察者模式松耦合联动双方，使得一方的变动可以通知到感兴趣的另一方对象，从而让另一方对象对此做出响应。<br><br>通过前面的分析与应用实例可知观察者模式适合以下几种情形。<br></p>
-<ul>
-<li>对象间存在一对多关系，一个对象的状态发生改变会影响其他对象。<br></li>
-<li>当一个抽象模型有两个方面，其中一个方面依赖于另一方面时，可将这二者封装在独立的对象中以使它们可以各自独立地改变和复用。<br></li>
-<li>实现类似广播机制的功能，不需要知道具体收听者，只需分发广播，系统中感兴趣的对象会自动接收该广播。<br></li>
-<li>多层级嵌套使用，形成一种链式触发机制，使得事件具备跨域（跨越两种观察者类型）通知。<br></li>
-</ul>
-</blockquote>
-<h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
-<p>在 Java 中，通过 java.util.Observable 类和 java.util.Observer 接口定义了观察者模式，只要实现它们的子类就可以编写观察者模式实例。<br></p>
-<ul>
-<li><strong>Observable类：</strong> Observable 类是抽象目标类，它有一个 Vector 向量，用于保存所有要通知的观察者对象，下面来介绍它最重要的 3 个方法。<br><ul>
-<li>void addObserver(Observer o) 方法：用于将新的观察者对象添加到向量中。<br></li>
-<li>void notifyObservers(Object arg) 方法：调用向量中的所有观察者对象的 update() 方法，通知它们数据发生改变。通常越晚加入向量的观察者越先得到通知。<br></li>
-<li>void setChange() 方法：用来设置一个 boolean 类型的内部标志位，注明目标对象发生了变化。当它为真时，notifyObservers() 才会通知观察者。<br></li>
-</ul>
-</li>
-<li><strong>Observer接口：</strong> Observer 接口是抽象观察者，它监视目标对象的变化，当目标对象发生变化时，观察者得到通知，并调用 void update(Observable o,Object arg) 方法，进行相应的工作。<br></li>
-</ul>
 </blockquote>
 <hr>
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
@@ -2314,6 +2252,68 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>观察者模式</title>
+    <url>/blog/article/20210305205733.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>定义：指多个对象间存在一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。这种模式有时又称作<strong>发布-订阅模式</strong>、<strong>模型-视图模式</strong>，它是对象行为型模式。<br><br>实现观察者模式时要注意具体目标对象和具体观察者对象之间不能直接调用，否则将使两者之间紧密耦合起来，这违反了面向对象的设计原则。<br></p>
+</blockquote>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<ul>
+<li>降低了目标与观察者之间的耦合关系，两者之间是抽象耦合关系。符合依赖倒置原则。<br></li>
+<li>目标与观察者之间建立了一套触发机制。<br></li>
+</ul>
+</blockquote>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
+<ul>
+<li>目标与观察者之间的依赖关系并没有完全解除，而且有可能出现循环引用。<br></li>
+<li>当观察者对象很多时，通知的发布会花费很多时间，影响程序的效率。<br></li>
+</ul>
+</blockquote>
+<h2 id="模式的结构与实现"><a href="#模式的结构与实现" class="headerlink" title="模式的结构与实现"></a>模式的结构与实现</h2><h3 id="模式的结构"><a href="#模式的结构" class="headerlink" title="模式的结构"></a>模式的结构</h3><blockquote>
+<ul>
+<li><strong>抽象主题（Subject）角色：</strong> 也叫抽象目标类，它提供了一个用于保存观察者对象的聚集类和增加、删除观察者对象的方法，以及通知所有观察者的抽象方法。<br></li>
+<li><strong>具体主题（Concrete Subject）角色：</strong> 也叫具体目标类，它实现抽象目标中的通知方法，当具体主题的内部状态发生改变时，通知所有注册过的观察者对象。<br></li>
+<li><strong>抽象观察者（Observer）角色：</strong> 它是一个抽象类或接口，它包含了一个更新自己的抽象方法，当接到具体主题的更改通知时被调用。<br></li>
+<li><strong>具体观察者（Concrete Observer）角色：</strong> 实现抽象观察者中定义的抽象方法，以便在得到目标的更改通知时更新自身的状态。<br></li>
+</ul>
+</blockquote>
+<h3 id="模式的实现"><a href="#模式的实现" class="headerlink" title="模式的实现"></a>模式的实现</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObserverPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Subject subject = <span class="keyword">new</span> ConcreteSubject();</span><br><span class="line">        Observer obs1 = <span class="keyword">new</span> ConcreteObserver1();</span><br><span class="line">        Observer obs2 = <span class="keyword">new</span> ConcreteObserver2();</span><br><span class="line">        subject.add(obs1);</span><br><span class="line">        subject.add(obs2);</span><br><span class="line">        subject.notifyObserver();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象目标</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> List&lt;Observer&gt; observers = <span class="keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line">    <span class="comment">//增加观察者方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        observers.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除观察者方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        observers.remove(observer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">notifyObserver</span><span class="params">()</span></span>; <span class="comment">//通知观察者方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体目标</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubject</span> <span class="keyword">extends</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObserver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体目标发生改变...&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;--------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Object obs : observers) &#123;</span><br><span class="line">            ((Observer) obs).response();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象观察者</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">response</span><span class="params">()</span></span>; <span class="comment">//反应</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体观察者1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver1</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">response</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体观察者1作出反应！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体观察者1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver2</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">response</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体观察者2作出反应！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><blockquote>
+<p>在软件系统中，当系统一方行为依赖另一方行为的变动时，可使用观察者模式松耦合联动双方，使得一方的变动可以通知到感兴趣的另一方对象，从而让另一方对象对此做出响应。<br><br>通过前面的分析与应用实例可知观察者模式适合以下几种情形。<br></p>
+<ul>
+<li>对象间存在一对多关系，一个对象的状态发生改变会影响其他对象。<br></li>
+<li>当一个抽象模型有两个方面，其中一个方面依赖于另一方面时，可将这二者封装在独立的对象中以使它们可以各自独立地改变和复用。<br></li>
+<li>实现类似广播机制的功能，不需要知道具体收听者，只需分发广播，系统中感兴趣的对象会自动接收该广播。<br></li>
+<li>多层级嵌套使用，形成一种链式触发机制，使得事件具备跨域（跨越两种观察者类型）通知。<br></li>
+</ul>
+</blockquote>
+<h2 id="模式的扩展"><a href="#模式的扩展" class="headerlink" title="模式的扩展"></a>模式的扩展</h2><blockquote>
+<p>在 Java 中，通过 java.util.Observable 类和 java.util.Observer 接口定义了观察者模式，只要实现它们的子类就可以编写观察者模式实例。<br></p>
+<ul>
+<li><strong>Observable类：</strong> Observable 类是抽象目标类，它有一个 Vector 向量，用于保存所有要通知的观察者对象，下面来介绍它最重要的 3 个方法。<br><ul>
+<li>void addObserver(Observer o) 方法：用于将新的观察者对象添加到向量中。<br></li>
+<li>void notifyObservers(Object arg) 方法：调用向量中的所有观察者对象的 update() 方法，通知它们数据发生改变。通常越晚加入向量的观察者越先得到通知。<br></li>
+<li>void setChange() 方法：用来设置一个 boolean 类型的内部标志位，注明目标对象发生了变化。当它为真时，notifyObservers() 才会通知观察者。<br></li>
+</ul>
+</li>
+<li><strong>Observer接口：</strong> Observer 接口是抽象观察者，它监视目标对象的变化，当目标对象发生变化时，观察者得到通知，并调用 void update(Observable o,Object arg) 方法，进行相应的工作。<br></li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>行为型模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>责任链模式</title>
     <url>/blog/article/20210305203603.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -2373,6 +2373,40 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
+    <title>依赖倒转原则</title>
+    <url>/blog/article/20210605080610.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>依赖倒转原则(Dependency Inversion Principle, DIP)：<br></strong><br>抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。</p>
+</blockquote>
+<blockquote>
+<p><strong>通俗的定义有两种:</strong><br></p>
+<ul>
+<li>高层次的模块不应该依赖于低层次的模块，他们都应该依赖于抽象。<br></li>
+<li>抽象不应该依赖于具体实现，具体实现应该依赖于抽象。</li>
+</ul>
+</blockquote>
+<h2 id="启发"><a href="#启发" class="headerlink" title="启发"></a>启发</h2><blockquote>
+<p>在设计程序的时候尽量使用层次高的抽象层类。即使用接口和抽象类进行变量的声明、参数类型声明、方法返回类型声明以及数据类型转换等等。<br><br>即，要注意一个具体类应该只实现抽象类或者接口中存在的方法，不要给出多余的方法，否则抽象类将无法调用子类增加的方法。<br><br>我们可以通过配置文件来写入具体类，这样一旦程序行为改变，可直接改变配置文件，而不需要更改程序，重新编译，通过依赖倒转原则来满足<strong>开闭原则</strong>。</p>
+</blockquote>
+<blockquote>
+<p>在实现依赖倒转原则时，我们需要针对抽象层编程，而将具体类的对象通过依赖注入(DependencyInjection, DI)的方式注入到其他对象中。<br><br><strong>依赖注入</strong>是指当一个对象要与其他对象发生依赖关系时，通过抽象来注入所依赖的对象。<br><br>常用的注入方式有三种：：<strong>构造注入</strong>、<strong>设值注入（Setter注入）</strong>、<strong>接口注入</strong>。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 顶层类，或为接口，或为抽象类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserImpl</span> <span class="keyword">implements</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遵循依赖倒转原则</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">   <span class="comment">// 构造注入 </span></span><br><span class="line">   <span class="keyword">private</span> IUser iuser = <span class="keyword">new</span> UserImpl();</span><br><span class="line">    </span><br><span class="line">   <span class="comment">// setter注入</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIUser</span><span class="params">(UserImpl userImpl)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.iuser = userImpl;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 接口注入</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(IUser iuser)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迭代器模式</title>
     <url>/blog/article/20210305205834.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -2425,40 +2459,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
       </tags>
   </entry>
   <entry>
-    <title>依赖倒转原则</title>
-    <url>/blog/article/20210605080610.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p><strong>依赖倒转原则(Dependency Inversion Principle, DIP)：<br></strong><br>抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。</p>
-</blockquote>
-<blockquote>
-<p><strong>通俗的定义有两种:</strong><br></p>
-<ul>
-<li>高层次的模块不应该依赖于低层次的模块，他们都应该依赖于抽象。<br></li>
-<li>抽象不应该依赖于具体实现，具体实现应该依赖于抽象。</li>
-</ul>
-</blockquote>
-<h2 id="启发"><a href="#启发" class="headerlink" title="启发"></a>启发</h2><blockquote>
-<p>在设计程序的时候尽量使用层次高的抽象层类。即使用接口和抽象类进行变量的声明、参数类型声明、方法返回类型声明以及数据类型转换等等。<br><br>即，要注意一个具体类应该只实现抽象类或者接口中存在的方法，不要给出多余的方法，否则抽象类将无法调用子类增加的方法。<br><br>我们可以通过配置文件来写入具体类，这样一旦程序行为改变，可直接改变配置文件，而不需要更改程序，重新编译，通过依赖倒转原则来满足<strong>开闭原则</strong>。</p>
-</blockquote>
-<blockquote>
-<p>在实现依赖倒转原则时，我们需要针对抽象层编程，而将具体类的对象通过依赖注入(DependencyInjection, DI)的方式注入到其他对象中。<br><br><strong>依赖注入</strong>是指当一个对象要与其他对象发生依赖关系时，通过抽象来注入所依赖的对象。<br><br>常用的注入方式有三种：：<strong>构造注入</strong>、<strong>设值注入（Setter注入）</strong>、<strong>接口注入</strong>。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 顶层类，或为接口，或为抽象类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserImpl</span> <span class="keyword">implements</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遵循依赖倒转原则</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">   <span class="comment">// 构造注入 </span></span><br><span class="line">   <span class="keyword">private</span> IUser iuser = <span class="keyword">new</span> UserImpl();</span><br><span class="line">    </span><br><span class="line">   <span class="comment">// setter注入</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIUser</span><span class="params">(UserImpl userImpl)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.iuser = userImpl;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 接口注入</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(IUser iuser)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>单一职责原则</title>
     <url>/blog/article/20210605080651.html</url>
     <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
@@ -2487,40 +2487,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>
 ]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>合成复用原则</title>
-    <url>/blog/article/20210705080708.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>合成复用原则（Composite Reuse Principle，CRP）又叫组合/聚合复用原则（Composition/Aggregate Reuse Principle，CARP）。它要求在软件复用时，要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现。<br><br>如果要使用继承关系，则必须严格遵循里氏替换原则。合成复用原则同里氏替换原则相辅相成的，两者都是开闭原则的具体实现规范。<br><br>通过合成复用原则来使一些已有的对象使之成为对象的一部分，一般通过组合/聚合关系来实现，而尽量不要使用继承。因为组合和聚合可以降低类之间的耦合度，而继承会让系统更加复杂，最重要的一点会破坏系统的封装性，因为继承会把基类的实现细节暴露给子类，同时如果基类变化，子类也必须跟着改变，而且耦合度会很高。<br><br>合成复用原则是通过将已有的对象纳入新对象中，作为新对象的成员对象来实现的，新对象可以调用已有对象的功能，从而达到复用。</p>
-</blockquote>
-<h2 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h2><blockquote>
-<p>通常类的复用分为继承复用和合成复用两种，继承复用虽然有简单和易实现的优点，但它也存在以下缺点。<br></p>
-<ul>
-<li>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的，所以这种复用又称为“白箱”复用。<br></li>
-<li>子类与父类的耦合度高。父类的实现的任何改变都会导致子类的实现发生变化，这不利于类的扩展与维护。<br></li>
-<li>它限制了复用的灵活性。从父类继承而来的实现是静态的，在编译时已经定义，所以在运行时不可能发生变化。<br></li>
-</ul>
-</blockquote>
-<blockquote>
-<p>采用组合或聚合复用时，可以将已有对象纳入新对象中，使之成为新对象的一部分，新对象可以调用已有对象的功能，它有以下优点。<br></p>
-<ul>
-<li>它维持了类的封装性。因为成分对象的内部细节是新对象看不见的，所以这种复用又称为“黑箱”复用。<br></li>
-<li>新旧类之间的耦合度低。这种复用所需的依赖较少，新对象存取成分对象的唯一方法是通过成分对象的接口。<br></li>
-<li>复用的灵活性高。这种复用可以在运行时动态进行，新对象可以动态地引用与成分对象类型相同的对象。<br></li>
-</ul>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
       <categories>
         <category>设计原则</category>
       </categories>
@@ -2563,6 +2529,164 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 <p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
 <center>
     <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>合成复用原则</title>
+    <url>/blog/article/20210705080708.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>合成复用原则（Composite Reuse Principle，CRP）又叫组合/聚合复用原则（Composition/Aggregate Reuse Principle，CARP）。它要求在软件复用时，要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现。<br><br>如果要使用继承关系，则必须严格遵循里氏替换原则。合成复用原则同里氏替换原则相辅相成的，两者都是开闭原则的具体实现规范。<br><br>通过合成复用原则来使一些已有的对象使之成为对象的一部分，一般通过组合/聚合关系来实现，而尽量不要使用继承。因为组合和聚合可以降低类之间的耦合度，而继承会让系统更加复杂，最重要的一点会破坏系统的封装性，因为继承会把基类的实现细节暴露给子类，同时如果基类变化，子类也必须跟着改变，而且耦合度会很高。<br><br>合成复用原则是通过将已有的对象纳入新对象中，作为新对象的成员对象来实现的，新对象可以调用已有对象的功能，从而达到复用。</p>
+</blockquote>
+<h2 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h2><blockquote>
+<p>通常类的复用分为继承复用和合成复用两种，继承复用虽然有简单和易实现的优点，但它也存在以下缺点。<br></p>
+<ul>
+<li>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的，所以这种复用又称为“白箱”复用。<br></li>
+<li>子类与父类的耦合度高。父类的实现的任何改变都会导致子类的实现发生变化，这不利于类的扩展与维护。<br></li>
+<li>它限制了复用的灵活性。从父类继承而来的实现是静态的，在编译时已经定义，所以在运行时不可能发生变化。<br></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>采用组合或聚合复用时，可以将已有对象纳入新对象中，使之成为新对象的一部分，新对象可以调用已有对象的功能，它有以下优点。<br></p>
+<ul>
+<li>它维持了类的封装性。因为成分对象的内部细节是新对象看不见的，所以这种复用又称为“黑箱”复用。<br></li>
+<li>新旧类之间的耦合度低。这种复用所需的依赖较少，新对象存取成分对象的唯一方法是通过成分对象的接口。<br></li>
+<li>复用的灵活性高。这种复用可以在运行时动态进行，新对象可以动态地引用与成分对象类型相同的对象。<br></li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>里氏代换原则</title>
+    <url>/blog/article/20210905080908.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p><strong>Barbara Liskov提出：</strong><br><br>标准定义：如果对每一个类型为S的对象o1，都有类型为T的对象o2，使得以T定义的所有程序P在所有的对象o1代换o2时，程序P的行为没有变化，那么类型S是类型T的子类型。<br><br><strong>简单解释：</strong><br><br>所有引用基类（父类的）地方都可以用子类来替换，且程序不会有任何的异常。但是反过来就不行，所有使用子类的地方则不一定能用基类来替代。<br><br><strong>举例：</strong> 狗是动物，不能说动物是狗，因为可能还有猫。</p>
+</blockquote>
+<h2 id="里氏代换原则约束"><a href="#里氏代换原则约束" class="headerlink" title="里氏代换原则约束"></a>里氏代换原则约束</h2><blockquote>
+<ul>
+<li>子类必须实现父类的抽象方法，但不得重写（覆盖）父类的非抽象（已实现）方法;<br></li>
+<li>子类中可以添加特有方法（父类中不存在),此时则无法在以父类定义的对象中使用该方法，除非在使用的时候强转基类成子类进行调用;<br></li>
+<li>当子类覆盖或实现父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松;<br></li>
+<li>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。<br></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>总结：</strong><br><br>所以我们在运用里氏替换原则的时候，尽量把父类设计为抽象类或者接口，让子类继承父类或者实现接口并实现在父类中声明的方法，运行时，子类实例替换父类实例，我们可以很方便地扩展系统的功能，同时无须修改原有子类的代码，增加新的功能可以通过增加一个新的子类来实现。<br><br>里氏代换原则是<strong>开闭原则</strong>的具体实现手段之一。</p>
+</blockquote>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象基类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类1</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonCustomer</span> <span class="keyword">extends</span> <span class="title">Customer</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类2</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VIPCustomer</span> <span class="keyword">extends</span> <span class="title">Customer</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 逻辑在这里实现，只需要传入对应的类型即可</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResetPassword</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 只需要传入Customer类即可，不管任何类型的Customer类，只要继承自Customer,都可以使用里氏替换原则进行替换，假如有新的类型，我们只需要在配置文件中注入新的类型即可。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resetPassword</span><span class="params">(Customer customer)</span></span>&#123;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>里氏替换原则是实现<strong>开闭原则</strong>不可或缺的手段之一。<br><br>在本例中，通过传递参数使用基类对象，针对抽象编程，从而满足开闭原则。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迪米特法则</title>
+    <url>/blog/article/20210805080844.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>迪米特法则（Law of Demeter，LoD）又叫作最少知识原则（Least Knowledge Principle，LKP)，产生于 1987 年美国东北大学（Northeastern University）的一个名为迪米特（Demeter）的研究项目，由伊恩·荷兰（Ian Holland）提出，被 UML 创始者之一的布奇（Booch）普及，后来又因为在经典著作《程序员修炼之道》（The Pragmatic Programmer）提及而广为人知。</p>
+</blockquote>
+<blockquote>
+<p>定义：只与你的直接朋友交谈，不跟“陌生人”说话（Talk only to your immediate friends and not to strangers）。其含义是：如果两个软件实体无须直接通信，那么就不应当发生直接的相互调用，可以通过第三方转发该调用。其目的是降低类之间的耦合度，提高模块的相对独立性。<br><br>迪米特法则中的“朋友”是指：当前对象本身、当前对象的成员对象、当前对象所创建的对象、当前对象的方法参数等，这些对象同当前对象存在关联、聚合或组合关系，可以直接访问这些对象的方法。<br></p>
+</blockquote>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<p>迪米特法则要求限制软件实体之间通信的宽度和深度，正确使用迪米特法则将有以下两个优点。<br></p>
+<ul>
+<li>降低了类之间的耦合度，提高了模块的相对独立性。<br></li>
+<li>由于亲合度降低，从而提高了类的可复用率和系统的扩展性。<br></li>
+</ul>
+</blockquote>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
+<p>过度使用迪米特法则会使系统产生大量的中介类，从而增加系统的复杂性，使模块之间的通信效率降低。所以，在釆用迪米特法则时需要反复权衡，确保高内聚和低耦合的同时，保证系统的结构清晰。</p>
+</blockquote>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><blockquote>
+<p>从迪米特法则的定义和特点可知，它强调以下两点：<br></p>
+<ul>
+<li>从依赖者的角度来说，只依赖应该依赖的对象。<br></li>
+<li>从被依赖者的角度说，只暴露应该暴露的方法。<br></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>所以，在运用迪米特法则时要注意以下 6 点。<br></p>
+<ul>
+<li>在类的划分上，应该创建弱耦合的类。类与类之间的耦合越弱，就越有利于实现可复用的目标。<br></li>
+<li>在类的结构设计上，尽量降低类成员的访问权限。<br></li>
+<li>在类的设计上，优先考虑将一个类设置成不变类。<br></li>
+<li>在对其他类的引用上，将引用其他对象的次数降到最低。<br></li>
+<li>不暴露类的属性成员，而应该提供相应的访问器（set 和 get 方法）。<br></li>
+<li>谨慎使用序列化（Serializable）功能。<br></li>
+</ul>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
+</center>]]></content>
+      <categories>
+        <category>设计原则</category>
+      </categories>
+      <tags>
+        <tag>设计原则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>接口隔离原则</title>
+    <url>/blog/article/20210805080815.html</url>
+    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>接口隔离原则的两个定义：<br></p>
+<ol>
+<li>使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口;<br></li>
+<li>类间的依赖关系应该建立在最小的接口上;<br></li>
+</ol>
+</blockquote>
+<h3 id="概念含义"><a href="#概念含义" class="headerlink" title="概念含义"></a>概念含义</h3><blockquote>
+<ul>
+<li>一个接口代表一个角色，不应该将不同的角色都交给一个接口，因为这样可能会形成一个臃肿的大接口；<br></li>
+<li>特定语言的接口，表示接口仅仅是提供客户端需要的行为，客户端不需要的行为则隐藏起来，应当为客户端提供尽可能小的单独的接口，而不要提供大的总接口。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>总结：</strong><br><br>根据接口隔离原则，我们可明白，每个接口都应只承担一种相对独立的角色，不干不该干的事情。</p>
+</blockquote>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><blockquote>
+<p><strong>场景：</strong> 模拟动物平时的动作，当然也包括人，最初的设计就是一个总接口IAnimal，里面定义动物会有的一些动作。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAnimal</span></span>&#123;</span><br><span class="line">    <span class="comment">// 吃饭</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 工作</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//飞行</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span>  <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tony</span> <span class="keyword">implements</span> <span class="title">IAnimal</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony工作&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony不会飞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">implements</span> <span class="title">IAnimal</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟工作&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟飞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>根据上面的写法发现Tony需要实现飞的接口，这很明显不仅仅是多余，而且不合理，因此需要通过接口隔离原则进行重构。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//抽象动物的行为</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 吃饭</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 睡觉</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 高级动物人 的行为</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAdvancedAnimalBehavior</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 打牌</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">playCard</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 骑车</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">byBike</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//低级动物的行为</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IJuniorAnimalBehavior</span> </span>&#123;</span><br><span class="line">    <span class="comment">// fly</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现高级动物人的共通方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractAdvancedAnimal</span> <span class="keyword">implements</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现低级动物人的共通方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractJuniorAnimal</span> <span class="keyword">implements</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;动物吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;动物睡&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// tony</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tony</span> <span class="keyword">extends</span> <span class="title">AbstractAdvancedAnimal</span> <span class="keyword">implements</span> <span class="title">IAdvancedAnimalBehavior</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">playCard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony打牌&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">byBike</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony骑车&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 鸟</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">extends</span> <span class="title">AbstractJuniorAnimal</span> <span class="keyword">implements</span> <span class="title">IJuniorAnimalBehavior</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟飞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>重构之后，首先定义了一个总的动物接口的大类，然后分别使用了两个抽象类（一个是高级动物，一个是低级动物）分别去实现这些公共的方法，实现中可以抛出异常，表明继承此抽象类的类可以选择性的重写，可不重写。<br><br>之后再定义了两个行为接口表明高级动物和低级动物所特有的，这样使得接口之间完全隔离，动物接口不再糅杂各种各样的角色，<strong>当然接口的大小尺度还是要靠经验来调整，不能太小，会造成接口泛滥，也不能太大，会背离接口隔离原则</strong>。</p>
+</blockquote>
+<hr>
+<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
+<center>
+<img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
 </center>]]></content>
       <categories>
         <category>设计原则</category>
@@ -2686,10 +2810,17 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
 <p>再启动 broker <br><br>nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]<span class="meta"># nohup sh mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</span></span><br><span class="line">[<span class="number">2</span>] <span class="number">31806</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="或者不进入bin目录"><a href="#或者不进入bin目录" class="headerlink" title="或者不进入bin目录"></a>或者不进入bin目录</h4><blockquote>
+<p>先执行 nohup sh /usr/local/rocketmq-4.2.0/bin/mqnamesrv &amp; <br><br>再执行 nohup sh /usr/local/rocketmq-4.2.0/bin/mqbroker -c /usr/local/rocketmq-4.2.0/conf/2m-2s-sync/broker-a.properties &gt; /dev/null 2&gt;&amp;1 &amp;</p>
+</blockquote>
 <h4 id="输入-jps-查看进程"><a href="#输入-jps-查看进程" class="headerlink" title="输入 jps 查看进程"></a>输入 jps 查看进程</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">31633 NamesrvStartup</span><br><span class="line">31813 BrokerStartup</span><br><span class="line">31864 Jps</span><br></pre></td></tr></table></figure>
 
 <h3 id="bin目录下停止服务"><a href="#bin目录下停止服务" class="headerlink" title="bin目录下停止服务"></a>bin目录下停止服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown namesrv</span><br><span class="line">The mqnamesrv(31633) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(31633) OK</span><br><span class="line"></span><br><span class="line">## 这里关闭broker时，是有延迟的</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# sh mqshutdown broker</span><br><span class="line">The mqbroker(31813) is running...</span><br><span class="line">Send shutdown request to mqbroker(31813) OK</span><br><span class="line"></span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z bin]# jps</span><br><span class="line">3695 Jps</span><br></pre></td></tr></table></figure>
 
+<h4 id="或者不进入bin目录-1"><a href="#或者不进入bin目录-1" class="headerlink" title="或者不进入bin目录"></a>或者不进入bin目录</h4><blockquote>
+<p>先执行 sh /usr/local/rocketmq-4.2.0/bin/mqshutdown namesrv <br><br>再执行 sh /usr/local/rocketmq-4.2.0/bin/mqshutdown broker </p>
+</blockquote>
 <h3 id="清除zip"><a href="#清除zip" class="headerlink" title="清除zip"></a>清除zip</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z ~]# cd &#x2F;</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  rocketmq-all-4.2.0-bin-release.zip  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# rm -rf rocketmq-all-4.2.0-bin-release.zip </span><br><span class="line">[root@iZwz90a8w2ct7okoo5fqy2Z &#x2F;]# ls</span><br><span class="line">bin  boot  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  www</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="RocketMq控制台安装"><a href="#RocketMq控制台安装" class="headerlink" title="RocketMq控制台安装"></a>RocketMq控制台安装</h3><blockquote>
@@ -2717,130 +2848,6 @@ protected Object doCreateBean(final String beanName, final RootBeanDefinition mb
         <tag>运维</tag>
         <tag>centos7</tag>
         <tag>中间件安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>接口隔离原则</title>
-    <url>/blog/article/20210805080815.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>接口隔离原则的两个定义：<br></p>
-<ol>
-<li>使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口;<br></li>
-<li>类间的依赖关系应该建立在最小的接口上;<br></li>
-</ol>
-</blockquote>
-<h3 id="概念含义"><a href="#概念含义" class="headerlink" title="概念含义"></a>概念含义</h3><blockquote>
-<ul>
-<li>一个接口代表一个角色，不应该将不同的角色都交给一个接口，因为这样可能会形成一个臃肿的大接口；<br></li>
-<li>特定语言的接口，表示接口仅仅是提供客户端需要的行为，客户端不需要的行为则隐藏起来，应当为客户端提供尽可能小的单独的接口，而不要提供大的总接口。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p><strong>总结：</strong><br><br>根据接口隔离原则，我们可明白，每个接口都应只承担一种相对独立的角色，不干不该干的事情。</p>
-</blockquote>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><blockquote>
-<p><strong>场景：</strong> 模拟动物平时的动作，当然也包括人，最初的设计就是一个总接口IAnimal，里面定义动物会有的一些动作。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAnimal</span></span>&#123;</span><br><span class="line">    <span class="comment">// 吃饭</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 工作</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//飞行</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span>  <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tony</span> <span class="keyword">implements</span> <span class="title">IAnimal</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony工作&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony不会飞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">implements</span> <span class="title">IAnimal</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟工作&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟飞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>根据上面的写法发现Tony需要实现飞的接口，这很明显不仅仅是多余，而且不合理，因此需要通过接口隔离原则进行重构。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//抽象动物的行为</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 吃饭</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 睡觉</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 高级动物人 的行为</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAdvancedAnimalBehavior</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 打牌</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">playCard</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">// 骑车</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">byBike</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//低级动物的行为</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IJuniorAnimalBehavior</span> </span>&#123;</span><br><span class="line">    <span class="comment">// fly</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现高级动物人的共通方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractAdvancedAnimal</span> <span class="keyword">implements</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;人睡&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现低级动物人的共通方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractJuniorAnimal</span> <span class="keyword">implements</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;动物吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;动物睡&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// tony</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tony</span> <span class="keyword">extends</span> <span class="title">AbstractAdvancedAnimal</span> <span class="keyword">implements</span> <span class="title">IAdvancedAnimalBehavior</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">playCard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony打牌&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">byBike</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;tony骑车&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 鸟</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">extends</span> <span class="title">AbstractJuniorAnimal</span> <span class="keyword">implements</span> <span class="title">IJuniorAnimalBehavior</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟飞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>重构之后，首先定义了一个总的动物接口的大类，然后分别使用了两个抽象类（一个是高级动物，一个是低级动物）分别去实现这些公共的方法，实现中可以抛出异常，表明继承此抽象类的类可以选择性的重写，可不重写。<br><br>之后再定义了两个行为接口表明高级动物和低级动物所特有的，这样使得接口之间完全隔离，动物接口不再糅杂各种各样的角色，<strong>当然接口的大小尺度还是要靠经验来调整，不能太小，会造成接口泛滥，也不能太大，会背离接口隔离原则</strong>。</p>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-<img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迪米特法则</title>
-    <url>/blog/article/20210805080844.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>迪米特法则（Law of Demeter，LoD）又叫作最少知识原则（Least Knowledge Principle，LKP)，产生于 1987 年美国东北大学（Northeastern University）的一个名为迪米特（Demeter）的研究项目，由伊恩·荷兰（Ian Holland）提出，被 UML 创始者之一的布奇（Booch）普及，后来又因为在经典著作《程序员修炼之道》（The Pragmatic Programmer）提及而广为人知。</p>
-</blockquote>
-<blockquote>
-<p>定义：只与你的直接朋友交谈，不跟“陌生人”说话（Talk only to your immediate friends and not to strangers）。其含义是：如果两个软件实体无须直接通信，那么就不应当发生直接的相互调用，可以通过第三方转发该调用。其目的是降低类之间的耦合度，提高模块的相对独立性。<br><br>迪米特法则中的“朋友”是指：当前对象本身、当前对象的成员对象、当前对象所创建的对象、当前对象的方法参数等，这些对象同当前对象存在关联、聚合或组合关系，可以直接访问这些对象的方法。<br></p>
-</blockquote>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
-<p>迪米特法则要求限制软件实体之间通信的宽度和深度，正确使用迪米特法则将有以下两个优点。<br></p>
-<ul>
-<li>降低了类之间的耦合度，提高了模块的相对独立性。<br></li>
-<li>由于亲合度降低，从而提高了类的可复用率和系统的扩展性。<br></li>
-</ul>
-</blockquote>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><blockquote>
-<p>过度使用迪米特法则会使系统产生大量的中介类，从而增加系统的复杂性，使模块之间的通信效率降低。所以，在釆用迪米特法则时需要反复权衡，确保高内聚和低耦合的同时，保证系统的结构清晰。</p>
-</blockquote>
-<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><blockquote>
-<p>从迪米特法则的定义和特点可知，它强调以下两点：<br></p>
-<ul>
-<li>从依赖者的角度来说，只依赖应该依赖的对象。<br></li>
-<li>从被依赖者的角度说，只暴露应该暴露的方法。<br></li>
-</ul>
-</blockquote>
-<blockquote>
-<p>所以，在运用迪米特法则时要注意以下 6 点。<br></p>
-<ul>
-<li>在类的划分上，应该创建弱耦合的类。类与类之间的耦合越弱，就越有利于实现可复用的目标。<br></li>
-<li>在类的结构设计上，尽量降低类成员的访问权限。<br></li>
-<li>在类的设计上，优先考虑将一个类设置成不变类。<br></li>
-<li>在对其他类的引用上，将引用其他对象的次数降到最低。<br></li>
-<li>不暴露类的属性成员，而应该提供相应的访问器（set 和 get 方法）。<br></li>
-<li>谨慎使用序列化（Serializable）功能。<br></li>
-</ul>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>里氏代换原则</title>
-    <url>/blog/article/20210905080908.html</url>
-    <content><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p><strong>Barbara Liskov提出：</strong><br><br>标准定义：如果对每一个类型为S的对象o1，都有类型为T的对象o2，使得以T定义的所有程序P在所有的对象o1代换o2时，程序P的行为没有变化，那么类型S是类型T的子类型。<br><br><strong>简单解释：</strong><br><br>所有引用基类（父类的）地方都可以用子类来替换，且程序不会有任何的异常。但是反过来就不行，所有使用子类的地方则不一定能用基类来替代。<br><br><strong>举例：</strong> 狗是动物，不能说动物是狗，因为可能还有猫。</p>
-</blockquote>
-<h2 id="里氏代换原则约束"><a href="#里氏代换原则约束" class="headerlink" title="里氏代换原则约束"></a>里氏代换原则约束</h2><blockquote>
-<ul>
-<li>子类必须实现父类的抽象方法，但不得重写（覆盖）父类的非抽象（已实现）方法;<br></li>
-<li>子类中可以添加特有方法（父类中不存在),此时则无法在以父类定义的对象中使用该方法，除非在使用的时候强转基类成子类进行调用;<br></li>
-<li>当子类覆盖或实现父类的方法时，方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松;<br></li>
-<li>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更严格。<br></li>
-</ul>
-</blockquote>
-<blockquote>
-<p><strong>总结：</strong><br><br>所以我们在运用里氏替换原则的时候，尽量把父类设计为抽象类或者接口，让子类继承父类或者实现接口并实现在父类中声明的方法，运行时，子类实例替换父类实例，我们可以很方便地扩展系统的功能，同时无须修改原有子类的代码，增加新的功能可以通过增加一个新的子类来实现。<br><br>里氏代换原则是<strong>开闭原则</strong>的具体实现手段之一。</p>
-</blockquote>
-<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象基类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类1</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonCustomer</span> <span class="keyword">extends</span> <span class="title">Customer</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类2</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VIPCustomer</span> <span class="keyword">extends</span> <span class="title">Customer</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 逻辑在这里实现，只需要传入对应的类型即可</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResetPassword</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 只需要传入Customer类即可，不管任何类型的Customer类，只要继承自Customer,都可以使用里氏替换原则进行替换，假如有新的类型，我们只需要在配置文件中注入新的类型即可。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resetPassword</span><span class="params">(Customer customer)</span></span>&#123;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>里氏替换原则是实现<strong>开闭原则</strong>不可或缺的手段之一。<br><br>在本例中，通过传递参数使用基类对象，针对抽象编程，从而满足开闭原则。</p>
-</blockquote>
-<hr>
-<p>欢迎关注我的公众号，原创技术文章第一时间推送。</p>
-<center>
-    <img src="https://persian.gitee.io/md/static/image/qrcode.jpg" style="width: 100px;">
-</center>]]></content>
-      <categories>
-        <category>设计原则</category>
-      </categories>
-      <tags>
-        <tag>设计原则</tag>
       </tags>
   </entry>
   <entry>
